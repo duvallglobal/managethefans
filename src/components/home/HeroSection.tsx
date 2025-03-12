@@ -9,11 +9,11 @@ const HeroSection = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!parallaxRef.current) return;
-      
+
       const { clientX, clientY } = e;
       const x = (window.innerWidth / 2 - clientX) / 30;
       const y = (window.innerHeight / 2 - clientY) / 30;
-      
+
       const elements = parallaxRef.current.querySelectorAll('.parallax-element');
       elements.forEach((el) => {
         const depth = parseFloat((el as HTMLElement).dataset.depth || "0.5");
@@ -22,7 +22,7 @@ const HeroSection = () => {
     };
 
     document.addEventListener('mousemove', handleMouseMove);
-    
+
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
@@ -41,7 +41,7 @@ const HeroSection = () => {
       <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 animate-fade-up">
-            <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-2 backdrop-blur-sm">
+            <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-lg font-semibold mb-2 backdrop-blur-sm">
               Premium Digital Management
             </div>
             <h1 className="text-5xl md:text-6xl font-serif font-bold leading-tight">
@@ -65,7 +65,7 @@ const HeroSection = () => {
               </Button>
             </div>
           </div>
-          
+
           <div className="relative h-[500px] animate-fade-in hidden lg:block">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-full blur-3xl parallax-element" data-depth="0.2"></div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br from-gray-700/40 to-gray-800/40 opacity-20 animate-pulse parallax-element" data-depth="0.5"></div>
