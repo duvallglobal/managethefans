@@ -68,7 +68,7 @@ const HeroSection = () => {
           </div>
 
           {/* Parallax Elements */}
-          <div className="relative h-[400px] md:h-[500px] animate-fade-in hidden lg:block">
+          <div className="relative h-[300px] md:h-[400px] lg:h-[500px] animate-fade-in block">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-full blur-3xl parallax-element" data-depth="0.2"></div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br from-gray-700/40 to-gray-800/40 opacity-20 animate-pulse parallax-element" data-depth="0.5"></div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-gray-700/50 rounded-full animate-float parallax-element bg-gray-800/20" data-depth="0.3"></div>
