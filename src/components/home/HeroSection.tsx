@@ -51,19 +51,20 @@ const HeroSection = () => {
               Expert management and growth strategies for OnlyFans creators,
               social media influencers, and Rent.Men professionals.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-  <Button size="lg" variant="default" className="btn-primary" asChild>
-    <Link to="/contact">
-      Get Started Today
-      <ArrowRight className="ml-2 h-5 w-5" />
-    </Link>
-  </Button>
-  <Button size="lg" variant="outline" className="btn-secondary" asChild>
-    <Link to="/pricing">
-      View Pricing
-    </Link>
-  </Button>
-</div>
+            <div className="w-full flex flex-wrap gap-4 text-center lg:text-left justify-center lg:justify-start">
+              <Button size="lg" variant="default" className="btn-primary" asChild>
+                <Link to="/contact">
+                  Get Started Today
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" className="btn-secondary" asChild>
+                <Link to="/pricing">
+                  View Pricing
+                </Link>
+              </Button>
+            </div>
+          </div>
           
           <div className="relative h-[500px] animate-fade-in hidden lg:block">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-full blur-3xl parallax-element" data-depth="0.2"></div>

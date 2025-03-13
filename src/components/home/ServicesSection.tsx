@@ -30,13 +30,12 @@ const ServicesSection = () => {
     <section className="py-24 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="text-primary font-semibold">Our Expertise</span>
+          <span className="text-primary font-semibold text-2xl">Our Expertise</span>
           <h2 className="text-4xl font-bold mb-4 text-white mt-2">Premium Services</h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Comprehensive solutions for digital success
           </p>
         </div>
-        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <ServiceCard 
