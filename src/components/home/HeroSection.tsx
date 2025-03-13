@@ -38,11 +38,11 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-[url('/lovable-uploads/cad463e6-4289-4d2f-aca6-25a1b5fe09fd.png')] bg-cover bg-center opacity-20"></div>
       </div>
 
-      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 sm:py-24">
+      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 sm:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div className="space-y-6 sm:space-y-8 animate-fade-up text-center lg:text-left">
-            <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-lg font-semibold mb-2 backdrop-blur-sm">
+            <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-lg font-semibold mb-1 backdrop-blur-sm">
               Premium Digital Management
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight [text-wrap:balance]">
