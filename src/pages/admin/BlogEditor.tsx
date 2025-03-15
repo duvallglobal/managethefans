@@ -37,7 +37,7 @@ const BlogEditor = () => {
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (!isLoggedIn) {
-      navigate("/admin/login");
+      navigate("pages/admin/login");
       return;
     }
 
@@ -83,7 +83,7 @@ const BlogEditor = () => {
       } else {
         await blogApi.createPost(post);
       }
-      navigate("/admin/blog");
+      navigate("pages/admin/blog");
     } catch (error) {
       console.error("Error saving post:", error);
       alert("Failed to save post");
@@ -106,7 +106,7 @@ const BlogEditor = () => {
         <div className="flex items-center mb-8">
           <Button
             variant="ghost"
-            onClick={() => navigate("/admin/blog")}
+            onClick={() => navigate("pages/admin/blog")}
             className="mr-4 text-gray-400 hover:text-white"
           >
             <ArrowLeft className="h-5 w-5" />
