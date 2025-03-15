@@ -69,23 +69,18 @@ const HeroSection = () => {
 
           {/* Parallax Elements */}
           <div className="relative h-[300px] md:h-[400px] lg:h-[500px] animate-fade-in block">
-  <div className="absolute inset-0 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-full blur-3xl parallax-element" data-depth="0.2"></div>
-  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br from-gray-700/40 to-gray-800/40 opacity-20 animate-pulse parallax-element" data-depth="0.5"></div>
-  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-gray-700/50 rounded-full animate-float parallax-element bg-gray-800/20" data-depth="0.3"></div>
-
-  {/* Wrap the images in a responsive flex container */}
-  <div className="absolute inset-0 flex flex-col sm:flex-row justify-center items-center gap-4">
-    {/* First photo */}
-    <div className="w-80 h-80 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm" data-depth="0.8">
-      <img src="/lovable-uploads/0ae570b5-e71a-4a45-ae1b-d849d1525992.png" alt="Masseur" className="rounded-2xl object-cover shadow-xl" />
-    </div>
-
-    {/* Second photo */}
-    <div className="w-72 h-72 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm" data-depth="0.6">
-      <img src="/lovable-uploads/8704c8de-0bfc-443d-96d9-54b4c7c1f22b.png" alt="Professional" className="rounded-2xl object-cover shadow-xl" />
-    </div>
-  </div>
-</div>
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-full blur-3xl parallax-element" data-depth="0.2"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br from-gray-700/40 to-gray-800/40 opacity-20 animate-pulse parallax-element" data-depth="0.5"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-gray-700/50 rounded-full animate-float parallax-element bg-gray-800/20" data-depth="0.3"></div>
+            <div className="absolute top-0 right-0 w-80 h-80 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm" data-depth="0.8">
+              <img src="/lovable-uploads/0ae570b5-e71a-4a45-ae1b-d849d1525992.png" alt="Masseur" className="rounded-2xl object-cover shadow-xl" />
+            </div>
+            <div className="absolute bottom-0 left-0 w-72 h-72 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm" data-depth="0.6">
+              <img src="/lovable-uploads/8704c8de-0bfc-443d-96d9-54b4c7c1f22b.png" alt="Professional" className="rounded-2xl object-cover shadow-xl" />
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-6 sm:bottom-10 left-0 right-0 flex justify-center animate-bounce">
