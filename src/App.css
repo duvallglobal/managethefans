@@ -79,10 +79,14 @@ body {
     position: relative;
     transform: none !important; /* Disable parallax effect for mobile */
     margin: 0 auto; /* Center the elements */
+    display: flex; /* Use flexbox for proper alignment */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center elements horizontally */
+    gap: 1rem; /* Add spacing between stacked elements */
   }
 
   .parallax-element img {
-    width: 100%;
+    width: 90%; /* Reduce image size for better fit */
     height: auto;
     object-fit: cover;
     border-radius: 1rem;
@@ -94,5 +98,18 @@ body {
     display: flex;
     flex-direction: column; /* Stack elements vertically */
     gap: 1rem; /* Add spacing between elements */
+    padding: 1rem; /* Add padding for better spacing */
+  }
+
+  .glass-card {
+    width: 90%; /* Reduce card width for better fit on mobile */
+    margin: 0 auto; /* Center the card */
+    padding: 1rem; /* Add padding for readability */
+  }
+
+  /* Button adjustments */
+  .button {
+    width: 90%; /* Make buttons full-width with some padding */
+    margin: 0.5rem auto; /* Add spacing between buttons */
   }
 }
