@@ -2,49 +2,37 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Plus, Edit, Trash2, LogOut } from "lucide-react";
-
-interface BlogPost {
-  id: number;
-  title: string;
-  excerpt: string;
-  category: string;
-  date: string;
-  author: string;
-  image: string;
-  featured?: boolean;
-}
+import { blogApi, BlogPost } from "@/lib/supabase/blog";
+import { supabase } from "@/lib/supabase/client";
 
 const BlogDashboard = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is logged in
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn) {
-      navigate("/admin/login");
+    loadPosts();
+  }, []);
+
+  const loadPosts = async () => {
+    try {
+      const data = await blogApi.getPosts();
+      setPosts(data);
+    } catch (error) {
+      console.error('Error loading posts:', error);
+      alert('Failed to load posts');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    // TODO: Fetch actual blog posts from your backend
-    // For now, using dummy data
-    setPosts([
-      {
-        id: 1,
-        title: "10 Strategies to Double Your Fans Subscribers in 30 Days",
-        excerpt: "Learn the proven strategies that have helped our clients double their subscriber count in just one month.",
-        category: "Fans Growth",
-        date: "2024-03-15",
-        author: "Jessica White",
-        image: "https://placehold.co/800x600/eee/ccc",
-        featured: true
-      },
-      // Add more dummy posts as needed
-    ]);
-  }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    navigate("/admin/login");
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      navigate("/admin/login");
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
   const handleCreatePost = () => {
@@ -57,10 +45,21 @@ const BlogDashboard = () => {
 
   const handleDeletePost = async (id: number) => {
     if (window.confirm("Are you sure you want to delete this post?")) {
-      // TODO: Implement actual delete functionality
-      setPosts(posts.filter(post => post.id !== id));
+      try {
+        await blogApi.deletePost(id);
+        await loadPosts();
+      } catch (error) {
+        console.error('Error deleting post:', error);
+        alert('Failed to delete post');
+      }
     }
   };
+
+  if (loading) {
+    return <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="text-primary">Loading...</div>
+    </div>;
+  }
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -133,4 +132,4 @@ const BlogDashboard = () => {
   );
 };
 
-export default BlogDashboard; 
+export default BlogDashboard;

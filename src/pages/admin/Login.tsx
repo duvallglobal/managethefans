@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Mail } from "lucide-react";
+import { supabase } from "@/lib/supabase/client";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,16 +16,17 @@ const Login = () => {
     setError("");
 
     try {
-      // TODO: Implement actual authentication
-      // For now, using a simple check (replace with proper auth)
-      if (email === "admin@example.com" && password === "admin123") {
-        localStorage.setItem("isLoggedIn", "true");
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) throw error;
+      if (data.user) {
         navigate("/admin/blog");
-      } else {
-        setError("Invalid credentials");
       }
     } catch (err) {
-      setError("An error occurred during login");
+      setError(err instanceof Error ? err.message : "An error occurred during login");
     }
   };
 
@@ -78,4 +80,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;

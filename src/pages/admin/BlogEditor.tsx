@@ -6,18 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { ArrowLeft, Image as ImageIcon, Loader2 } from "lucide-react";
-
-interface BlogPost {
-  id?: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  category: string;
-  author: string;
-  image: string;
-  featured: boolean;
-  date: string;
-}
+import { blogApi, BlogPost } from "@/lib/supabase/blog";
 
 const categories = [
   "OnlyFans Growth",
@@ -54,22 +43,17 @@ const BlogEditor = () => {
 
     if (id) {
       setLoading(true);
-      // TODO: Fetch actual post data from your backend
-      // For now, using dummy data
-      setTimeout(() => {
-        setPost({
-          id: parseInt(id),
-          title: "10 Strategies to Double Your Fans Subscribers in 30 Days",
-          excerpt: "Learn the proven strategies that have helped our clients double their subscriber count in just one month.",
-          content: "Full content here...",
-          category: "OnlyFans Growth",
-          author: "Jessica White",
-          image: "https://placehold.co/800x600/eee/ccc",
-          featured: true,
-          date: "2024-03-15"
+      blogApi.getPost(parseInt(id))
+        .then(post => {
+          setPost(post);
+        })
+        .catch(error => {
+          console.error('Error loading post:', error);
+          alert('Failed to load post');
+        })
+        .finally(() => {
+          setLoading(false);
         });
-        setLoading(false);
-      }, 1000);
     }
   }, [id, navigate]);
 
@@ -79,9 +63,7 @@ const BlogEditor = () => {
 
     setImageUploading(true);
     try {
-      // TODO: Implement actual image upload to your backend/storage
-      // For now, just creating a placeholder URL
-      const imageUrl = URL.createObjectURL(file);
+      const imageUrl = await blogApi.uploadImage(file);
       setPost({ ...post, image: imageUrl });
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -96,8 +78,11 @@ const BlogEditor = () => {
     setSaving(true);
 
     try {
-      // TODO: Implement actual save/update functionality with your backend
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      if (id) {
+        await blogApi.updatePost(parseInt(id), post);
+      } else {
+        await blogApi.createPost(post);
+      }
       navigate("/admin/blog");
     } catch (error) {
       console.error("Error saving post:", error);
@@ -258,4 +243,4 @@ const BlogEditor = () => {
   );
 };
 
-export default BlogEditor; 
+export default BlogEditor;
