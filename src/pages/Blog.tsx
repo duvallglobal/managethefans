@@ -1,85 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, Calendar, Search, Tag, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { blogApi, BlogPost } from "@/lib/supabase/blog";
 
 const Blog = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  
-  const categories = [
-    "All", "OnlyFans Growth", "Social Media", "Rent.Men Tips", "Success Stories", "Industry News"
-  ];
-  
-  interface BlogPost {
-    id: number;
-    title: string;
-    excerpt: string;
-    category: string;
-    date: string;
-    author: string;
-    image: string;
-    featured?: boolean;
-  }
-  
-  const blogPosts: BlogPost[] = [
-    {
-      id: 1,
-      title: "10 Strategies to Double Your Fans Subscribers in 30 Days",
-      excerpt: "Learn the proven strategies that have helped our clients double their subscriber count in just one month.",
-      category: "Fans Growth",
-      date: "June 15, 2023",
-      author: "Jessica White",
-      image: "https://placehold.co/800x600/eee/ccc",
-      featured: true
-    },
-    {
-      id: 2,
-      title: "How to Create Viral TikTok Content That Converts to Fans Subscribers",
-      excerpt: "Discover the formula for creating TikTok content that goes viral and drives traffic to your Fans page.",
-      category: "Social Media",
-      date: "July 2, 2023",
-      author: "Michael Chen",
-      image: "https://placehold.co/800x600/eee/ccc"
-    },
-    {
-      id: 3,
-      title: "Client Vetting 101: How to Screen for Quality Clients as a Masseur",
-      excerpt: "Learn essential strategies for vetting clients to ensure safety, reliability, and compatibility.",
-      category: "Masseur Tips",
-      date: "July 12, 2023",
-      author: "David Rodriguez",
-      image: "https://placehold.co/800x600/eee/ccc"
-    },
-    {
-      id: 4,
-      title: "From 500 to 50,000 Followers: A Social Media Success Story",
-      excerpt: "How one of our clients went from 500 to 50,000 followers in just six months using our growth strategies.",
-      category: "Success Stories",
-      date: "August 3, 2023",
-      author: "Samantha Lee",
-      image: "https://placehold.co/800x600/eee/ccc"
-    },
-    {
-      id: 5,
-      title: "The Future of Content Creation: AI Tools and Automation",
-      excerpt: "Explore how AI tools and automation are revolutionizing content creation for digital creators.",
-      category: "Industry News",
-      date: "August 20, 2023",
-      author: "Alex Thompson",
-      image: "https://placehold.co/800x600/eee/ccc"
-    },
-    {
-      id: 6,
-      title: "5 Pricing Strategies to Maximize Your Fans Revenue",
-      excerpt: "Learn effective pricing strategies that can significantly increase your monthly revenue on fan platforms.",
-      category: "Fans Growth",
-      date: "September 5, 2023",
-      author: "Jessica White",
-      image: "https://placehold.co/800x600/eee/ccc"
-    }
-  ];
-  
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Define available blog categories
+  const categories = ["All", "Marketing", "Social Media", "Growth", "Strategy", "Technology"];
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        const posts = await blogApi.getPosts();
+        setBlogPosts(posts);
+      } catch (error) {
+        console.error('Error loading posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPosts();
+  }, []);
+
   const filteredPosts = blogPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
@@ -87,7 +35,13 @@ const Blog = () => {
     
     return matchesSearch && matchesCategory;
   });
-  
+
+  if (loading) {
+    return <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="text-primary">Loading...</div>
+    </div>;
+  }
+
   return (
     <div className="overflow-hidden bg-black text-white">
       {/* Hero Section */}
