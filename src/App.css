@@ -73,13 +73,15 @@ body {
   transform: translateY(-5px);
 }
 
-  /* Option 2: Stack Photos on Mobile */
-  .parallax-element {
-    display: flex; /* Use flexbox */
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center them horizontally */
-    gap: 1rem; /* Add space between stacked items */
+/* Mobile-Specific Styles */
+@media (max-width: 768px) {
+  /* Option 1: Hide Photos on Mobile */
+  /* Uncomment this if you want to hide photos */
+  /*
+  .parallax-element img {
+    display: none; 
   }
+  */
 
   .parallax-element img {
     width: 100%; /* Make images full-width */
