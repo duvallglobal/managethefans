@@ -38,11 +38,11 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-[url('/lovable-uploads/cad463e6-4289-4d2f-aca6-25a1b5fe09fd.png')] bg-cover bg-center opacity-20"></div>
       </div>
 
-      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 sm:py-24">
+      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 sm:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div className="space-y-6 sm:space-y-8 animate-fade-up text-center lg:text-left">
-            <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-lg font-semibold mb-1 backdrop-blur-sm">
+            <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-lg font-semibold mb-2 backdrop-blur-sm">
               Premium Digital Management
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight [text-wrap:balance]">
@@ -68,18 +68,14 @@ const HeroSection = () => {
           </div>
 
           {/* Parallax Elements */}
-          <div className="relative h-[300px] md:h-[400px] lg:h-[500px] animate-fade-in block">
+          <div className="relative h-[400px] md:h-[500px] animate-fade-in hidden lg:block">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-full blur-3xl parallax-element" data-depth="0.2"></div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br from-gray-700/40 to-gray-800/40 opacity-20 animate-pulse parallax-element" data-depth="0.5"></div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-gray-700/50 rounded-full animate-float parallax-element bg-gray-800/20" data-depth="0.3"></div>
-
-            {/* First photo (hidden on mobile) */}
-            <div className="absolute top-0 right-0 w-80 h-80 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm hidden sm:block" data-depth="0.8">
+            <div className="absolute top-0 right-0 w-80 h-80 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm" data-depth="0.8">
               <img src="/lovable-uploads/0ae570b5-e71a-4a45-ae1b-d849d1525992.png" alt="Masseur" className="rounded-2xl object-cover shadow-xl" />
             </div>
-
-            {/* Second photo (hidden on mobile) */}
-            <div className="absolute bottom-0 left-0 w-72 h-72 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm hidden sm:block" data-depth="0.6">
+            <div className="absolute bottom-0 left-0 w-72 h-72 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm" data-depth="0.6">
               <img src="/lovable-uploads/8704c8de-0bfc-443d-96d9-54b4c7c1f22b.png" alt="Professional" className="rounded-2xl object-cover shadow-xl" />
             </div>
           </div>
