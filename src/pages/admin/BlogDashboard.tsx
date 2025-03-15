@@ -29,18 +29,18 @@ const BlogDashboard = () => {
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
-      navigate("/admin/login");
+      navigate("pages/admin/login");
     } catch (error) {
       console.error('Error signing out:', error);
     }
   };
 
   const handleCreatePost = () => {
-    navigate("/admin/blog/new");
+    navigate("pages/admin/blog/new");
   };
 
   const handleEditPost = (id: number) => {
-    navigate(`/admin/blog/edit/${id}`);
+    navigate(`pages/admin/blog/edit/${id}`);
   };
 
   const handleDeletePost = async (id: number) => {
