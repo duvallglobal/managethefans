@@ -23,6 +23,7 @@ const Login = () => {
 
       if (error) throw error;
       if (data.user) {
+        localStorage.setItem("isLoggedIn", "true");
         navigate("/admin/blog");
       }
     } catch (err) {
