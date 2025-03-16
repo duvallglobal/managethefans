@@ -7,7 +7,7 @@ import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { ArrowLeft, Image as ImageIcon, Loader2 } from "lucide-react";
 import { blogApi, BlogPost } from "@/lib/supabase/blog";
-
+import { supabase } from '@/lib/supabase/supabaseClient';
 const categories = [
   "OnlyFans Growth",
   "Social Media",
@@ -21,9 +21,7 @@ const BlogEditor = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [imageUploading, setImageUploading] = useState(false);
-  
-  const [post, setPost] = useState<BlogPost>({
+  const [post, setPost] = useState({
     title: "",
     excerpt: "",
     content: "",
@@ -43,19 +41,39 @@ const BlogEditor = () => {
 
     if (id) {
       setLoading(true);
-      blogApi.getPost(parseInt(id))
-        .then(post => {
-          setPost(post);
-        })
-        .catch(error => {
-          console.error('Error loading post:', error);
+      const fetchPost = async () => {
+        const { data, error } = await supabase
+          .from('posts')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (error) {
+          console.error('Error fetching post:', error);
           alert('Failed to load post');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+        } else {
+          setPost(data);
+        }
+        setLoading(false);
+      };
+
+      fetchPost();
     }
   }, [id, navigate]);
+
+  const handleSave = async () => {
+    setSaving(true);
+    const { data, error } = await supabase
+      .from('posts')
+      .upsert(post);
+
+    if (error) {
+      console.error('Error saving post:', error);
+    } else {
+      navigate('/admin/blog');
+    }
+    setSaving(false);
+  };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
