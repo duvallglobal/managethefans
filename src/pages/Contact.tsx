@@ -65,7 +65,7 @@ const Contact = () => {
 
     try {
       // Send data to webhook
-      const response = await fetch('https://hook.us2.make.com/nvrxvj4rrh63cj5v8kmnqnvb7dku845j', {
+      const response = await fetch('https://hook.us2.make.com/j8tv2hblf3lf67e4nm19rlcr7t6cmmcb', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
