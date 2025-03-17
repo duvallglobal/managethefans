@@ -52,29 +52,58 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Prepare the data to send to webhook
+
+    // Get user's timezone for better scheduling context
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    // Prepare enhanced data to send to webhook
     const submissionData = {
       formType: activeForm,
       submissionDate: new Date().toISOString(),
+      source: {
+        page: window.location.pathname,
+        referrer: document.referrer || 'direct',
+        userAgent: navigator.userAgent,
+        timezone: userTimezone
+      },
       formData: {
         ...formData,
-        services: formData.services.length > 0 ? formData.services : []
+        services: formData.services.length > 0 ? formData.services : [],
+        // Add formatted date/time for easier reading in notifications
+        formattedDateTime: formData.preferredDate && formData.preferredTime
+          ? `${formData.preferredDate} at ${formData.preferredTime}`
+          : undefined
       }
     };
 
     try {
+      // Show loading state
+      const submitButton = e.currentTarget.querySelector('button[type="submit"]');
+      if (submitButton) {
+        submitButton.setAttribute('disabled', 'true');
+        submitButton.textContent = 'Sending...';
+      }
+
       // Send data to webhook
       const response = await fetch('https://hook.us2.make.com/j8tv2hblf3lf67e4nm19rlcr7t6cmmcb', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Source': 'ManageTheFans-Website'
         },
         body: JSON.stringify(submissionData)
       });
 
-      // Most webhooks return 200 for success
+      // Process webhook response
       if (response.status === 200) {
+        // Track conversion for analytics (if you have analytics set up)
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'form_submission', {
+            'event_category': 'engagement',
+            'event_label': activeForm
+          });
+        }
+
         // Show success message based on form type
         let successMessage = "";
         switch(activeForm) {
@@ -82,7 +111,7 @@ const Contact = () => {
             successMessage = `Thanks ${formData.name}! Your consultation has been scheduled. We'll confirm your appointment shortly.`;
             break;
           case 'getStarted':
-            successMessage = `Awesome ${formData.name}! We're excited to work with you.`;
+            successMessage = `Awesome ${formData.name}! We're excited to work with you. Our team will reach out within 24 hours.`;
             break;
           case 'general':
             successMessage = `Thanks for reaching out, ${formData.name}! We'll get back to you soon with answers to your questions.`;
@@ -90,7 +119,7 @@ const Contact = () => {
           default:
             successMessage = `Thank you for your message, ${formData.name}! We'll be in touch soon.`;
         }
-        
+
         alert(successMessage);
 
         // Reset form
@@ -105,15 +134,35 @@ const Contact = () => {
           budget: "",
           timeline: ""
         });
-        
+
         // Close the modal
         setActiveForm(null);
       } else {
-        throw new Error(`Failed to submit form: ${response.status}`);
+        // Try to parse error response
+        let errorDetails = '';
+        try {
+          const errorData = await response.json();
+          errorDetails = errorData.message || JSON.stringify(errorData);
+        } catch (e) {
+          errorDetails = `Status code: ${response.status}`;
+        }
+
+        throw new Error(`Failed to submit form: ${errorDetails}`);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('There was an error submitting your form. Please try again or contact us directly at info@managethefans.com');
+
+      // Re-enable submit button on error
+      const submitButton = e.currentTarget.querySelector('button[type="submit"]');
+      if (submitButton) {
+        submitButton.removeAttribute('disabled');
+        submitButton.textContent = activeForm === 'consultation'
+          ? 'Schedule Consultation'
+          : activeForm === 'getStarted'
+            ? 'Get Started Now'
+            : 'Send Message';
+      }
     }
   };
 

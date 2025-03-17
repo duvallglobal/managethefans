@@ -29,7 +29,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center bg-black pt-16 overflow-hidden">
+    <section className="relative min-h-[90vh] md:min-h-screen flex items-center bg-black pt-16 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-90 z-10"></div>
@@ -38,10 +38,10 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-[url('/lovable-uploads/cad463e6-4289-4d2f-aca6-25a1b5fe09fd.png')] bg-cover bg-center opacity-20"></div>
       </div>
 
-      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 sm:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 sm:py-12 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Text Content */}
-          <div className="space-y-6 sm:space-y-8 animate-fade-up text-center lg:text-left">
+          <div className="space-y-4 sm:space-y-6 md:space-y-8 animate-fade-up text-center lg:text-left">
             <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-lg font-semibold mb-1 backdrop-blur-sm">
               Premium Digital Management
             </div>
@@ -68,7 +68,7 @@ const HeroSection = () => {
           </div>
 
           {/* Parallax Elements */}
-          <div className="relative h-[300px] md:h-[400px] lg:h-[500px] animate-fade-in block">
+          <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] animate-fade-in block">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-full blur-3xl parallax-element" data-depth="0.2"></div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br from-gray-700/40 to-gray-800/40 opacity-20 animate-pulse parallax-element" data-depth="0.5"></div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-gray-700/50 rounded-full animate-float parallax-element bg-gray-800/20" data-depth="0.3"></div>
@@ -83,8 +83,8 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-6 sm:bottom-10 left-0 right-0 flex justify-center animate-bounce">
-        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-10 left-0 right-0 flex justify-center animate-bounce">
+        <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
       </div>
