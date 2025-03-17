@@ -82,7 +82,7 @@ const Contact = () => {
             successMessage = `Thanks ${formData.name}! Your consultation has been scheduled. We'll confirm your appointment shortly.`;
             break;
           case 'getStarted':
-            successMessage = `Awesome ${formData.name}! We're excited to work with you. We'll reach out within 24 hours to kick things off.`;
+            successMessage = `Awesome ${formData.name}! We're excited to work with you.`;
             break;
           case 'general':
             successMessage = `Thanks for reaching out, ${formData.name}! We'll get back to you soon with answers to your questions.`;
