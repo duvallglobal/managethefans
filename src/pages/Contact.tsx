@@ -97,8 +97,8 @@ const Contact = () => {
       // Process webhook response
       if (response.status === 200) {
         // Track conversion for analytics (if you have analytics set up)
-        if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'form_submission', {
+        if (typeof window !== 'undefined' && 'gtag' in window) {
+          (window as any).gtag('event', 'form_submission', {
             'event_category': 'engagement',
             'event_label': activeForm
           });
