@@ -49,19 +49,19 @@ const HeroSection = () => {
               Elevate Your <span className="text-primary">Online Presence</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-300">
-              Expert management and growth strategies for OnlyFans creators,
-              social media influencers, and Rent.Men professionals.
+              OnlyFans Management,
+              Social Media Growth, and Rent.Men Concierge Services
             </p>
             <div className="w-full flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button size="lg" variant="default" className="btn-primary" asChild>
                 <Link to="/contact">
-                  Get Started Today
+                Start Managing YOUR Fans Now!
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="btn-secondary" asChild>
                 <Link to="/pricing">
-                  View Pricing
+                Packages and Service Pricing
                 </Link>
               </Button>
             </div>
