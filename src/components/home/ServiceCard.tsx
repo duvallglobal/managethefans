@@ -22,10 +22,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
   return (
     <div
-      className="bg-gray-900/80 backdrop-blur-sm p-4 md:p-8 rounded-2xl border border-gray-800 hover:border-primary/40 transition-all duration-300 animate-fade-up group shadow-xl hover:shadow-primary/10"
+      className="bg-gray-900/80 backdrop-blur-sm p-3 md:p-8 rounded-2xl border border-gray-800 hover:border-primary/40 transition-all duration-300 animate-fade-up group shadow-xl hover:shadow-primary/10"
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <div className="relative h-36 md:h-48 mb-3 md:mb-6 rounded-xl overflow-hidden">
+      <div className="relative h-36 md:h-48 mb-2 md:mb-4 rounded-xl overflow-hidden">
         <img
           src={image}
           alt={title}
@@ -34,8 +34,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
       </div>
       <h3 className="text-xl md:text-2xl font-bold mb-2 md:mb-4 text-white group-hover:text-primary transition-colors duration-300">{title}</h3>
-      <p className="text-gray-300 mb-3 md:mb-6 text-sm md:text-base">{description}</p>
-      <ul className="space-y-1 md:space-y-3 mb-3 md:mb-6">
+      <p className="text-gray-300 mb-2 md:mb-4 text-sm md:text-base">{description}</p>
+      <ul className="space-y-1 md:space-y-3 mb-2 md:mb-4">
         {features.map((feature) => (
           <li key={feature} className="flex items-center text-gray-300 text-sm md:text-base">
             <CheckCircle className="h-4 w-4 md:h-5 md:w-5 text-primary mr-2 flex-shrink-0" />
@@ -44,7 +44,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         ))}
       </ul>
       <Link to={path}>
-        <Button className="w-full bg-gray-800 hover:bg-primary border border-primary text-white transition-all duration-300 text-sm md:text-base py-1 md:py-2">
+        <Button className="w-full bg-gray-800 hover:bg-primary border border-primary text-white transition-all duration-300 text-sm md:text-base py-1 md:py-2 mt-1">
           Learn More
           <ArrowRight className="ml-2 h-3 w-3 md:h-4 md:w-4" />
         </Button>
