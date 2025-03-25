@@ -41,18 +41,18 @@ const HeroSection = () => {
       <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-4 sm:py-8 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-12 items-center">
           {/* Text Content */}
-          <div className="space-y-3 sm:space-y-6 md:space-y-8 animate-fade-up text-center lg:text-left">
+          <div className="space-y-5 sm:space-y-6 md:space-y-8 animate-fade-up text-center lg:text-left">
             <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-base md:text-lg font-semibold mb-1 backdrop-blur-sm">
               Premium Digital Management
             </div>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight [text-wrap:balance]">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-relaxed sm:leading-tight [text-wrap:balance]">
               Elevate Your <span className="text-primary">Online Presence</span>
             </h1>
-            <p className="text-sm sm:text-lg md:text-xl text-gray-300">
+            <p className="text-sm sm:text-lg md:text-xl text-gray-300 leading-relaxed sm:leading-normal">
               OnlyFans Management,
               Social Media Growth, and Rent.Men Concierge Services
             </p>
-            <div className="w-full flex flex-col sm:flex-row gap-3 md:gap-4 justify-center lg:justify-start">
+            <div className="w-full flex flex-col sm:flex-row gap-5 md:gap-4 justify-center lg:justify-start pt-2 sm:pt-0">
               <Button size="lg" variant="default" className="btn-primary text-sm md:text-base py-2" asChild>
                 <Link to="/contact">
                 Start Managing YOUR Fans Now!
