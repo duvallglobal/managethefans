@@ -111,10 +111,10 @@ const Contact = () => {
             successMessage = `Thanks ${formData.name}! Your consultation has been scheduled. We'll confirm your appointment shortly.`;
             break;
           case 'getStarted':
-            successMessage = `Awesome ${formData.name}! We're excited to work with you. Our team will reach out within 24 hours.`;
+            successMessage = `Awesome ${formData.name}! We're excited to work with you. Our team will reach out soon .`;
             break;
           case 'general':
-            successMessage = `Thanks for reaching out, ${formData.name}! We'll get back to you soon with answers to your questions.`;
+            successMessage = `Thanks for reaching out, ${formData.name}! We'll get back to you soon .`;
             break;
           default:
             successMessage = `Thank you for your message, ${formData.name}! We'll be in touch soon.`;
@@ -535,7 +535,7 @@ const CommonFormFields = ({ formData, handleChange }: {
           value={formData.name}
           onChange={handleChange}
           className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-gray-900 text-white"
-          placeholder="Your stage name or what we should call you"
+          placeholder="Your name or what we should call you"
           required
         />
       </div>
