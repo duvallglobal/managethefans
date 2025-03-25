@@ -83,8 +83,8 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-2 sm:bottom-6 md:bottom-10 left-0 right-0 flex justify-center animate-bounce">
-        <svg className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute bottom-0 sm:bottom-6 md:bottom-10 left-0 right-0 flex justify-center animate-bounce">
+        <svg className="w-4 h-4 sm:w-8 sm:h-8 md:w-10 md:h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
       </div>
