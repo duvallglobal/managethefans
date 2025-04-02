@@ -54,6 +54,9 @@ const config: Config = {
       },
     },
   },
+  safelist: [
+    "h-[300px]", // Safelist the class to prevent minification issues
+  ],
   plugins: [],
 };
 
