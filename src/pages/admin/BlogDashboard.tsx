@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Plus, Edit, Trash2, LogOut } from "lucide-react";
-import { BlogPost } from "@/lib/supabase/blog";
-import { supabase } from "@/lib/supabase/client";
+import { BlogPost, getPosts, deletePost } from "@/lib/firebase/blog";
+import { onAuthChange, logOut } from "@/lib/firebase/auth";
 
 const BlogDashboard = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -11,30 +11,22 @@ const BlogDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+    const unsubscribe = onAuthChange((user) => {
+      if (!user) {
         navigate("/admin/login");
         return;
       }
-    };
+    });
 
-    checkAuth();
     loadPosts();
+
+    return () => unsubscribe();
   }, []);
 
   const loadPosts = async () => {
     try {
-      const { data, error } = await supabase
-        .from('posts')
-        .select('*')
-        .order('created_at', { ascending: false });
-        
-      if (error) {
-        throw error;
-      }
-      
-      setPosts(data || []);
+      const postsData = await getPosts();
+      setPosts(postsData);
     } catch (error) {
       console.error('Error loading posts:', error);
       alert('Failed to load posts');
@@ -45,7 +37,7 @@ const BlogDashboard = () => {
 
   const handleLogout = async () => {
     try {
-      await supabase.auth.signOut();
+      await logOut();
       navigate("/admin/login");
     } catch (error) {
       console.error('Error signing out:', error);
@@ -56,22 +48,14 @@ const BlogDashboard = () => {
     navigate("/admin/blog/new");
   };
 
-  const handleEditPost = (id: number) => {
+  const handleEditPost = (id: string) => {
     navigate(`/admin/blog/edit/${id}`);
   };
 
-  const handleDeletePost = async (id: number) => {
+  const handleDeletePost = async (id: string) => {
     if (window.confirm("Are you sure you want to delete this post?")) {
       try {
-        const { error } = await supabase
-          .from('posts')
-          .delete()
-          .eq('id', id);
-          
-        if (error) {
-          throw error;
-        }
-        
+        await deletePost(id);
         await loadPosts();
       } catch (error) {
         console.error('Error deleting post:', error);

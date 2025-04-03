@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Mail, Loader2 } from "lucide-react";
-import { supabase } from "@/lib/supabase/client";
+import { signIn } from "@/lib/firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,13 +18,8 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) throw error;
-      if (data.user) {
+      const user = await signIn(email, password);
+      if (user) {
         navigate("/admin/blog");
       }
     } catch (err) {

@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { ArrowRight, Calendar, Search, Tag, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { BlogPost } from "@/lib/supabase/blog";
-import { supabase } from "@/lib/supabase/client";
+import { BlogPost, getPosts } from "@/lib/firebase/blog";
 
 const Blog = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -22,16 +21,8 @@ const Blog = () => {
     
     const loadPosts = async () => {
       try {
-        const { data, error } = await supabase
-          .from('posts')
-          .select('*')
-          .order('created_at', { ascending: false });
-          
-        if (error) {
-          throw error;
-        }
-        
-        setBlogPosts(data || []);
+        const postsData = await getPosts();
+        setBlogPosts(postsData);
       } catch (error) {
         console.error('Error loading posts:', error);
       } finally {
