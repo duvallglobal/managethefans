@@ -66,7 +66,7 @@ const Blog = () => {
   return (
     <div className={`overflow-hidden bg-black text-white transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center bg-black pt-16 overflow-hidden" ref={sectionRef}>
+      <section className="relative min-h-[60vh] flex items-center bg-black pt-24 md:pt-28 overflow-hidden" ref={sectionRef}>
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black z-10"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
