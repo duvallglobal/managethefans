@@ -37,7 +37,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           <img
             src={image}
             alt={title}
-            className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? 'scale-110 brightness-110' : 'scale-100'}`}
+            className={`w-full h-full object-contain transition-all duration-700 ${isHovered ? 'scale-110 brightness-110' : 'scale-100'}`}
           />
           <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-70' : 'opacity-100'}`}></div>
           
