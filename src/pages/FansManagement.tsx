@@ -110,26 +110,26 @@ const FansManagement = () => {
           <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-2 md:py-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-red text-white text-sm font-semibold mb-2 border border-primary/30 animate-pulse-glow">
+            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 border border-primary/30 animate-pulse-glow">
               Premium Management Services
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 [text-wrap:balance]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 [text-wrap:balance]">
               OnlyFans <span className="text-gradient-red text-glow">Management</span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 [text-wrap:balance]">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance]">
               Expert strategies to grow your subscriber base, improve engagement, 
               and maximize your earnings on OnlyFans. We handle the business so you can focus on creating content.
             </p>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
+              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
               asChild
             >
               <Link to="/contact">
               Book Your Free Strategy Call
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Link>
             </Button>
           </div>
@@ -148,18 +148,18 @@ const FansManagement = () => {
           }}></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-6 md:mb-8">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 [text-wrap:balance] opacity-100">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-4 sm:mb-6 md:mb-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4 [text-wrap:balance] opacity-100">
               End-to-End <span className="text-gradient-red text-glow">Creator Solutions</span>
             </h2>
-            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-4 [text-wrap:balance] opacity-100">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-3 sm:mb-4 [text-wrap:balance] opacity-100">
               Our full-service approach covers every aspect of growing and monetizing your OnlyFans presence
             </p>
           </div>
           
-          <div className="mb-4 text-center">
-            <h3 className="text-xl md:text-2xl font-bold text-white opacity-100">
+          <div className="mb-3 sm:mb-4 text-center">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white opacity-100">
               Core <span className="text-gradient-red text-glow">Management</span> Services
             </h3>
           </div>
@@ -170,9 +170,9 @@ const FansManagement = () => {
                 key={service.title}
                 className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100"
               >
-                <service.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white mb-2 sm:mb-3 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
-                <p className="text-gray-300 text-xs sm:text-sm">{service.description}</p>
+                <service.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white mb-2 sm:mb-3 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
+                <p className="text-xs sm:text-sm text-gray-300">{service.description}</p>
               </div>
             ))}
           </div>
