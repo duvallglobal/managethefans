@@ -2,18 +2,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Lock, Mail } from "lucide-react";
+import { Lock, Mail, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -23,11 +25,12 @@ const Login = () => {
 
       if (error) throw error;
       if (data.user) {
-        localStorage.setItem("isLoggedIn", "true");
         navigate("/admin/blog");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred during login");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,8 +75,19 @@ const Login = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full bg-primary hover:bg-primary-darker">
-            Sign in
+          <Button 
+            type="submit" 
+            className="w-full bg-primary hover:bg-primary-darker"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                Signing in...
+              </>
+            ) : (
+              "Sign in"
+            )}
           </Button>
         </form>
       </div>

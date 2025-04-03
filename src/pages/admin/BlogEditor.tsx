@@ -7,7 +7,8 @@ import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { ArrowLeft, Image as ImageIcon, Loader2 } from "lucide-react";
 import { blogApi, BlogPost } from "@/lib/supabase/blog";
-import { supabase } from '@/lib/supabase/supabaseClient';
+import { supabase } from '@/lib/supabase/client';
+
 const categories = [
   "OnlyFans Growth",
   "Social Media",
@@ -34,47 +35,43 @@ const BlogEditor = () => {
   });
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn) {
-      navigate("/admin/login");
-      return;
-    }
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate("/admin/login");
+        return;
+      }
+    };
+
+    checkAuth();
 
     if (id) {
       setLoading(true);
       const fetchPost = async () => {
-        const { data, error } = await supabase
-          .from('posts')
-          .select('*')
-          .eq('id', id)
-          .single();
+        try {
+          const { data, error } = await supabase
+            .from('posts')
+            .select('*')
+            .eq('id', id)
+            .single();
 
-        if (error) {
-          console.error('Error fetching post:', error);
+          if (error) {
+            console.error('Error fetching post:', error);
+            alert('Failed to load post');
+          } else {
+            setPost(data);
+          }
+        } catch (err) {
+          console.error('Error:', err);
           alert('Failed to load post');
-        } else {
-          setPost(data);
+        } finally {
+          setLoading(false);
         }
-        setLoading(false);
       };
 
       fetchPost();
     }
   }, [id, navigate]);
-
-  const handleSave = async () => {
-    setSaving(true);
-    const { data, error } = await supabase
-      .from('posts')
-      .upsert(post);
-
-    if (error) {
-      console.error('Error saving post:', error);
-    } else {
-      navigate('/admin/blog');
-    }
-    setSaving(false);
-  };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -82,8 +79,25 @@ const BlogEditor = () => {
 
     setImageUploading(true);
     try {
-      const imageUrl = await blogApi.uploadImage(file);
-      setPost({ ...post, image: imageUrl });
+      // Upload image to Supabase Storage
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+      const filePath = `blog/${fileName}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('images')
+        .upload(filePath, file);
+        
+      if (uploadError) {
+        throw uploadError;
+      }
+      
+      // Get public URL for the uploaded image
+      const { data } = supabase.storage
+        .from('images')
+        .getPublicUrl(filePath);
+        
+      setPost({ ...post, image: data.publicUrl });
     } catch (error) {
       console.error("Error uploading image:", error);
       alert("Failed to upload image");
@@ -97,15 +111,53 @@ const BlogEditor = () => {
     setSaving(true);
 
     try {
-      if (id) {
-        await blogApi.updatePost(parseInt(id), post);
-      } else {
-        await blogApi.createPost(post);
+      // Make sure the post has all required fields
+      if (!post.title || !post.excerpt || !post.content || !post.author) {
+        alert("Please fill all required fields");
+        setSaving(false);
+        return;
       }
+
+      let result;
+      if (id) {
+        // Update existing post
+        result = await supabase
+          .from('posts')
+          .update({
+            title: post.title,
+            excerpt: post.excerpt,
+            content: post.content,
+            category: post.category,
+            author: post.author,
+            image: post.image,
+            featured: post.featured,
+            date: post.date
+          })
+          .eq('id', id);
+      } else {
+        // Create new post
+        result = await supabase
+          .from('posts')
+          .insert([{
+            title: post.title,
+            excerpt: post.excerpt,
+            content: post.content,
+            category: post.category,
+            author: post.author,
+            image: post.image,
+            featured: post.featured,
+            date: post.date
+          }]);
+      }
+      
+      if (result.error) {
+        throw result.error;
+      }
+      
       navigate("/admin/blog");
     } catch (error) {
       console.error("Error saving post:", error);
-      alert("Failed to save post");
+      alert("Failed to save post: " + (error as Error).message);
     } finally {
       setSaving(false);
     }
