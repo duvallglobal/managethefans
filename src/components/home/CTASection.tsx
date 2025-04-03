@@ -1,67 +1,79 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-const CTASection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
+export default function CTASection() {
   return (
-    <section 
-      ref={sectionRef}
-      className="py-16 md:py-24 bg-black relative overflow-hidden"
-    >
-      {/* Enhanced background with dark styling */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black opacity-95 z-10"></div>
-        <div className="absolute inset-0 bg-[url('/lovable-uploads/cad463e6-4289-4d2f-aca6-25a1b5fe09fd.png')] bg-cover bg-center opacity-5"></div>
-      </div>
+    <section className="relative py-24 md:py-32 overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-black"></div>
+      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-primary-darkest/10 to-transparent"></div>
       
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className={`text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 md:mb-8 leading-tight [text-wrap:balance]">
-            Ready to Transform Your <span className="text-gradient-red">Digital Presence</span>?
-          </h2>
-          
-          <p className="text-base md:text-lg text-gray-300 mb-8 md:mb-12 mx-auto max-w-4xl [text-wrap:balance]">
-            Our premium concierge services will help you maximize your potential and earnings.
-          </p>
-          
-          <Button
-            size="lg"
-            className="bg-gradient-red-intense hover:opacity-90 text-white font-medium text-lg rounded-lg transition-all duration-300 px-8 py-7 shadow-lg"
-            asChild
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto"
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30 mb-8"
           >
-            <Link to="/contact">
-              Start Your Journey Today
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
+            <Sparkles className="w-4 h-4 mr-2 text-primary" />
+            <span className="text-sm font-medium text-primary">Start Your Journey Today</span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
+          >
+            Ready to Transform Your{" "}
+            <span className="text-gradient-red">Digital Presence</span>?
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-lg text-gray-400 mb-12"
+          >
+            Join our exclusive community of successful creators and take your career to new heights.
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary border border-primary/20 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary/20 group"
+              asChild
+            >
+              <Link to="/contact" className="flex items-center gap-2 px-8 py-6 text-lg">
+                Get Started Now
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute -left-20 bottom-0 w-60 h-60 rounded-full bg-primary/5 blur-3xl"></div>
+      <div className="absolute -right-20 top-0 w-60 h-60 rounded-full bg-primary/5 blur-3xl"></div>
     </section>
   );
-};
-
-export default CTASection;
+}
