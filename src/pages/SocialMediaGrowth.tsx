@@ -215,15 +215,15 @@ const SocialMediaGrowth = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+          <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 xs:gap-3 sm:gap-4 md:gap-6">
             {services.map((service, index) => (
               <div 
                 key={service.title}
-                className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100"
+                className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100"
               >
-                <service.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white mb-2 sm:mb-3 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
-                <p className="text-xs sm:text-sm text-gray-300">{service.description}</p>
+                <service.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white mb-1 sm:mb-3 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
+                <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300">{service.description}</p>
               </div>
             ))}
           </div>
@@ -430,7 +430,7 @@ const SocialMediaGrowth = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+          <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 md:gap-6">
             {[
               {
                 metric: "10X",
@@ -455,11 +455,11 @@ const SocialMediaGrowth = () => {
             ].map((item, index) => (
               <div 
                 key={item.title}
-                className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl text-center opacity-100"
+                className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl text-center opacity-100"
               >
-                <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-gradient-red text-glow">{item.metric}</div>
-                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">{item.title}</h3>
-                <p className="text-gray-300 text-xs sm:text-sm">{item.description}</p>
+                <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-gradient-red text-glow">{item.metric}</div>
+                <h3 className="text-xs xs:text-sm sm:text-base font-bold mb-1 sm:mb-2">{item.title}</h3>
+                <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300">{item.description}</p>
               </div>
             ))}
           </div>

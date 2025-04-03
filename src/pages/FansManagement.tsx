@@ -176,15 +176,15 @@ const FansManagement = () => {
             </h3>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-7">
+          <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-5 md:gap-6 lg:gap-7">
             {services.map((service, index) => (
               <div 
                 key={service.title}
-                className="glass-card-glow p-4 sm:p-5 md:p-6 rounded-2xl transition-all duration-1000 opacity-100"
+                className="glass-card-glow p-3 sm:p-5 md:p-6 rounded-2xl transition-all duration-1000 opacity-100"
               >
-                <service.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white mb-3 sm:mb-4 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2 sm:mb-3 text-gradient-red">{service.title}</h3>
-                <p className="text-xs sm:text-sm text-gray-300">
+                <service.icon className="h-5 w-5 sm:h-7 sm:w-7 text-white mb-2 sm:mb-4 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-3 text-gradient-red">{service.title}</h3>
+                <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300">
                   {service.description.split(' ').map((word, i) => {
                     const keywords = ['increase', 'maximize', 'optimal', 'unique', 'expand', 'best', 'engage', 'targeted', 'streamline'];
                     return keywords.some(keyword => word.toLowerCase().includes(keyword.toLowerCase())) ? 
@@ -624,24 +624,24 @@ const FansManagement = () => {
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 md:mb-5 leading-tight [text-wrap:balance] opacity-100">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 leading-tight [text-wrap:balance] opacity-100">
               Ready to <span className="text-gradient-red text-glow">Maximize</span> Your OnlyFans Success?
-              </h2>
+            </h2>
             
-            <p className="text-lg md:text-xl text-gray-300 mb-4 md:mb-5 mx-auto max-w-4xl [text-wrap:balance]">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-3 sm:mb-5 mx-auto max-w-4xl [text-wrap:balance]">
               Our premium management services will help you grow your audience, increase engagement, and boost your earnings. Let us handle the business side while you focus on creating amazing content.
-              </p>
+            </p>
               
-              <Button 
-                size="lg" 
-              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-8 py-7 rounded-lg transition-all duration-300 text-lg shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
-                asChild
-              >
-                <Link to="/contact">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-lg transition-all duration-300 text-sm sm:text-base md:text-lg shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
+              asChild
+            >
+              <Link to="/contact">
                 Start Your Journey Today
-                <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
