@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const HeroSection = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Set loaded after a small delay to trigger animations
@@ -36,49 +38,51 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[90vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-6 md:pt-8 overflow-hidden">
+    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-3 md:pt-8 overflow-hidden">
       {/* Simple background with gradient */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black z-10"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
       </div>
 
-      <div ref={parallaxRef} className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center">
-        {/* 3D Earth Model moved to the top */}
-        <div className={`relative w-full h-[180px] xs:h-[220px] sm:h-[250px] md:h-[280px] mb-4 sm:mb-6 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+      <div ref={parallaxRef} className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center">
+        {/* 3D Earth Model moved to the top - smaller on mobile */}
+        <div className={`relative w-full h-[130px] xs:h-[150px] sm:h-[200px] md:h-[280px] mb-2 sm:mb-6 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative w-full h-full">
               <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
               
-              {/* Logo overlay positioned at center of Earth instead of black box */}
-              <div className="absolute top-[54%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-20">
-                <div className="flex items-center justify-center text-center">
-                  <div className="font-bold text-xl sm:text-2xl">
-                    <span className="text-gradient-red">Manage</span>
-                    <span className="text-white">TheFans</span>
+              {/* Logo overlay ONLY shown on non-mobile */}
+              {!isMobile && (
+                <div className="absolute top-[54%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-20">
+                  <div className="flex items-center justify-center text-center">
+                    <div className="font-bold text-xl sm:text-2xl">
+                      <span className="text-gradient-red">Manage</span>
+                      <span className="text-white">TheFans</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:gap-6 items-center">
+        <div className="w-full grid grid-cols-1 gap-3 md:gap-6 items-center">
           {/* Text Content */}
-          <div className={`space-y-4 sm:space-y-5 text-center transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="inline-block px-3 py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-1 border border-primary/30">
+          <div className={`space-y-3 sm:space-y-5 text-center transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="inline-block px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-1 border border-primary/30">
               Premium Digital Management
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight [text-wrap:balance]">
+            <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight [text-wrap:balance]">
               Elevate Your <span className="text-gradient-red">Online Presence</span>
             </h1>
             <p className="text-xs sm:text-sm md:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto">
               OnlyFans Management, Social Media Growth, and Rent.Men Concierge Services
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-3 sm:pt-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center mt-3 sm:mt-4">
               <Button 
                 size="default" 
-                className="bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium px-3 sm:px-4 py-2 sm:py-3 rounded-lg transition-all duration-300 text-xs sm:text-sm shadow-lg hover:from-[#440000] hover:to-[#770000]"
+                className="bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 text-xs sm:text-sm shadow-lg hover:from-[#440000] hover:to-[#770000] w-full sm:w-auto"
                 asChild
               >
                 <Link to="/contact">
@@ -88,7 +92,7 @@ const HeroSection = () => {
               </Button>
               <Button 
                 size="default" 
-                className="bg-gradient-to-r from-[#1a0000] to-[#330000] backdrop-blur-sm border border-primary/20 text-white font-medium px-3 sm:px-4 py-2 sm:py-3 rounded-lg transition-all duration-300 text-xs sm:text-sm shadow-lg hover:from-[#2a0000] hover:to-[#440000]"
+                className="bg-gradient-to-r from-[#1a0000] to-[#330000] backdrop-blur-sm border border-primary/20 text-white font-medium px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 text-xs sm:text-sm shadow-lg hover:from-[#2a0000] hover:to-[#440000] w-full sm:w-auto"
                 asChild
               >
                 <Link to="/pricing">
@@ -101,8 +105,8 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className={`absolute bottom-3 sm:bottom-4 md:bottom-6 left-0 right-0 flex justify-center animate-bounce transition-opacity duration-1000 delay-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <div className={`absolute bottom-2 sm:bottom-4 md:bottom-6 left-0 right-0 flex justify-center animate-bounce transition-opacity duration-1000 delay-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+        <svg className="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
       </div>
