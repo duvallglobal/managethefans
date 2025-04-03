@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, CheckCircle, FileEdit, Palette, DollarSign, Calendar, PenTool, Users, Bot, MessageSquare } from "lucide-react";
+import { ArrowRight, CheckCircle, FileEdit, Palette, DollarSign, Calendar, PenTool, Users, Bot, MessageSquare, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const MasseurConcierge = () => {
+const RentMenConcierge = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const parallaxRef = useRef<HTMLDivElement>(null);
@@ -77,413 +78,173 @@ const MasseurConcierge = () => {
   ];
 
   return (
-    <div className={`overflow-hidden bg-black text-white transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-      {/* Hero Section */}
-      <section className="relative min-h-[40vh] md:min-h-[55vh] flex items-center bg-black pt-24 pb-6 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
-          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#330000] to-black opacity-50 z-20"></div>
-        </div>
-
-        <div ref={parallaxRef} className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 sm:mb-3 border border-primary/30 parallax-element animate-pulse-glow" data-depth="0.2">
-              Premium Concierge Services
-            </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 parallax-element [text-wrap:balance]" data-depth="0.3">
-              Rent.Men <span className="text-gradient-red text-glow">Concierge</span>
-            </h1>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 parallax-element [text-wrap:balance]" data-depth="0.4">
-              Premium profile management and client acquisition services for professional masseurs.
-            </p>
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] parallax-element"
-              onClick={() => navigate('/contact')}
-              data-depth="0.5"
-            >
-              Elevate Your Practice
-              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-            </Button>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-black text-white"
+    >
+      {/* Hero Section - Updated */}
+      <section 
+        className="relative min-h-[60vh] flex items-center justify-center text-center bg-cover bg-center bg-no-repeat py-20 overflow-hidden"
+        style={{ backgroundImage: `url('/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png')` }} // Updated background image
+      >
+        {/* Gradient Overlay - Updated */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50 z-0"></div>
+        
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-[#800000] to-[#cc0000] text-white text-sm font-semibold mb-4 border border-[#cc0000]/50 shadow-md">
+            Premium Concierge Services
           </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            Rent.Men <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Concierge Services</span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+            Premium profile management and client acquisition services for professional Rent.Men creators.
+          </p>
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-[#800000] to-[#cc0000] backdrop-blur-sm border border-[#cc0000]/30 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#990000] hover:to-[#dd0000] hover:shadow-[#cc0000]/40"
+            onClick={() => navigate('/contact')}
+          >
+            Elevate Your Practice
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
-
-        <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black to-transparent"></div>
+        {/* Optional Scroll Arrow */}
+         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
+          <ChevronDown className="w-8 h-8 text-white/50 animate-bounce" />
+        </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-6 sm:py-8 md:py-12 relative overflow-hidden bg-black">
-        <div className="absolute inset-0 bg-black"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/5 to-transparent"></div>
-        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
+      {/* Services Grid - Section Title Updated */} 
+      <section className="py-10 md:py-16 bg-black relative" ref={sectionRef}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#100000]/10 to-transparent"></div>
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{ 
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(153, 0, 0, 0.05) 10px, rgba(153, 0, 0, 0.05) 11px)` 
+          }}></div>
+        </div>
         
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 items-center">
+          <div className="text-center mb-8 md:mb-12">
+            {/* Updated title and subtitle to match screenshot */}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 [text-wrap:balance] opacity-100">
+              Fully Managed, Custom <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Rent.Men</span> Operation Solutions
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-4xl mx-auto [text-wrap:balance] opacity-100">
+              End-to-end management of your online presence and client relationships
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {services.map((service, index) => (
+              <div 
+                key={service.title}
+                className="glass-card-glow p-4 md:p-6 rounded-2xl opacity-100 flex flex-col h-full border border-[#800000]/20 hover:border-[#cc0000]/40 transition-colors duration-300"
+              >
+                <div className="flex justify-center mb-4">
+                  <service.icon className="h-8 w-8 text-[#cc0000]" style={{ filter: 'drop-shadow(0 0 5px #cc0000)' }} />
+                </div>
+                <h3 className="text-base md:text-lg font-semibold mb-2 text-white text-center">{service.title}</h3>
+                <p className="text-sm text-gray-400 flex-grow text-center">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section - Image Overlay Removed */} 
+      <section className="py-10 md:py-16 relative overflow-hidden bg-gradient-to-b from-[#100000] to-black">
+        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-[0.02] mix-blend-overlay"></div>
+        
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="opacity-100">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 md:mb-6 text-white [text-wrap:balance]">
-                How Our <span className="text-gradient-red text-glow">Concierge Service</span> Simplifies Your Professional Life
+               {/* Updated title to match screenshot */}
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-white [text-wrap:balance]">
+                How Our <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Concierge Service</span> Simplifies Your Professional Life
               </h2>
-              <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-5 sm:mb-6 md:mb-7 [text-wrap:balance]">
+              <p className="text-base md:text-lg text-gray-300 mb-8 [text-wrap:balance]">
                 We handle the time-consuming aspects of managing your online presence, so you can focus on providing exceptional service to your clients.
               </p>
               
-              <ul className="space-y-1 sm:space-y-2">
+              <ul className="space-y-3">
                 {benefits.map((benefit, index) => (
-                  <li 
-                    key={index} 
-                    className="flex items-start opacity-100"
-                  >
-                    <div className="flex-shrink-0 mr-2 sm:mr-3 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2 w-2 sm:h-3 sm:w-3 md:h-4 md:w-4 text-white" />
+                  <li key={index} className="flex items-start opacity-100">
+                    <div className="flex-shrink-0 mr-3 mt-1">
+                      <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br from-[#800000] to-[#cc0000] text-white shadow-md shadow-[#cc0000]/20">
+                        <CheckCircle className="h-4 w-4 text-white" />
                       </div>
                     </div>
-                    <span className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300">{benefit}</span>
+                    <span className="text-base lg:text-lg text-gray-300">{benefit}</span>
                   </li>
                 ))}
               </ul>
             </div>
             
-            <div className="relative opacity-100 mt-4 sm:mt-0">
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-primary-darker/20 rounded-2xl blur-3xl"></div>
-              <div className="relative card-3d glass-card-glow rounded-2xl overflow-hidden border border-primary/20 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-primary/30">
-                <div className="w-full h-[250px] sm:h-[300px] md:h-[400px] bg-gray-800">
+            <div className="relative opacity-100 mt-6 lg:mt-0">
+              {/* Removed overlay div with blur */}
+              <div className="relative rounded-2xl overflow-hidden border border-[#800000]/30 shadow-xl shadow-[#800000]/20">
+                <div className="w-full aspect-[4/3] bg-gray-900">
                   <img 
-                    src="/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png" 
-                    alt="Why Choose Us" 
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    src="/lovable-uploads/0ae570b5-e71a-4a45-ae1b-d849d1525992.png" // Updated image source
+                    alt="Rent.Men Concierge benefits" 
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2 text-gradient-red text-glow">Premium Experience</h3>
-                    <p className="text-xs sm:text-sm md:text-lg text-gray-200 mb-2 sm:mb-3">Our concierge service transforms your online presence into a premium, professional offering that attracts high-quality clients.</p>
-                  </div>
+                   {/* Text overlay removed */}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
-        {/* Decorative elements */}
-        <div className="absolute left-0 top-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
-        <div className="absolute right-0 bottom-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
       </section>
-
-      {/* Services Grid - MOVED BELOW BENEFITS */}
-      <section className="py-6 sm:py-8 md:py-12 bg-black relative" ref={sectionRef}>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
-        
-        {/* Dark diagonal lines for texture */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{ 
-            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(153, 0, 0, 0.05) 10px, rgba(153, 0, 0, 0.05) 11px)` 
-          }}></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 sm:mb-5 md:mb-6">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 [text-wrap:balance] opacity-100">
-              Custom <span className="text-gradient-red text-glow">Rent.Men</span> Solutions
-            </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
-              End-to-end management of your online presence and client relationships
-            </p>
+      
+      {/* Process Section placeholder - Not adding actual content */}
+      {/* 
+      <section className="py-10 md:py-16 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Our Process</h2>
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto">A simple, effective approach to elevating your professional presence</p>
           </div>
-          
-          <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 md:gap-6">
-            {services.map((service, index) => (
-              <div 
-                key={service.title}
-                className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 flex flex-col h-full"
-              >
-                <div className="flex justify-center">
-                  <service.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white mb-1 sm:mb-3 md:mb-4" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                </div>
-                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red text-center">{service.title}</h3>
-                <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300 flex-grow">{service.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Floating particles */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {Array.from({ length: 15 }).map((_, i) => (
-            <div 
-              key={i}
-              className="absolute rounded-full bg-primary/5 animate-float"
-              style={{
-                width: `${Math.random() * 6 + 2}px`,
-                height: `${Math.random() * 6 + 2}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${Math.random() * 10 + 5}s`
-              }}
-            />
-          ))}
+          // Add Grid/Layout for the 4 process steps here 
         </div>
       </section>
-
-      {/* Advanced Features Section */}
-      <section className="py-8 md:py-12 bg-black relative">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance]">
-              Advanced <span className="text-gradient-red text-glow">Technology</span> Solutions
-            </h2>
-            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
-              Our premium concierge service includes cutting-edge technology to enhance your Rent.Men presence
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl relative opacity-100 flex flex-col h-full">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#660000] to-[#990000] opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-              <div className="relative z-10 flex-grow">
-                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-gradient-red">AI-Powered Phone Answering</h3>
-                <p className="text-xs sm:text-sm text-gray-300 mb-2 sm:mb-3">Our proprietary AI technology can be trained to mimic your voice and handle client inquiries 24/7.</p>
-                <ul className="space-y-1">
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-300">Screens potential clients for you</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-300">Handles booking inquiries and scheduling</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-300">Answers common client questions</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            
-            <div className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl relative opacity-100 flex flex-col h-full" style={{ animationDelay: "150ms" }}>
-              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#660000] to-[#990000] opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-              <div className="relative z-10 flex-grow">
-                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-gradient-red">Smart Booking System</h3>
-                <p className="text-xs sm:text-sm text-gray-300 mb-2 sm:mb-3">Automated scheduling system that integrates with your calendar and handles client bookings efficiently.</p>
-                <ul className="space-y-1">
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-300">Syncs with your personal calendar</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-300">Sends automatic reminders to clients</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-300">Minimizes double-bookings and no-shows</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            
-            <div className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl relative opacity-100 flex flex-col h-full" style={{ animationDelay: "300ms" }}>
-              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#660000] to-[#990000] opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-              <div className="relative z-10 flex-grow">
-                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-gradient-red">Client Verification System</h3>
-                <p className="text-xs sm:text-sm text-gray-300 mb-2 sm:mb-3">Advanced screening protocols to ensure client authenticity and safety for your practice.</p>
-                <ul className="space-y-1">
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-300">Multi-point verification process</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-300">Discreet background checks</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-300">Client reputation database access</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Service Tiers */}
-      <section className="py-8 md:py-12 bg-black relative">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
-        
-        {/* Dark diagonal lines for texture */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{ 
-            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(153, 0, 0, 0.05) 10px, rgba(153, 0, 0, 0.05) 11px)` 
-          }}></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance]">
-              Our <span className="text-gradient-red text-glow">Service Tiers</span>
-            </h2>
-            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
-              Choose the level of service that best fits your professional needs
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            {[
-              {
-                title: "Standard Tier",
-                price: "$299 setup + $99/week",
-                description: "Essential services to establish your Rent.Men presence.",
-                features: [
-                  "Profile optimization",
-                  "Basic content updates",
-                  "Hashtag optimization",
-                  "Weekly performance review",
-                  "25 client conversations/week",
-                  "Email support"
-                ]
-              },
-              {
-                title: "Premium Tier",
-                price: "$499 setup + $199/week",
-                description: "Enhanced management for established professionals.",
-                features: [
-                  "Everything in Standard Tier",
-                  "2-3 content updates/week",
-                  "3-hour response guarantee",
-                  "Custom promotional campaigns",
-                  "Dedicated account manager",
-                  "50 client conversations/week",
-                  "AI phone answering service",
-                  "Preferred client targeting"
-                ],
-                featured: true
-              },
-              {
-                title: "Enterprise Tier",
-                price: "$999 setup + $349/week",
-                description: "Comprehensive solution for top-tier professionals.",
-                features: [
-                  "Everything in Premium Tier",
-                  "Unlimited content updates",
-                  "1-hour response guarantee",
-                  "Multi-platform management",
-                  "Unlimited client conversations",
-                  "Custom branding package",
-                  "Professional photoshoot",
-                  "Priority support",
-                  "Revenue optimization"
-                ]
-              }
-            ].map((tier, index) => (
-              <div 
-                key={tier.title}
-                className={`card-3d glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 relative flex flex-col h-full ${tier.featured ? 'border-primary/30 shadow-xl shadow-primary/10' : 'border-gray-800'}`}
-              >
-                {tier.featured && (
-                  <div className="absolute -top-3 sm:-top-4 right-2 sm:right-4 bg-gradient-red text-white text-[10px] xs:text-xs font-bold py-0.5 sm:py-1 px-2 sm:px-3 rounded-full">Most Popular</div>
-                )}
-                <div className="flex-grow">
-                  <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 text-gradient-red text-glow">{tier.title}</h3>
-                  <div className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-2 sm:mb-3 text-white">{tier.price}</div>
-                  <p className="text-xs sm:text-sm text-gray-300 mb-3 sm:mb-4">{tier.description}</p>
-                  <ul className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
-                    {tier.features.map((feature, i) => (
-                      <li key={i} className="flex items-start">
-                        <div className="flex-shrink-0 mr-2 sm:mr-3 mt-0.5">
-                          <div className="flex items-center justify-center w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                            <CheckCircle className="h-2.5 w-2.5 sm:h-4 sm:w-4 text-white" />
-                    </div>
-                  </div>
-                        <span className="text-xs sm:text-sm text-gray-300">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <Button 
-                  className="w-full bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium py-2 sm:py-3 rounded-lg transition-all duration-300 text-xs sm:text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] mt-auto"
-                  onClick={() => navigate('/contact')}
-                >
-                  Get Started
-                  <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-5 sm:w-5" />
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-10 md:py-16 bg-black relative overflow-hidden">
+      */}
+      
+      {/* CTA Section - Text Updated */}
+      <section className="py-16 md:py-24 bg-gradient-to-t from-[#100000] to-black relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black opacity-95 z-10"></div>
-          <div className="absolute inset-0 bg-gradient-red-intense opacity-15 z-0"></div>
-          <div className="absolute inset-0 bg-pattern opacity-5 z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#800000]/10 via-transparent to-[#cc0000]/10 opacity-50"></div>
+          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]"></div>
         </div>
         
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 leading-tight [text-wrap:balance]">
-              Ready to <span className="text-gradient-red text-glow">Elevate</span> Your Professional Presence?
-          </h2>
+            {/* Updated title and subtitle */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight [text-wrap:balance]">
+              Enhance Your Professional Life with <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Ease and Sophistication</span>
+            </h2>
             
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-3 sm:mb-5 mx-auto max-w-4xl [text-wrap:balance]">
-              Our premium concierge services will help you attract better clients, raise your rates, and save valuable time.
-          </p>
+            <p className="text-lg md:text-xl text-gray-300 mb-10 mx-auto max-w-3xl [text-wrap:balance]">
+              Join our exclusive concierge service and transform your online presence while saving time and increasing your income.
+            </p>
             
-          <Button 
-            size="lg" 
-              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-lg transition-all duration-300 text-sm sm:text-base md:text-lg shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
-            onClick={() => navigate('/contact')}
-          >
-              Start Your Journey Today
-              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-          </Button>
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-[#800000] to-[#cc0000] backdrop-blur-sm border border-[#cc0000]/30 text-white font-medium px-8 py-4 rounded-lg transition-all duration-300 text-lg shadow-lg hover:from-[#990000] hover:to-[#dd0000] hover:shadow-[#cc0000]/40"
+              onClick={() => navigate('/contact')}
+            >
+              {/* Updated button text */} 
+              Sign Up Today
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 };
 
-export default MasseurConcierge;
+export default RentMenConcierge;

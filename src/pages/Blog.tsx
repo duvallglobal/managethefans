@@ -54,17 +54,17 @@ const Blog = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-6">
-              <span className="text-gradient-red text-glow">Blog</span>
+              <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Blog</span>
             </h1>
             
             <div className="relative max-w-xl mx-auto">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#cc0000]" />
               <input
                 type="text"
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-primary/30 rounded-full focus:ring-2 focus:ring-primary focus:border-primary bg-black/50 backdrop-blur-sm text-white shadow-lg"
+                className="w-full pl-10 pr-4 py-3 border border-[#800000]/30 rounded-full focus:ring-2 focus:ring-[#cc0000] focus:border-[#cc0000] bg-black/50 backdrop-blur-sm text-white shadow-lg"
               />
             </div>
           </div>
@@ -79,10 +79,10 @@ const Blog = () => {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category === "All" ? null : category)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${ 
                   (activeCategory === category) || (category === "All" && activeCategory === null)
-                    ? "bg-gradient-red text-white"
-                    : "bg-gray-900 border border-gray-800 text-gray-300 hover:text-white hover:border-primary/50"
+                    ? "bg-gradient-to-r from-[#800000] to-[#cc0000] text-white"
+                    : "bg-gray-900 border border-gray-800 text-gray-300 hover:text-white hover:border-[#cc0000]/50"
                 }`}
               >
                 {category}
@@ -111,11 +111,11 @@ const Blog = () => {
               {filteredPosts.map((post) => (
                 <div 
                   key={post.id}
-                  className="bg-gray-900/30 rounded-xl border border-gray-800/50 p-6 hover:border-primary/30 transition-all duration-200"
+                  className="bg-gray-900/30 rounded-xl border border-gray-800/50 p-6 hover:border-[#cc0000]/30 transition-all duration-200"
                 >
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary/90">{post.category}</span>
+                      <span className="text-xs px-3 py-1 rounded-full bg-[#800000]/10 text-[#cc0000]">{post.category}</span>
                       <div className="flex items-center text-xs text-gray-400">
                         <Calendar className="h-3 w-3 mr-1" />
                         <span>{post.date}</span>
@@ -126,13 +126,13 @@ const Blog = () => {
                       </div>
                     </div>
                     <Link to={`/blog/${post.id}`}>
-                      <h3 className="text-xl font-bold mb-2 hover:text-primary/90 transition-colors">{post.title}</h3>
+                      <h3 className="text-xl font-bold mb-2 hover:text-[#cc0000] transition-colors">{post.title}</h3>
                     </Link>
                     <p className="text-gray-300 mb-4">{post.excerpt}</p>
                     <Link to={`/blog/${post.id}`}>
                       <Button 
                         variant="link" 
-                        className="p-0 h-auto text-primary hover:text-primary/80 font-medium"
+                        className="p-0 h-auto text-[#cc0000] hover:text-[#800000] font-medium"
                       >
                         Read Article
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -147,11 +147,11 @@ const Blog = () => {
           {/* Simple Pagination Placeholder */}
           {filteredPosts.length > 0 && (
             <div className="flex justify-center mt-12 gap-2">
-              <Button variant="outline" size="sm" className="border-gray-800 text-gray-400">Previous</Button>
-              <Button variant="outline" size="sm" className="border-gray-800 bg-primary/10 text-white">1</Button>
-              <Button variant="outline" size="sm" className="border-gray-800 text-gray-400">2</Button>
-              <Button variant="outline" size="sm" className="border-gray-800 text-gray-400">3</Button>
-              <Button variant="outline" size="sm" className="border-gray-800 text-gray-400">Next</Button>
+              <Button variant="outline" size="sm" className="border-[#800000]/30 text-gray-400 hover:border-[#cc0000]">Previous</Button>
+              <Button variant="outline" size="sm" className="border-[#800000]/30 bg-[#800000]/10 text-white">1</Button>
+              <Button variant="outline" size="sm" className="border-[#800000]/30 text-gray-400 hover:border-[#cc0000]">2</Button>
+              <Button variant="outline" size="sm" className="border-[#800000]/30 text-gray-400 hover:border-[#cc0000]">3</Button>
+              <Button variant="outline" size="sm" className="border-[#800000]/30 text-gray-400 hover:border-[#cc0000]">Next</Button>
             </div>
           )}
         </div>

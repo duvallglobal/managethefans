@@ -1,22 +1,24 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Index from "./pages/Index";
+import Home from "./pages/Home";
 import FansManagement from "./pages/FansManagement";
-import MasseurConcierge from "./pages/MasseurConcierge";
 import SocialMediaGrowth from "./pages/SocialMediaGrowth";
+import RentMenConcierge from "./pages/MasseurConcierge";
 import Contact from "./pages/Contact";
 import Pricing from "./pages/Pricing";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
-import About from "./pages/About";
+import GetStartedForm from "./pages/GetStartedForm";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 
 // Admin imports
@@ -25,48 +27,28 @@ import Login from "./pages/admin/Login";
 import BlogDashboard from "./pages/admin/BlogDashboard";
 import BlogEditor from "./pages/admin/BlogEditor";
 
-// Configure React Router future flags
-import { UNSAFE_NavigationContext as NavigationContext } from "react-router-dom";
-const router = {
-  future: {
-    v7_startTransition: true,
-    v7_relativeSplatPath: true
-  }
-};
-
 const queryClient = new QueryClient();
 
-// ScrollToTop component to handle scroll restoration
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-};
-
-const App = () => {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter {...router}>
+      <Router>
         <div className="flex flex-col min-h-screen bg-black text-white">
           <ScrollToTop />
           <Navbar />
           <main className="flex-grow">
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<Home />} />
               <Route path="/fans" element={<FansManagement />} />
-              <Route path="/masseur" element={<MasseurConcierge />} />
               <Route path="/social" element={<SocialMediaGrowth />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/masseur" element={<RentMenConcierge />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogPost />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/terms" element={<TermsOfService />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/get-started" element={<GetStartedForm />} />
               <Route path="*" element={<NotFound />} />
 
               {/* Admin routes */}
@@ -79,12 +61,12 @@ const App = () => {
             </Routes>
           </main>
           <Footer />
+          <Toaster />
+          <Sonner />
+          <Analytics />
+          <SpeedInsights />
         </div>
-        <Toaster />
-        <Sonner />
-      </BrowserRouter>
+      </Router>
     </QueryClientProvider>
   );
-};
-
-export default App;
+}

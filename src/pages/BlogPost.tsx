@@ -40,7 +40,7 @@ const BlogPost = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-black pt-24 md:pt-28 flex items-center justify-center">
-        <div className="text-gradient-red text-glow animate-pulse">Loading...</div>
+        <div className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow animate-pulse">Loading...</div>
       </div>
     );
   }
@@ -49,11 +49,11 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen bg-black pt-24 md:pt-28 px-4 flex flex-col items-center justify-center">
         <div className="max-w-md w-full bg-gray-900/40 rounded-xl border border-gray-800 p-8 text-center">
-          <h2 className="text-2xl font-bold text-gradient-red mb-4">{error || "Blog post not found"}</h2>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent mb-4">{error || "Blog post not found"}</h2>
           <p className="text-gray-300 mb-6">The blog post you're looking for doesn't exist or couldn't be loaded.</p>
           <Button
             onClick={() => navigate("/blog")}
-            className="bg-gradient-to-r from-[#330000] to-[#660000] text-white"
+            className="bg-gradient-to-r from-[#800000] to-[#cc0000] hover:from-[#990000] hover:to-[#dd0000] text-white"
           >
             Back to Blog
           </Button>
@@ -90,7 +90,7 @@ const BlogPost = () => {
         {/* Post header */}
         <div className="mb-10">
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/90 text-sm">{post.category}</span>
+            <span className="px-3 py-1 rounded-full bg-[#800000]/10 text-[#cc0000] text-sm">{post.category}</span>
             <div className="flex items-center text-sm text-gray-400">
               <Calendar className="h-4 w-4 mr-2" />
               <span>{post.date}</span>
@@ -125,7 +125,7 @@ const BlogPost = () => {
           <h3 className="text-xl font-bold mb-6 text-left">Want to read more?</h3>
           <Button
             onClick={() => navigate("/blog")}
-            className="bg-gradient-to-r from-[#330000] to-[#660000] text-white"
+            className="bg-gradient-to-r from-[#800000] to-[#cc0000] hover:from-[#990000] hover:to-[#dd0000] text-white"
           >
             Browse All Articles
           </Button>

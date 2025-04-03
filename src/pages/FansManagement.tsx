@@ -256,7 +256,7 @@ const FansManagement = () => {
               {
                 step: "01",
                 title: "Strategy Development",
-                description: "We develop a customized content and engagement strategy based on your unique goals and audience.",
+                description: "We develop a customized content strategy based on your unique goals and audience.",
                 details: [
                   "Identify your ideal subscriber persona",
                   "Analyze successful creators in your niche",
@@ -267,7 +267,7 @@ const FansManagement = () => {
               {
                 step: "02",
                 title: "Implementation & Optimization",
-                description: "Our team implements the strategy, optimizing every aspect from content to audience engagement.",
+                description: "Our team implements the strategy, optimizing aspects like content to audience engagement.",
                 details: [
                   "Handle subscriber messaging and engagement",
                   "Set up tiered pricing and promotional campaigns",
@@ -278,9 +278,9 @@ const FansManagement = () => {
               {
                 step: "03",
                 title: "Analysis & Scaling",
-                description: "We continuously analyze results and scale successful tactics to maximize growth and revenue.",
+                description: "We continuously analyze results and scale successful tactics to maximize growth.",
                 details: [
-                  "Track key metrics like subscription and retention rates",
+                  "Track key metrics like retention rates",
                   "Monitor PPV conversion and tip frequency",
                   "Identify new revenue opportunities"
                 ],
@@ -365,8 +365,8 @@ const FansManagement = () => {
                 title: "Subscription Tier Optimization",
                 description: "We help you develop and price multiple subscription tiers to maximize subscriber count and revenue.",
                 features: [
-                  "Strategic tier pricing analysis based on market research",
-                  "Content segmentation across tiers for maximum value",
+                  "Strategic tier pricing based on market research",
+                  "Content segmentation across tiers for max value",
                   "Conversion funnels to move subscribers up tiers",
                   "Regular tier performance analysis and adjustment"
                 ]
@@ -437,7 +437,7 @@ const FansManagement = () => {
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gradient-red">{strategy.title}</h3>
                 </div>
                 
-                <p className="text-gray-300 text-sm mb-4">
+                <p className="text-gray-300 text-sm mb-4 text-left">
                   {strategy.description.split(' ').map((word, i) => {
                     const keywords = ['maximize', 'strategic', 'boost', 'additional', 'revenue', 'dedicated', 'significantly'];
                     return keywords.some(keyword => word.toLowerCase().includes(keyword.toLowerCase())) ? 
@@ -446,7 +446,7 @@ const FansManagement = () => {
                   })}
                 </p>
                 
-                <div className="mt-auto">
+                <div className="mt-auto text-left">
                   <h4 className="font-semibold text-white text-xs sm:text-sm mb-3">Key Features:</h4>
                   <ul className="space-y-2.5">
                     {strategy.features.map((feature, idx) => (

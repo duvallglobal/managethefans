@@ -312,9 +312,9 @@ const SocialMediaGrowth = () => {
                   <platform.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white mr-1.5 sm:mr-2" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
                   <h3 className="text-base sm:text-lg font-bold text-gradient-red">{platform.title}</h3>
                 </div>
-                <p className="text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 relative z-10">{platform.description}</p>
+                <p className="text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 relative z-10 text-left">{platform.description}</p>
                 
-                <div className="relative z-10">
+                <div className="relative z-10 text-left">
                   <h4 className="font-bold mb-1 sm:mb-2 text-white text-xs sm:text-sm">Key Strategies:</h4>
                   <ul className="space-y-1 sm:space-y-2">
                     {platform.features.map((feature, i) => (

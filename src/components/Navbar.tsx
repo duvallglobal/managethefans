@@ -1,26 +1,25 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const Navbar = () => {
+// Navigation links - updated to match routes in App.tsx
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "OnlyFans Management", path: "/fans" },
+  { name: "Social Media Growth", path: "/social" },
+  { name: "Rent.Men Concierge", path: "/masseur" },
+  { name: "Pricing", path: "/pricing" },
+  { name: "Blog", path: "/blog" },
+  { name: "Contact", path: "/contact" }
+];
+
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "OnlyFans Management", path: "/fans" },
-    { name: "Social Media", path: "/social" },
-    { name: "Rent.Men Concierge", path: "/masseur" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Blog", path: "/blog" },
-    { name: "Contact", path: "/contact" },
-  ];
-
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
-
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -31,86 +30,101 @@ const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-      scrolled 
-        ? "bg-black/98 backdrop-blur-sm shadow-md border-b border-primary/15" 
-        : "bg-gradient-to-b from-black/90 to-black/70"
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <Link 
-            to="/" 
-            className="font-bold text-2xl text-white transition-all duration-300 flex items-center"
-          >
-            <span className={`text-gradient-red ${scrolled ? 'text-glow' : ''}`}>ManageThe</span>
-            <span className="text-white">Fans</span>
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? "py-3 bg-gradient-to-r from-black via-[#100000] to-[#300000] backdrop-blur-lg shadow-lg border-b border-primary/20" 
+          : "py-5 bg-transparent"
+      }`}
+    >
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2 group">
+            <span className="text-2xl font-bold text-white">
+              Manage<span className="bg-gradient-to-r from-[#800000] to-[#ff0000] bg-clip-text text-transparent group-hover:from-[#ff0000] group-hover:to-[#800000] transition-all duration-300">TheFans</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
+          <div className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className={`px-3 py-2 rounded-lg text-sm lg:text-base transition-all duration-300 ${
-                  isActive(link.path) 
-                    ? "text-gradient-red font-semibold bg-primary/10" 
-                    : "text-white hover:text-[#800000]"
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  location.pathname === link.path
+                    ? "text-[#ff0000] bg-gradient-to-r from-[#800000]/15 to-[#500000]/5 border-b border-[#800000]/50"
+                    : "text-gray-300 hover:text-[#ff0000] hover:bg-gradient-to-r hover:from-[#800000]/10 hover:to-transparent hover:border-b hover:border-[#800000]/30"
                 }`}
               >
-                {isActive(link.path) ? (
-                  <span className={`${scrolled ? 'text-glow' : ''}`}>{link.name}</span>
-                ) : (
-                  link.name
-                )}
+                {link.name}
               </Link>
             ))}
-          </div>
-
-          {/* Mobile Navigation Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg hover:bg-primary/10 text-white hover:text-[#800000] transition-all duration-200 focus:outline-none"
-              aria-label="Toggle menu"
+            <Link
+              to="/get-started"
+              className="ml-4 px-4 py-2 bg-gradient-to-r from-[#800000] to-[#500000] text-white rounded-lg transition-all duration-300 shadow-glow hover:shadow-primary/30 hover:brightness-125 hover:translate-y-[-2px]"
             >
-              {isOpen ? (
-                <X size={24} className="text-primary animate-pulse-glow" />
-              ) : (
-                <Menu size={24} />
-              )}
-            </button>
+              Get Started
+            </Link>
           </div>
-        </div>
 
-        {/* Mobile Navigation Menu */}
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-gray-300 hover:text-[#ff0000] focus:outline-none transition-all duration-300 hover:scale-110"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="h-6 w-6 text-[#800000]" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </nav>
+      </div>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
         {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 p-4 mt-0">
-            <div className="glass-card-glow rounded-xl shadow-xl backdrop-blur-md divide-y divide-primary/10 animate-fade-up border border-primary/30 bg-black/95">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-gradient-to-b from-black/95 to-[#300000]/90 backdrop-blur-lg border-t border-primary/20"
+          >
+            <div className="container mx-auto px-4 py-4 flex flex-col space-y-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`block px-4 py-3 transition-all duration-200 first:rounded-t-xl last:rounded-b-xl ${
-                    isActive(link.path)
-                      ? "bg-gradient-red text-white font-medium animate-pulse-glow"
-                      : "text-white hover:bg-primary/10"
+                  className={`px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                    location.pathname === link.path
+                      ? "text-[#ff0000] bg-gradient-to-r from-[#800000]/15 to-transparent"
+                      : "text-gray-300 hover:text-[#ff0000] hover:bg-gradient-to-r hover:from-[#800000]/15 hover:to-transparent hover:translate-x-1"
                   }`}
-                  onClick={() => setIsOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
+              <Link
+                to="/get-started"
+                className="mt-2 px-4 py-3 bg-gradient-to-r from-[#800000] to-[#500000] text-white rounded-lg transition-all duration-300 text-base font-medium shadow-glow hover:shadow-primary/30 hover:brightness-125 hover:translate-y-[-2px]"
+              >
+                Get Started
+              </Link>
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
-    </nav>
+      </AnimatePresence>
+    </header>
   );
-};
-
-export default Navbar;
+}

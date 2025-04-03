@@ -1,159 +1,102 @@
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Sparkles, Calendar } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { motion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const HeroSection = () => {
-  const parallaxRef = useRef<HTMLDivElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 300);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!parallaxRef.current || isMobile) return;
-
-      const { clientX, clientY } = e;
-      const x = (window.innerWidth / 2 - clientX) / 30;
-      const y = (window.innerHeight / 2 - clientY) / 30;
-
-      const elements = parallaxRef.current.querySelectorAll(".parallax-element");
-      elements.forEach((el) => {
-        const depth = parseFloat((el as HTMLElement).dataset.depth || "0.5");
-        (el as HTMLElement).style.transform = `translate(${x * depth}px, ${y * depth}px)`;
-      });
-    };
-
-    if (!isMobile) {
-      document.addEventListener("mousemove", handleMouseMove);
-    }
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      clearTimeout(timer);
-    };
-  }, [isMobile]);
-
+export default function HeroSection() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
+  // Handle mouse movement for subtle parallax effect
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!heroRef.current) return;
+    const { left, top, width, height } = heroRef.current.getBoundingClientRect();
+    const x = (e.clientX - left) / width;
+    const y = (e.clientY - top) / height;
+    setMousePosition({ x, y });
+  };
+  
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center bg-black pt-12 md:pt-16 overflow-hidden">
-      {/* Enhanced background with more sophisticated gradient */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black z-10"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-darkest/10 via-black to-black opacity-95 z-10"></div>
-        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#330000]/80 to-black/80 opacity-50 z-20"></div>
-        {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-30"></div>
-      </div>
-
-      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-4 md:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Enhanced Text Content */}
-          <div className="space-y-6 text-center md:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30"
-            >
-              <Sparkles className="w-4 h-4 mr-2 text-primary" />
-              <span className="text-sm font-medium text-primary">Premium Digital Management</span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight"
-            >
-              Elevate Your <br />
-              <span className="text-gradient-red">Online Influence</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-lg text-gray-300 leading-relaxed max-w-xl"
-            >
-              Expert management solutions for premium creators and influencers. Transform your online presence into a thriving business.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4"
-            >
-              <Button 
-                size="lg"
-                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary border border-primary/20 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary/20 group"
-                asChild
-              >
-                <Link to="/contact" className="flex items-center justify-center gap-2">
-                  Get Started
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-
-              <Button 
-                size="lg"
-                variant="outline"
-                className="border-primary/20 text-white hover:bg-primary/10 transition-all duration-300 transform hover:scale-105"
-                asChild
-              >
-                <Link to="/contact" className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
-                  Book Consultation
-                </Link>
-              </Button>
-            </motion.div>
-          </div>
-          
-          {/* Enhanced Visual Element */}
+    <motion.div
+      ref={heroRef}
+      className="relative min-h-[45vh] flex items-center justify-center overflow-hidden bg-black pt-24 pb-16 mb-8"
+      onMouseMove={handleMouseMove}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      {/* Background gradient with dark red accents */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0000] to-[#200000]"></div>
+      
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]"></div>
+      
+      {/* Animated glow effect with dark red */}
+      <motion.div 
+        className="absolute w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px]"
+        style={{
+          left: `calc(${mousePosition.x * 100}% - 300px)`,
+          top: `calc(${mousePosition.y * 100}% - 300px)`,
+          transition: "left 0.5s ease-out, top 0.5s ease-out"
+        }}
+      />
+      
+      {/* Additional accent light */}
+      <motion.div 
+        className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-primary-darker to-primary/20 blur-[80px] opacity-30"
+        animate={{
+          opacity: [0.2, 0.3, 0.2],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          repeatType: "mirror"
+        }}
+        style={{
+          right: '10%',
+          top: '30%',
+        }}
+      />
+      
+      {/* Content container */}
+      <div className="relative z-10 container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-3xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative order-1 md:order-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-primary/20">
-              <img 
-                src="/lovable-uploads/f9ffa256-0dd3-4b96-9750-fdad4dc022f2.png" 
-                alt="Professional content creator in a studio setting" 
-                className="w-full h-full object-cover parallax-element"
-                data-depth="0.2"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              Premium Management for{" "}
+              <span className="text-gradient-red relative">
+                Content Creators
+                <motion.div 
+                  className="absolute -bottom-2 left-0 h-[3px] bg-gradient-to-r from-[#800000] to-transparent"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                />
+              </span>
+            </h1>
 
-            {/* Floating Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 flex gap-4 w-[90%]"
-            >
-              <div className="flex-1 bg-black/80 backdrop-blur-xl rounded-xl p-4 border border-primary/10">
-                <div className="text-2xl font-bold text-primary">500+</div>
-                <div className="text-sm text-gray-400">Active Clients</div>
-              </div>
-              <div className="flex-1 bg-black/80 backdrop-blur-xl rounded-xl p-4 border border-primary/10">
-                <div className="text-2xl font-bold text-primary">95%</div>
-                <div className="text-sm text-gray-400">Success Rate</div>
-              </div>
-            </motion.div>
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Professional management and growth solutions for today's digital creators
+            </p>
+            
+            <div className="flex justify-center">
+              <Link to="/contact">
+                <motion.button
+                  className="px-8 py-4 text-lg rounded-lg bg-gradient-to-r from-[#800000] to-[#cc0000] text-white font-semibold hover:from-[#990000] hover:to-[#cc0000] transition-all duration-300 shadow-glow hover:shadow-[#800000]/50"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Get Started
+                </motion.button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>
-    </section>
+    </motion.div>
   );
-};
-
-export default HeroSection;
+}
 

@@ -57,7 +57,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           {features.map((feature, i) => (
             <li key={i} className="flex items-start mb-1 sm:mb-2">
               <svg
-                className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 mt-0.5 mr-1.5 sm:mr-2 flex-shrink-0"
+                className="h-4 w-4 sm:h-5 sm:w-5 text-[#800000] mt-0.5 mr-1.5 sm:mr-2 flex-shrink-0"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -76,10 +76,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         <div className="px-3 sm:px-4 md:px-5 pb-3 sm:pb-4 md:pb-5 mt-auto">
           <Link to={path} className="block w-full">
             <Button 
-              className={`w-full text-white transition-all duration-300 text-xs sm:text-sm md:text-base py-2 sm:py-3 md:py-4 rounded-xl font-medium backdrop-blur-sm border border-primary/30 ${
+              className={`w-full text-white transition-all duration-300 text-xs sm:text-sm md:text-base py-2 sm:py-3 md:py-4 rounded-xl font-medium backdrop-blur-sm border border-[#800000]/30 ${
                 isHovered 
-                  ? 'bg-gradient-to-r from-[#330000] to-[#660000] shadow-lg shadow-primary/20 animate-pulse-glow' 
-                  : 'bg-gradient-to-r from-[#1a0000] to-[#330000]'
+                  ? 'bg-gradient-to-r from-[#800000] to-[#cc0000] shadow-lg shadow-[#800000]/20 animate-pulse-glow' 
+                  : 'bg-gradient-to-r from-[#300000] to-[#600000]'
               }`}
             >
               Learn More
@@ -89,8 +89,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         </div>
         
         {/* Enhanced corner decorative elements */}
-        <div className={`absolute top-2 right-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-t-2 border-r-2 border-primary/30 rounded-tr-lg transition-all duration-300 ${isHovered ? 'border-primary text-glow animate-pulse-glow' : ''}`}></div>
-        <div className={`absolute bottom-2 left-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-b-2 border-l-2 border-primary/30 rounded-bl-lg transition-all duration-300 ${isHovered ? 'border-primary text-glow animate-pulse-glow' : ''}`}></div>
+        <div className={`absolute top-2 right-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-t-2 border-r-2 border-[#800000]/30 rounded-tr-lg transition-all duration-300 ${isHovered ? 'border-[#cc0000] text-glow animate-pulse-glow' : ''}`}></div>
+        <div className={`absolute bottom-2 left-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-b-2 border-l-2 border-[#800000]/30 rounded-bl-lg transition-all duration-300 ${isHovered ? 'border-[#cc0000] text-glow animate-pulse-glow' : ''}`}></div>
       </div>
     </div>
   );

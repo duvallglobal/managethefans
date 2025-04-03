@@ -66,7 +66,7 @@ const BlogDashboard = () => {
 
   if (loading) {
     return <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="text-primary">Loading...</div>
+      <div className="text-[#cc0000]">Loading...</div>
     </div>;
   }
 
@@ -76,7 +76,7 @@ const BlogDashboard = () => {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Blog Management</h1>
           <div className="flex gap-4">
-            <Button onClick={handleCreatePost} className="bg-primary hover:bg-primary-darker">
+            <Button onClick={handleCreatePost} className="bg-gradient-to-r from-[#800000] to-[#cc0000] hover:from-[#990000] hover:to-[#dd0000] text-white">
               <Plus className="h-5 w-5 mr-2" />
               New Post
             </Button>
@@ -124,7 +124,7 @@ const BlogDashboard = () => {
                           variant="ghost"
                           size="icon"
                           onClick={() => handleDeletePost(post.id)}
-                          className="text-red-600 hover:text-red-800"
+                          className="text-[#cc0000] hover:text-[#ff0000]"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

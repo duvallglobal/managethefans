@@ -101,7 +101,7 @@ const About = () => {
               Our Story
             </div>
             <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 [text-wrap:balance] transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              About <span className="text-gradient-red text-glow">Manage The Fans</span>
+              About <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Manage The Fans</span>
             </h1>
             <p className={`text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 [text-wrap:balance] transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               Dedicated to helping content creators navigate and maximize their social media presence
@@ -117,7 +117,7 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <h2 className="text-3xl font-bold mb-6">
-                Our <span className="text-gradient-red text-glow">Mission</span>
+                Our <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Mission</span>
               </h2>
               <p className="text-gray-300 mb-6">
                 At Manage The Fans, we're on a mission to empower content creators and help them transform their passion into sustainable income streams. We believe in a personalized approach, custom-tailored strategies, and unwavering support.
@@ -157,7 +157,7 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">
-              Meet Our <span className="text-gradient-red text-glow">Team</span>
+              Meet Our <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Team</span>
             </h2>
             <p className="text-gray-300 max-w-3xl mx-auto">
               Our talented team brings years of experience in social media management, content creation, and digital marketing.
@@ -212,7 +212,7 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">
-              Our <span className="text-gradient-red text-glow">Values</span>
+              Our <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Values</span>
             </h2>
             <p className="text-gray-300 max-w-3xl mx-auto">
               The principles that guide everything we do
@@ -261,7 +261,7 @@ const About = () => {
             
             <div className="relative text-center max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold mb-4">
-                Ready to <span className="text-gradient-red text-glow">Grow</span> Your Online Presence?
+                Ready to <span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent text-glow">Grow</span> Your Online Presence?
               </h2>
               <p className="text-gray-300 mb-8">
                 Let's work together to transform your social media strategy and boost your revenue

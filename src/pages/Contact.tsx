@@ -52,17 +52,35 @@ const Contact = () => {
     e.preventDefault();
     setFormStatus("submitting");
 
-    // Simulate API call
+    const htmlBody = `
+      <h2>New Contact Form Submission</h2>
+      <p><strong>Name:</strong> ${formState.name}</p>
+      <p><strong>Email:</strong> ${formState.email}</p>
+      <p><strong>Subject:</strong> ${formState.subject}</p>
+      <p><strong>Message:</strong></p>
+      <p>${formState.message.replace(/\n/g, '<br>')}</p>
+    `;
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setFormStatus("success");
-      setFormState({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
+       const response = await fetch('https://hook.us2.make.com/j8tv2hblf3lf67e4nm19rlcr7t6cmmcb', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/html',
+        },
+        body: htmlBody,
       });
-      // Here you would typically send the form data to your backend
+
+      if (response.ok && await response.text() === 'Accepted') {
+        setFormStatus("success");
+        setFormState({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+         throw new Error(`Webhook failed with status: ${response.status} or body was not "Accepted"`);
+      }
     } catch (error) {
       setFormStatus("error");
       console.error("Error submitting form:", error);

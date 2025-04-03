@@ -1,268 +1,139 @@
-import { Instagram, Mail, Phone, Twitter, ArrowUp, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Mail, Phone, MapPin } from "lucide-react";
 
-const Footer = () => {
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
-
-  useEffect(() => {
-    const checkScroll = () => {
-      setShowScrollTop(window.pageYOffset > 300);
-    };
-    
-    window.addEventListener('scroll', checkScroll);
-    return () => window.removeEventListener('scroll', checkScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  const toggleSection = (section: string) => {
-    if (expandedSection === section) {
-      setExpandedSection(null);
-    } else {
-      setExpandedSection(section);
-    }
-  };
-
+export default function Footer() {
   return (
-    <footer className="bg-black text-white py-8 md:py-16 relative overflow-hidden">
+    <footer className="relative bg-gradient-to-b from-[#0a0a0a] via-[#0c0000] to-black pt-16 border-t border-[#800000]/20">
       {/* Background elements */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
-        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-12">
-          {/* Logo and social links - always visible */}
-          <div className="space-y-3 md:space-y-6 text-center md:text-left">
-            <div className="mb-3 md:mb-8">
-              <div className="font-bold text-2xl mb-2 md:mb-4 flex items-center justify-center md:justify-start">
-                <span className="text-gradient-red">ManageThe</span>
-                <span className="text-white">Fans</span>
-              </div>
-              <p className="text-gray-300 max-w-md text-sm md:text-base">
-                Your partner in digital growth and success
-              </p>
-            </div>
-            <div className="flex justify-center md:justify-start space-x-6">
-              <a 
-                href="https://www.instagram.com/managethefans" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-[#800000] transition-all duration-300 hover:scale-110"
-              >
-                <Instagram size={20} className="hover:animate-pulse-glow" />
-              </a>
-              <a 
-                href="mailto:info@managethefans.com" 
-                className="text-gray-400 hover:text-[#800000] transition-all duration-300 hover:scale-110"
-              >
-                <Mail size={20} className="hover:animate-pulse-glow" />
-              </a>
-              <a 
-                href="tel:615-549-5944" 
-                className="text-gray-400 hover:text-[#800000] transition-all duration-300 hover:scale-110"
-              >
-                <Phone size={20} className="hover:animate-pulse-glow" />
-              </a>
-            </div>
+      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02]"></div>
+      
+      {/* Subtle accent gradient */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#800000]/30 to-transparent"></div>
+      
+      {/* Accent glow */}
+      <div className="absolute left-1/4 top-1/4 w-64 h-64 rounded-full bg-[#800000]/5 blur-[120px]"></div>
+      <div className="absolute right-1/4 bottom-1/3 w-48 h-48 rounded-full bg-[#800000]/5 blur-[100px]"></div>
+      
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-10">
+          {/* Brand section */}
+          <div>
+            <Link to="/" className="inline-block mb-6 group">
+              <span className="text-2xl font-bold text-white">
+                Manage<span className="bg-gradient-to-r from-[#800000] to-[#cc0000] bg-clip-text text-transparent group-hover:from-[#cc0000] group-hover:to-[#800000] transition-all duration-300">TheFans</span>
+              </span>
+            </Link>
+            
+            <p className="text-gray-400 mb-6">
+              Premium management services for content creators. Elevate your online presence and maximize your revenue potential.
+            </p>
           </div>
           
-          {/* Mobile accordion for Quick Links */}
-          <div className="md:hidden border-t border-primary/10 mt-4 pt-3">
-            <div 
-              className="flex justify-between items-center cursor-pointer py-2"
-              onClick={() => toggleSection('links')}
-            >
-              <h3 className="text-base font-bold text-white text-gradient-red">Quick Links</h3>
-              {expandedSection === 'links' ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </div>
-            {expandedSection === 'links' && (
-              <ul className="space-y-2 py-2">
-                <li>
-                  <Link to="/fans" className="text-gray-300 text-sm hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                    OnlyFans Management
+          {/* Quick links */}
+          <div>
+            <h3 className="text-white font-bold text-lg mb-6 relative inline-block">
+              Quick Links
+              <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[#800000] to-transparent"></span>
+            </h3>
+            <ul className="space-y-3">
+              {[
+                { name: "Home", path: "/" },
+                { name: "About Us", path: "/about" },
+                { name: "Services", path: "/services" },
+                { name: "Pricing", path: "/pricing" },
+                { name: "Blog", path: "/blog" },
+                { name: "Contact", path: "/contact" }
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link 
+                    to={link.path}
+                    className="text-gray-400 hover:text-[#cc0000] transition-all duration-300 flex items-center group"
+                  >
+                    <span className="mr-2 text-[#cc0000] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#800000]">→</span>
+                    <span className="group-hover:bg-gradient-to-r group-hover:from-[#800000] group-hover:to-[#cc0000] group-hover:bg-clip-text group-hover:text-transparent">
+                      {link.name}
+                    </span>
                   </Link>
                 </li>
-                <li>
-                  <Link to="/social" className="text-gray-300 text-sm hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                    Social Media Growth
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/masseur" className="text-gray-300 text-sm hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                    Rent.Men Concierge
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/pricing" className="text-gray-300 text-sm hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                    Pricing
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/about" className="text-gray-300 text-sm hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/blog" className="text-gray-300 text-sm hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                    Blog
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </div>
-          
-          {/* Mobile accordion for Legal */}
-          <div className="md:hidden border-t border-primary/10 pt-3">
-            <div 
-              className="flex justify-between items-center cursor-pointer py-2"
-              onClick={() => toggleSection('legal')}
-            >
-              <h3 className="text-base font-bold text-white text-gradient-red">Legal</h3>
-              {expandedSection === 'legal' ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </div>
-            {expandedSection === 'legal' && (
-              <ul className="space-y-2 py-2">
-                <li>
-                  <Link to="/terms" className="text-gray-300 text-sm hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/privacy" className="text-gray-300 text-sm hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                    Privacy Policy
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </div>
-          
-          {/* Mobile accordion for Contact */}
-          <div className="md:hidden border-t border-primary/10 pt-3">
-            <div 
-              className="flex justify-between items-center cursor-pointer py-2"
-              onClick={() => toggleSection('contact')}
-            >
-              <h3 className="text-base font-bold text-white text-gradient-red">Contact Us</h3>
-              {expandedSection === 'contact' ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </div>
-            {expandedSection === 'contact' && (
-              <ul className="space-y-2 py-2 text-gray-300">
-                <li className="flex items-center space-x-2 group">
-                  <Mail size={16} className="text-primary group-hover:animate-pulse-glow" />
-                  <a href="mailto:info@managethefans.com" className="text-sm hover:text-white transition-colors duration-300">
-                    info@managethefans.com
-                  </a>
-                </li>
-                <li className="flex items-center space-x-2 group">
-                  <Phone size={16} className="text-primary group-hover:animate-pulse-glow" />
-                  <a href="tel:615-549-5944" className="text-sm hover:text-white transition-colors duration-300">
-                    615-549-5944
-                  </a>
-                </li>
-              </ul>
-            )}
-          </div>
-          
-          {/* Desktop Quick Links */}
-          <div className="hidden md:block text-center md:text-left">
-            <h3 className="text-xl font-bold mb-6 text-white text-gradient-red">Quick Links</h3>
-            <ul className="space-y-4">
-              <li>
-                <Link to="/fans" className="text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  OnlyFans Management
-                </Link>
-              </li>
-              <li>
-                <Link to="/social" className="text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Social Media Growth
-                </Link>
-              </li>
-              <li>
-                <Link to="/masseur" className="text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Rent.Men Concierge
-                </Link>
-              </li>
-              <li>
-                <Link to="/pricing" className="text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Blog
-                </Link>
-              </li>
+              ))}
             </ul>
           </div>
           
-          {/* Desktop Legal */}
-          <div className="hidden md:block text-center md:text-left">
-            <h3 className="text-xl font-bold mb-6 text-white text-gradient-red">Legal</h3>
-            <ul className="space-y-4">
-              <li>
-                <Link to="/terms" className="text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link to="/privacy" className="text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Privacy Policy
-                </Link>
-              </li>
+          {/* Services */}
+          <div>
+            <h3 className="text-white font-bold text-lg mb-6 relative inline-block">
+              Our Services
+              <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[#800000] to-transparent"></span>
+            </h3>
+            <ul className="space-y-3">
+              {[
+                { name: "OnlyFans Management", path: "/fans-management" },
+                { name: "Social Media Growth", path: "/social-media-growth" },
+                { name: "Rent.Men Concierge", path: "/masseur-concierge" },
+                { name: "Pricing", path: "/pricing" },
+                { name: "Blog", path: "/blog" }
+              ].map((service) => (
+                <li key={service.name}>
+                  <Link 
+                    to={service.path}
+                    className="text-gray-400 hover:text-[#cc0000] transition-all duration-300 flex items-center group"
+                  >
+                    <span className="mr-2 text-[#cc0000] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#800000]">→</span>
+                    <span className="group-hover:bg-gradient-to-r group-hover:from-[#800000] group-hover:to-[#cc0000] group-hover:bg-clip-text group-hover:text-transparent">
+                      {service.name}
+                    </span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           
-          {/* Desktop Contact */}
-          <div className="hidden md:block text-center md:text-left">
-            <h3 className="text-xl font-bold mb-6 text-white text-gradient-red">Contact Us</h3>
-            <ul className="space-y-4 text-gray-300">
-              <li className="flex items-center justify-center md:justify-start space-x-2 group">
-                <Mail size={18} className="text-primary group-hover:animate-pulse-glow" />
-                <a href="mailto:info@managethefans.com" className="hover:text-white transition-colors duration-300">
-                  info@managethefans.com
+          {/* Contact info */}
+          <div>
+            <h3 className="text-white font-bold text-lg mb-6 relative inline-block">
+              Contact Us
+              <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[#800000] to-transparent"></span>
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex items-start group">
+                <MapPin className="w-5 h-5 text-[#cc0000] mt-1 mr-3 group-hover:text-[#800000] transition-all duration-300" />
+                <span className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                  Baltimore, MD<br />
+                  United States
+                </span>
+              </li>
+              <li className="flex items-center group">
+                <Phone className="w-5 h-5 text-[#cc0000] mr-3 group-hover:text-[#800000] transition-all duration-300" />
+                <a href="tel:+16155495944" className="text-gray-400 hover:text-[#cc0000] transition-all duration-300 hover:bg-gradient-to-r hover:from-[#800000] hover:to-[#cc0000] hover:bg-clip-text hover:text-transparent">
+                  (615) 549-5944
                 </a>
               </li>
-              <li className="flex items-center justify-center md:justify-start space-x-2 group">
-                <Phone size={18} className="text-primary group-hover:animate-pulse-glow" />
-                <a href="tel:615-549-5944" className="hover:text-white transition-colors duration-300">
-                  615-549-5944
+              <li className="flex items-center group">
+                <Mail className="w-5 h-5 text-[#cc0000] mr-3 group-hover:text-[#800000] transition-all duration-300" />
+                <a href="mailto:info@managethefans.com" className="text-gray-400 hover:text-[#cc0000] transition-all duration-300 hover:bg-gradient-to-r hover:from-[#800000] hover:to-[#cc0000] hover:bg-clip-text hover:text-transparent">
+                  info@managethefans.com
                 </a>
               </li>
             </ul>
           </div>
         </div>
         
-        <div className="mt-6 md:mt-12 pt-4 md:pt-8 border-t border-primary/20 text-center text-gray-500 text-xs md:text-sm">
-          <p>&copy; {new Date().getFullYear()} ManageTheFans. All rights reserved.</p>
+        {/* Bottom bar */}
+        <div className="border-t border-[#800000]/20 py-6 bg-gradient-to-r from-transparent via-[#300000]/10 to-transparent flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-500 text-sm mb-4 md:mb-0">
+            © {new Date().getFullYear()} ManageTheFans. All rights reserved.
+          </p>
+          
+          <div className="flex space-x-6">
+            <Link to="/privacy-policy" className="text-gray-500 hover:text-[#cc0000] transition-all duration-300 hover:bg-gradient-to-r hover:from-[#800000] hover:to-[#cc0000] hover:bg-clip-text hover:text-transparent">
+              Privacy Policy
+            </Link>
+            <Link to="/terms-of-service" className="text-gray-500 hover:text-[#cc0000] transition-all duration-300 hover:bg-gradient-to-r hover:from-[#800000] hover:to-[#cc0000] hover:bg-clip-text hover:text-transparent">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
-
-      {/* Scroll to top button */}
-      <button 
-        onClick={scrollToTop} 
-        className={`fixed right-6 bottom-6 p-3 rounded-full bg-gradient-red shadow-lg z-50 transition-all duration-300 ${
-          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
-        } animate-pulse-glow focus:outline-none`}
-        aria-label="Scroll to top"
-      >
-        <ArrowUp size={20} className="text-white" />
-      </button>
     </footer>
   );
-};
-
-export default Footer;
+}

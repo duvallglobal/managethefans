@@ -233,7 +233,7 @@ const BlogEditor = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#cc0000]" />
       </div>
     );
   }
@@ -256,7 +256,7 @@ const BlogEditor = () => {
             type="button"
             onClick={handleAIGenerate}
             disabled={generating}
-            className="bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white"
+            className="bg-gradient-to-r from-[#800000] to-[#cc0000] hover:from-[#990000] hover:to-[#dd0000] text-white"
           >
             {generating ? (
               <Loader2 className="h-4 w-4 animate-spin mr-2" />
@@ -494,7 +494,7 @@ const BlogEditor = () => {
             <Button
               type="submit"
               disabled={saving}
-              className="bg-primary hover:bg-primary-darker"
+              className="bg-gradient-to-r from-[#800000] to-[#cc0000] hover:from-[#990000] hover:to-[#dd0000] text-white"
             >
               {saving && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
               {saving ? "Saving..." : "Save Post"}

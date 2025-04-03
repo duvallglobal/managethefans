@@ -1,27 +1,20 @@
 import { useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { supabase } from "@/lib/supabase/client";
+import { onAuthChange } from "@/lib/firebase/auth";
 
 const AdminLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate("/admin/login");
-      }
-    };
-
-    checkAuth();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
+    // Check if user is authenticated with Firebase
+    const unsubscribe = onAuthChange((user) => {
+      if (!user) {
         navigate("/admin/login");
       }
     });
 
-    return () => subscription.unsubscribe();
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, [navigate]);
 
   return <Outlet />;
