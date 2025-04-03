@@ -28,12 +28,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       style={{ animationDelay: `${index * 200}ms` }}
     >
       <div
-        className="card-3d glass-card-glow p-6 md:p-8 rounded-2xl transition-all duration-500 animate-fade-up group h-full flex flex-col"
+        className="card-3d glass-card-glow p-4 sm:p-5 md:p-6 rounded-2xl transition-all duration-500 animate-fade-up group h-full flex flex-col"
         style={{ animationDelay: `${index * 150}ms` }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="relative h-48 md:h-56 mb-6 rounded-xl overflow-hidden">
+        <div className="relative h-40 xs:h-44 sm:h-48 md:h-52 mb-4 sm:mb-5 rounded-xl overflow-hidden">
           <img
             src={image}
             alt={title}
@@ -48,16 +48,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           <div className={`absolute -inset-full h-[500%] w-[200%] rotate-45 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 transition-all duration-700 ${isHovered ? 'animate-beam' : ''}`}></div>
         </div>
         
-        <div className="p-6">
-          <h3 className="text-lg sm:text-xl font-bold mb-2 text-white">{title}</h3>
-          <p className="text-sm text-gray-300 mb-4">{description}</p>
+        <div className="p-3 sm:p-4 md:p-5">
+          <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1 sm:mb-2 text-white">{title}</h3>
+          <p className="text-xs sm:text-sm text-gray-300 mb-3 sm:mb-4">{description}</p>
         </div>
         
-        <ul className="space-y-3 mb-8 flex-grow">
+        <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-grow px-3 sm:px-4 md:px-5">
           {features.map((feature, i) => (
-            <li key={i} className="flex items-start mb-2">
+            <li key={i} className="flex items-start mb-1 sm:mb-2">
               <svg
-                className="h-5 w-5 text-red-600 mt-0.5 mr-2 flex-shrink-0"
+                className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 mt-0.5 mr-1.5 sm:mr-2 flex-shrink-0"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -73,22 +73,24 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           ))}
         </ul>
         
-        <Link to={path} className="block w-full mt-auto">
-          <Button 
-            className={`w-full text-white transition-all duration-300 text-sm md:text-base py-4 rounded-xl font-medium backdrop-blur-sm border border-primary/30 ${
-              isHovered 
-                ? 'bg-gradient-to-r from-[#330000] to-[#660000] shadow-lg shadow-primary/20 animate-pulse-glow' 
-                : 'bg-gradient-to-r from-[#1a0000] to-[#330000]'
-            }`}
-          >
-            Learn More
-            <ArrowRight className={`ml-2 h-4 w-4 md:h-5 md:w-5 transition-transform duration-300 ${isHovered ? 'translate-x-2' : ''}`} />
-          </Button>
-        </Link>
+        <div className="px-3 sm:px-4 md:px-5 pb-3 sm:pb-4 md:pb-5 mt-auto">
+          <Link to={path} className="block w-full">
+            <Button 
+              className={`w-full text-white transition-all duration-300 text-xs sm:text-sm md:text-base py-2 sm:py-3 md:py-4 rounded-xl font-medium backdrop-blur-sm border border-primary/30 ${
+                isHovered 
+                  ? 'bg-gradient-to-r from-[#330000] to-[#660000] shadow-lg shadow-primary/20 animate-pulse-glow' 
+                  : 'bg-gradient-to-r from-[#1a0000] to-[#330000]'
+              }`}
+            >
+              Learn More
+              <ArrowRight className={`ml-1.5 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 transition-transform duration-300 ${isHovered ? 'translate-x-1 sm:translate-x-2' : ''}`} />
+            </Button>
+          </Link>
+        </div>
         
         {/* Enhanced corner decorative elements */}
-        <div className={`absolute top-2 right-2 w-12 h-12 border-t-2 border-r-2 border-primary/30 rounded-tr-lg transition-all duration-300 ${isHovered ? 'border-primary text-glow animate-pulse-glow' : ''}`}></div>
-        <div className={`absolute bottom-2 left-2 w-12 h-12 border-b-2 border-l-2 border-primary/30 rounded-bl-lg transition-all duration-300 ${isHovered ? 'border-primary text-glow animate-pulse-glow' : ''}`}></div>
+        <div className={`absolute top-2 right-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-t-2 border-r-2 border-primary/30 rounded-tr-lg transition-all duration-300 ${isHovered ? 'border-primary text-glow animate-pulse-glow' : ''}`}></div>
+        <div className={`absolute bottom-2 left-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-b-2 border-l-2 border-primary/30 rounded-bl-lg transition-all duration-300 ${isHovered ? 'border-primary text-glow animate-pulse-glow' : ''}`}></div>
       </div>
     </div>
   );
