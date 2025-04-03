@@ -38,7 +38,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-20 md:pt-24 overflow-hidden">
+    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-28 md:pt-28 overflow-hidden">
       {/* Simple background with gradient */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black z-10"></div>
@@ -46,8 +46,11 @@ const HeroSection = () => {
       </div>
 
       <div ref={parallaxRef} className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center">
+        {/* Mobile nav spacing - Empty div to push content down on mobile when nav is open */}
+        {isMobile && <div className="h-8"></div>}
+        
         {/* 3D Earth Model with mobile-specific positioning */}
-        <div className={`relative w-full h-[120px] xs:h-[150px] sm:h-[200px] md:h-[280px] mt-4 sm:mt-6 md:mt-0 mb-2 sm:mb-6 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+        <div className={`relative w-full h-[120px] xs:h-[150px] sm:h-[200px] md:h-[280px] mt-8 xs:mt-10 sm:mt-6 md:mt-0 mb-2 sm:mb-6 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative w-full h-full">
               <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
