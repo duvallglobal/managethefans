@@ -119,8 +119,10 @@ const FansManagement = () => {
               OnlyFans <span className="text-gradient-red text-glow">Management</span>
             </h1>
             <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance]">
-              Expert strategies to grow your subscriber base, improve engagement, 
-              and maximize your earnings on OnlyFans. We handle the business so you can focus on creating content.
+              <span className="font-medium">Expert strategies</span> to grow your subscriber base and improve engagement.
+            </p>
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance]">
+              <span className="font-medium">Maximize your earnings</span> on OnlyFans while we handle the business side.
             </p>
             <Button 
               size="lg" 
@@ -137,8 +139,13 @@ const FansManagement = () => {
         <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black to-transparent"></div>
       </section>
 
+      {/* Decorative divider */}
+      <div className="relative h-px w-4/5 mx-auto my-6 sm:my-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+      </div>
+
       {/* Services Grid */}
-      <section className="py-4 md:py-6 bg-black relative" ref={sectionRef}>
+      <section className="py-6 md:py-8 bg-black relative" ref={sectionRef}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
         
         {/* Dark diagonal lines for texture */}
@@ -154,25 +161,37 @@ const FansManagement = () => {
               End-to-End <span className="text-gradient-red text-glow">Creator Solutions</span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-3 sm:mb-4 [text-wrap:balance] opacity-100">
-              Our full-service approach covers every aspect of growing and monetizing your OnlyFans presence
+              Our full-service approach covers every aspect of growing and monetizing your OnlyFans presence.
             </p>
+            <div className="flex justify-center items-center mt-4 mb-4">
+              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
+              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
+              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
+            </div>
           </div>
           
-          <div className="mb-3 sm:mb-4 text-center">
+          <div className="mb-5 sm:mb-6 text-center">
             <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white opacity-100">
               Core <span className="text-gradient-red text-glow">Management</span> Services
             </h3>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-7">
             {services.map((service, index) => (
               <div 
                 key={service.title}
-                className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100"
+                className="glass-card-glow p-4 sm:p-5 md:p-6 rounded-2xl transition-all duration-1000 opacity-100"
               >
-                <service.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white mb-2 sm:mb-3 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
-                <p className="text-xs sm:text-sm text-gray-300">{service.description}</p>
+                <service.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white mb-3 sm:mb-4 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2 sm:mb-3 text-gradient-red">{service.title}</h3>
+                <p className="text-xs sm:text-sm text-gray-300">
+                  {service.description.split(' ').map((word, i) => {
+                    const keywords = ['increase', 'maximize', 'optimal', 'unique', 'expand', 'best', 'engage', 'targeted', 'streamline'];
+                    return keywords.some(keyword => word.toLowerCase().includes(keyword.toLowerCase())) ? 
+                      <span key={i} className="font-medium">{word} </span> : 
+                      <span key={i}>{word} </span>;
+                  })}
+                </p>
               </div>
             ))}
           </div>
@@ -197,61 +216,105 @@ const FansManagement = () => {
         </div>
       </section>
 
+      {/* Decorative divider */}
+      <div className="relative h-px w-4/5 mx-auto my-6 sm:my-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+      </div>
+
       {/* Growth Process */}
-      <section className="py-4 md:py-6 relative overflow-hidden bg-black">
+      <section className="py-6 md:py-8 relative overflow-hidden bg-black">
         <div className="absolute inset-0 bg-black"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/5 to-transparent"></div>
         <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-2 md:mb-3 animate-on-scroll">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 text-white [text-wrap:balance]">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-4 md:mb-5 animate-on-scroll">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 text-white [text-wrap:balance]">
               Our <span className="text-gradient-red text-glow">Growth Process</span>
             </h2>
-            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
               A proven methodology to help you achieve sustainable success
             </p>
+            <div className="flex justify-center items-center mt-4 mb-2">
+              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
+              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
+              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
+            </div>
           </div>
           
-          <div className="mb-4 text-center animate-on-scroll">
+          <div className="mb-5 text-center animate-on-scroll">
             <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
               Three-Step <span className="text-gradient-red text-glow">Success</span> Framework
             </h3>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
             {[
               {
                 step: "01",
                 title: "Strategy Development",
-                description: "We develop a customized content and engagement strategy based on your unique goals and audience. This includes identifying your ideal subscriber persona, analyzing successful creators in your niche, and creating a content calendar that maximizes both subscription and PPV revenue.",
+                description: "We develop a customized content and engagement strategy based on your unique goals and audience.",
+                details: [
+                  "Identify your ideal subscriber persona",
+                  "Analyze successful creators in your niche",
+                  "Create a content calendar that maximizes revenue"
+                ],
                 image: "/strategy-development.jpg"
               },
               {
                 step: "02",
                 title: "Implementation & Optimization",
-                description: "Our team implements the strategy, optimizing every aspect from content to audience engagement. We handle subscriber messaging, set up tiered pricing, create promotional campaigns, and establish cross-platform promotion to drive traffic to your OnlyFans page.",
+                description: "Our team implements the strategy, optimizing every aspect from content to audience engagement.",
+                details: [
+                  "Handle subscriber messaging and engagement",
+                  "Set up tiered pricing and promotional campaigns",
+                  "Establish cross-platform promotion strategies"
+                ],
                 image: "/implementation.jpg"
               },
               {
                 step: "03",
                 title: "Analysis & Scaling",
-                description: "We continuously analyze results and scale successful tactics to maximize growth and revenue. Our team tracks key metrics like subscription rates, retention, PPV conversion, and tip frequency to refine your strategy and identify new revenue opportunities.",
+                description: "We continuously analyze results and scale successful tactics to maximize growth and revenue.",
+                details: [
+                  "Track key metrics like subscription and retention rates",
+                  "Monitor PPV conversion and tip frequency",
+                  "Identify new revenue opportunities"
+                ],
                 image: "/analytics.jpg"
               }
             ].map((process, index) => (
               <div 
                 key={process.step}
-                className="card-3d glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100 group h-full flex flex-col"
+                className="card-3d glass-card-glow p-4 sm:p-5 md:p-6 rounded-2xl transition-all duration-1000 opacity-100 group h-full flex flex-col"
               >
-                <div className="relative mb-3 sm:mb-4">
+                <div className="relative mb-4 sm:mb-5">
                   <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-[#800000] flex items-center justify-center mx-auto text-white font-bold text-lg sm:text-2xl" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.7)' }}>
                   {process.step}
                 </div>
                   <div className="absolute -top-1 -right-1 -bottom-1 -left-1 rounded-full border border-primary/30 opacity-50 animate-pulse"></div>
                 </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-gradient-red">{process.title}</h3>
-                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">{process.description}</p>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-3 text-gradient-red">{process.title}</h3>
+                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-3">
+                  {process.description.split(' ').map((word, i) => {
+                    const keywords = ['customized', 'unique', 'optimizing', 'engagement', 'strategy', 'analyze', 'maximize', 'revenue', 'scaling'];
+                    return keywords.some(keyword => word.toLowerCase().includes(keyword.toLowerCase())) ? 
+                      <span key={i} className="font-medium">{word} </span> : 
+                      <span key={i}>{word} </span>;
+                  })}
+                </p>
+                <ul className="space-y-2 mt-2 text-xs sm:text-sm text-gray-300">
+                  {process.details.map((detail, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <div className="flex-shrink-0 mr-2 mt-0.5">
+                        <div className="flex items-center justify-center w-4 h-4 rounded-full bg-[#800000]" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                          <CheckCircle className="h-2.5 w-2.5 text-white" />
+                        </div>
+                      </div>
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
@@ -262,32 +325,42 @@ const FansManagement = () => {
         <div className="absolute right-0 bottom-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
       </section>
 
+      {/* Decorative divider */}
+      <div className="relative h-px w-4/5 mx-auto my-6 sm:my-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+      </div>
+
       {/* Monetization Strategies Section */}
       <section className="py-6 md:py-8 bg-black relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/5 to-transparent"></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-6 md:mb-8 animate-on-scroll">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 [text-wrap:balance] opacity-100">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-5 md:mb-6 animate-on-scroll">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 [text-wrap:balance] opacity-100">
               <span className="text-gradient-red text-glow">Monetization</span> Strategies
             </h2>
-            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-4 [text-wrap:balance]">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-3 [text-wrap:balance]">
               Our expert team implements diverse revenue streams to maximize your OnlyFans income
             </p>
+            <div className="flex justify-center items-center mt-4">
+              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
+              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
+              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
+            </div>
           </div>
           
-          <div className="mb-4 text-center">
-            <h3 className="text-xl md:text-2xl font-bold text-white">
+          <div className="mb-5 text-center">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
               Revenue <span className="text-gradient-red text-glow">Optimization</span> Solutions
             </h3>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {[
               {
                 icon: DollarSign,
                 title: "Subscription Tier Optimization",
-                description: "We help you develop and price multiple subscription tiers to maximize subscriber count and revenue. This includes free preview content, main tier, and VIP/premium tiers with exclusive perks and content.",
+                description: "We help you develop and price multiple subscription tiers to maximize subscriber count and revenue.",
                 features: [
                   "Strategic tier pricing analysis based on market research",
                   "Content segmentation across tiers for maximum value",
@@ -297,7 +370,7 @@ const FansManagement = () => {
               },
               {
                 title: "Pay-Per-View Content Strategy",
-                description: "Strategic PPV campaigns that significantly boost your income beyond monthly subscriptions through premium content offerings.",
+                description: "Strategic PPV campaigns that significantly boost your income beyond monthly subscriptions.",
                 features: [
                   "Premium content pricing strategy",
                   "Targeted PPV campaigns",
@@ -308,7 +381,7 @@ const FansManagement = () => {
               },
               {
                 title: "Tip & Custom Content Maximization",
-                description: "Systems to encourage tipping and custom content requests that create additional revenue streams with minimal extra effort.",
+                description: "Systems to encourage tipping and custom content requests that create additional revenue streams.",
                 features: [
                   "Tip menu development",
                   "Custom content workflow system",
@@ -319,7 +392,7 @@ const FansManagement = () => {
               },
               {
                 title: "Exclusive Merchandise Sales",
-                description: "Create and sell branded merchandise to your most dedicated fans, creating an additional revenue stream and strengthening your brand.",
+                description: "Create and sell branded merchandise to your most dedicated fans, creating an additional revenue stream.",
                 features: [
                   "Product selection strategy",
                   "Print-on-demand setup",
@@ -330,7 +403,7 @@ const FansManagement = () => {
               },
               {
                 title: "Promotional Campaigns",
-                description: "Strategic limited-time offers, bundle deals, and special promotions to boost subscriber counts and re-engage lapsed subscribers.",
+                description: "Strategic limited-time offers, bundle deals, and special promotions to boost subscriber counts.",
                 features: [
                   "New subscriber campaigns",
                   "Renewal incentive strategies",
@@ -341,7 +414,7 @@ const FansManagement = () => {
               },
               {
                 title: "Cross-Platform Monetization",
-                description: "Leverage your OnlyFans audience to create additional revenue streams across multiple platforms and income sources.",
+                description: "Leverage your OnlyFans audience to create additional revenue streams across multiple platforms.",
                 features: [
                   "Platform-specific content strategy",
                   "Cross-promotion system",
@@ -351,7 +424,7 @@ const FansManagement = () => {
                 icon: Handshake
               }
             ].map((strategy, index) => (
-              <div key={strategy.title} className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl relative group h-full flex flex-col">
+              <div key={strategy.title} className="glass-card-glow p-4 sm:p-5 md:p-6 rounded-2xl relative group h-full flex flex-col">
                 <div className="flex items-start mb-3">
                   <div className="mr-3 mt-1 flex-shrink-0">
                     <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-[#800000] rounded-full animate-glow-sm">
@@ -361,14 +434,21 @@ const FansManagement = () => {
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gradient-red">{strategy.title}</h3>
                 </div>
                 
-                <p className="text-gray-300 text-xs sm:text-sm mb-3">{strategy.description}</p>
+                <p className="text-gray-300 text-sm mb-4">
+                  {strategy.description.split(' ').map((word, i) => {
+                    const keywords = ['maximize', 'strategic', 'boost', 'additional', 'revenue', 'dedicated', 'significantly'];
+                    return keywords.some(keyword => word.toLowerCase().includes(keyword.toLowerCase())) ? 
+                      <span key={i} className="font-medium">{word} </span> : 
+                      <span key={i}>{word} </span>;
+                  })}
+                </p>
                 
                 <div className="mt-auto">
-                  <h4 className="font-semibold text-white text-xs sm:text-sm mb-2">Key Features:</h4>
-                  <ul className="space-y-1 sm:space-y-2">
+                  <h4 className="font-semibold text-white text-xs sm:text-sm mb-3">Key Features:</h4>
+                  <ul className="space-y-2.5">
                     {strategy.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start">
-                        <div className="flex-shrink-0 mr-1.5 sm:mr-2 mt-0.5">
+                        <div className="flex-shrink-0 mr-2 mt-0.5">
                           <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000]" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
                             <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                           </div>
