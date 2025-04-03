@@ -87,25 +87,25 @@ const MasseurConcierge = () => {
           <div className="absolute inset-0 bg-[url('/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png')] bg-cover bg-center opacity-40 transform scale-105 transition-transform duration-10000 hover:scale-110"></div>
         </div>
 
-        <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-2 md:py-4">
+        <div ref={parallaxRef} className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-red text-white text-sm font-semibold mb-3 border border-primary/30 parallax-element animate-pulse-glow" data-depth="0.2">
+            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 sm:mb-3 border border-primary/30 parallax-element animate-pulse-glow" data-depth="0.2">
               Premium Concierge Services
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 parallax-element [text-wrap:balance]" data-depth="0.3">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 parallax-element [text-wrap:balance]" data-depth="0.3">
               Rent.Men <span className="text-gradient-red text-glow">Concierge</span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 parallax-element [text-wrap:balance]" data-depth="0.4">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 parallax-element [text-wrap:balance]" data-depth="0.4">
               Premium profile management and client acquisition services for professional masseurs.
             </p>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] parallax-element"
+              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] parallax-element"
               onClick={() => navigate('/contact')}
               data-depth="0.5"
             >
               Elevate Your Practice
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </div>
         </div>
@@ -114,18 +114,18 @@ const MasseurConcierge = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-8 md:py-12 relative overflow-hidden bg-black">
+      <section className="py-6 sm:py-8 md:py-12 relative overflow-hidden bg-black">
         <div className="absolute inset-0 bg-black"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/5 to-transparent"></div>
         <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 items-center">
             <div className="opacity-100">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance]">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance]">
                 How Our <span className="text-gradient-red text-glow">Concierge Service</span> Simplifies Your Professional Life
               </h2>
-              <p className="text-base md:text-lg text-gray-300 mb-3 [text-wrap:balance]">
+              <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-3 [text-wrap:balance]">
                 We handle the time-consuming aspects of managing your online presence, so you can focus on providing exceptional service to your clients.
               </p>
               
@@ -136,29 +136,29 @@ const MasseurConcierge = () => {
                     className="flex items-start opacity-100"
                   >
                     <div className="flex-shrink-0 mr-2 sm:mr-3 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2 w-2 sm:h-3 sm:w-3 md:h-4 md:w-4 text-white" />
                       </div>
                     </div>
-                    <span className="text-sm sm:text-base md:text-lg text-gray-300">{benefit}</span>
+                    <span className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300">{benefit}</span>
                   </li>
                 ))}
               </ul>
             </div>
             
-            <div className="relative opacity-100">
+            <div className="relative opacity-100 mt-4 sm:mt-0">
               <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-primary-darker/20 rounded-2xl blur-3xl"></div>
               <div className="relative card-3d glass-card-glow rounded-2xl overflow-hidden border border-primary/20 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-primary/30">
-                <div className="w-full h-[400px] bg-gray-800">
+                <div className="w-full h-[250px] sm:h-[300px] md:h-[400px] bg-gray-800">
                   <img 
                     src="/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png" 
                     alt="Why Choose Us" 
                     className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-2xl font-bold mb-2 text-gradient-red text-glow">Premium Experience</h3>
-                    <p className="text-lg text-gray-200 mb-3">Our concierge service transforms your online presence into a premium, professional offering that attracts high-quality clients.</p>
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2 text-gradient-red text-glow">Premium Experience</h3>
+                    <p className="text-xs sm:text-sm md:text-lg text-gray-200 mb-2 sm:mb-3">Our concierge service transforms your online presence into a premium, professional offering that attracts high-quality clients.</p>
                   </div>
                 </div>
               </div>
@@ -172,7 +172,7 @@ const MasseurConcierge = () => {
       </section>
 
       {/* Services Grid - MOVED BELOW BENEFITS */}
-      <section className="py-8 md:py-12 bg-black relative" ref={sectionRef}>
+      <section className="py-6 sm:py-8 md:py-12 bg-black relative" ref={sectionRef}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
         
         {/* Dark diagonal lines for texture */}
@@ -182,12 +182,12 @@ const MasseurConcierge = () => {
           }}></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 [text-wrap:balance] opacity-100">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-4 sm:mb-5 md:mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 [text-wrap:balance] opacity-100">
               Custom <span className="text-gradient-red text-glow">Rent.Men</span> Solutions
             </h2>
-            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
               End-to-end management of your online presence and client relationships
             </p>
           </div>
@@ -198,11 +198,9 @@ const MasseurConcierge = () => {
                 key={service.title}
                 className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 flex flex-col h-full"
               >
-                <div>
-                  <service.icon className="h-8 w-8 sm:h-10 sm:w-10 text-white opacity-100 text-glow mb-2 sm:mb-3 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.5))' }} />
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 sm:mb-3 text-gradient-red">{service.title}</h3>
-                  <p className="text-gray-300 text-xs sm:text-sm">{service.description}</p>
-                </div>
+                <service.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white mb-2 sm:mb-3 md:mb-4" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
+                <p className="text-xs sm:text-sm text-gray-300 flex-grow">{service.description}</p>
               </div>
             ))}
           </div>
