@@ -83,7 +83,7 @@ const HeroSection = () => {
           </div>
           
           {/* 3D Earth Model - Right side on desktop, properly positioned */}
-          <div className={`relative order-1 md:order-2 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+          <div className={`relative order-1 md:order-2 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-100 scale-95'}`}>
             <div className="flex items-center justify-center">
               {/* Adjusted container for better mobile display */}
               <div className="relative w-[90%] mx-auto h-[320px] xs:h-[340px] sm:h-[380px] md:h-[450px] lg:h-[480px] overflow-hidden">
