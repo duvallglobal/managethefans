@@ -120,7 +120,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium mb-1">Email</h3>
-                    <p className="text-gray-300">contact@managethefans.com</p>
+                    <p className="text-gray-300">info@managethefans.com</p>
                   </div>
                 </div>
                 
@@ -130,7 +130,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium mb-1">Phone</h3>
-                    <p className="text-gray-300">+1 (888) 123-4567</p>
+                    <p className="text-gray-300">(615) 549-5944</p>
                   </div>
                 </div>
                 
@@ -140,7 +140,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium mb-1">Location</h3>
-                    <p className="text-gray-300">Los Angeles, CA</p>
+                    <p className="text-gray-300">Baltimore, MD</p>
                     <p className="text-gray-300">United States</p>
                   </div>
                 </div>
@@ -268,56 +268,6 @@ const Contact = () => {
               </form>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="py-12 bg-black relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black to-transparent opacity-80 z-10"></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">
-              Our <span className="text-gradient-red text-glow">Location</span>
-            </h2>
-            <p className="text-gray-300 max-w-3xl mx-auto">
-              While we operate remotely and serve clients worldwide, our headquarters is located in sunny Los Angeles
-            </p>
-          </div>
-          
-          <div className="glass-card-glow rounded-2xl overflow-hidden border border-primary/20 h-[400px] shadow-glow">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.27405770525!2d-118.69192047471653!3d34.02016130653294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2sus!4v1625612035507!5m2!1sen!2sus"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              title="Map of Los Angeles"
-              className="filter brightness-75"
-            ></iframe>
-          </div>
-        </div>
-        
-        {/* Floating particles */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {Array.from({ length: 15 }).map((_, i) => (
-            <div 
-              key={i}
-              className="absolute rounded-full bg-primary/5 animate-float"
-              style={{
-                width: `${Math.random() * 6 + 2}px`,
-                height: `${Math.random() * 6 + 2}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${Math.random() * 10 + 5}s`
-              }}
-            />
-          ))}
         </div>
       </section>
     </div>
