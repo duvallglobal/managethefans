@@ -105,11 +105,11 @@ const HeroSection = () => {
                 )}
 
                 {/* Smaller black box to cover "Built with Spline" text on all devices */}
-                <div className="absolute bottom-[30px] right-0 bg-black w-[150px] md:w-[220px] h-[45px] md:h-[50px] z-30">
+                <div className="absolute bottom-[45px] right-0 bg-black w-[170px] md:w-[220px] h-[55px] md:h-[50px] z-30">
                   {/* Logo overlay for mobile only */}
                   {isMobile && (
                     <div className="absolute inset-0 flex items-center justify-center z-40">
-                      <div className="font-bold text-sm">
+                      <div className="font-bold text-sm sm:text-base">
                         <span className="text-gradient-red">Manage</span>
                         <span className="text-white">TheFans</span>
                       </div>
