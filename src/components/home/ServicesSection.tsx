@@ -1,125 +1,115 @@
-import React, { useEffect, useState, useRef } from 'react';
-import ServiceCard from './ServiceCard';
+import { motion } from "framer-motion";
+import { Users, TrendingUp, MessageSquare, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
-const ServicesSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+const services = [
+  {
+    icon: Users,
+    title: "OnlyFans Management",
+    description: "Complete profile management, content strategy, and audience growth for premium creators.",
+    link: "/fans-management",
+    color: "from-rose-500/20 to-rose-600/20"
+  },
+  {
+    icon: TrendingUp,
+    title: "Social Media Growth",
+    description: "Strategic growth and engagement across all major social media platforms.",
+    link: "/social-media-growth",
+    color: "from-blue-500/20 to-blue-600/20"
+  },
+  {
+    icon: MessageSquare,
+    title: "Rent.Men Concierge",
+    description: "Premium profile optimization and booking management for massage professionals.",
+    link: "/masseur-concierge",
+    color: "from-purple-500/20 to-purple-600/20"
+  },
+  {
+    icon: Shield,
+    title: "Brand Protection",
+    description: "Comprehensive content protection and brand reputation management.",
+    link: "/contact",
+    color: "from-emerald-500/20 to-emerald-600/20"
+  }
+];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
     }
+  }
+};
 
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
 
-  const services = [
-    {
-      title: "OnlyFans Management",
-      description: "Expert content strategy, subscriber engagement, marketing campaigns, and analytics for maximum growth.",
-      features: ["Content Strategy", "Subscriber Engagement", "Marketing Campaigns", "Analytics Dashboard"],
-      path: "/fans",
-      image: "/lovable-uploads/001322db-ce1c-441c-a671-521ae32e3b4c.png"
-    },
-    {
-      title: "Social Media Growth",
-      description: "Strategic content creation, audience targeting, influencer outreach & paid campaigns for exponential growth.",
-      features: ["Content Creation", "Audience Targeting", "Influencer Outreach", "Paid Campaigns"],
-      path: "/social",
-      image: "/lovable-uploads/294d0c3d-2233-41d2-a06d-7971c96dfffc.png"
-    },
-    {
-      title: "Rent.Men Concierge",
-      description: "Premium profile optimization, branding, client vetting, chatbot setup, and analytics tracking services.",
-      features: ["Profile Optimization", "Brand Development", "Client Vetting", "Analytics Tracking"],
-      path: "/masseur",
-      image: "/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png"
-    },
-  ];
-
+export default function ServicesSection() {
   return (
-    <section 
-      ref={sectionRef}
-      className="py-8 sm:py-10 md:py-16 bg-black relative overflow-hidden"
-    >
-      {/* Enhanced background elements */}
-      <div className="absolute inset-0 bg-black"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
+    <section className="relative py-20 bg-black overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black"></div>
+      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5"></div>
       
-      {/* Dark diagonal lines for texture */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{ 
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(153, 0, 0, 0.05) 10px, rgba(153, 0, 0, 0.05) 11px)` 
-        }}></div>
-      </div>
-      
-      {/* Light beam effect */}
-      <div className="absolute top-0 left-1/3 w-1 h-full bg-primary/10 blur-xl"></div>
-      <div className="absolute top-0 right-1/3 w-1 h-full bg-primary/10 blur-xl"></div>
-      
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-8 sm:mb-10 md:mb-16">
-          <div 
-            className={`inline-block px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-3 sm:mb-4 backdrop-blur-sm animate-pulse-glow border border-primary/30 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-          >
-            Our Expertise
-          </div>
-          <h2 
-            className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-white text-glow [text-wrap:balance] transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-          >
-            Premium <span className="text-gradient-red">Services</span>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Premium Services for <span className="text-gradient-red">Elite Creators</span>
           </h2>
-        </div>
-        
-        <div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8 h-full"
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Comprehensive management solutions designed to elevate your digital presence and maximize your earning potential.
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
         >
           {services.map((service, index) => (
-            <div 
-              key={service.title} 
-              className={`transition-all duration-1000 transform h-full ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`} 
-              style={{ transitionDelay: `${300 + index * 150}ms` }}
+            <motion.div
+              key={service.title}
+              variants={item}
+              className="group relative"
             >
-              <ServiceCard
-                {...service}
-                index={index}
-              />
-            </div>
+              <Link to={service.link}>
+                <div className={`h-full p-6 rounded-2xl bg-gradient-to-br ${service.color} border border-white/5 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white/20`}>
+                  <div className="flex flex-col h-full">
+                    <div className="mb-4">
+                      <service.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2 text-white">{service.title}</h3>
+                    <p className="text-gray-300 text-sm flex-grow mb-4">{service.description}</p>
+                    <div className="flex items-center text-white/80 text-sm font-medium group-hover:text-white transition-colors duration-200">
+                      Learn More
+                      <motion.div
+                        className="ml-2"
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 5 }}
+                      >
+                        →
+                      </motion.div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           ))}
-        </div>
-      </div>
-      
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 15 }).map((_, i) => (
-          <div 
-            key={i}
-            className="absolute rounded-full bg-primary/5 animate-float"
-            style={{
-              width: `${Math.random() * 6 + 2}px`,
-              height: `${Math.random() * 6 + 2}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${Math.random() * 10 + 5}s`
-            }}
-          />
-        ))}
+        </motion.div>
       </div>
     </section>
   );
-};
-
-export default ServicesSection;
+}
