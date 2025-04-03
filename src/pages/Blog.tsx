@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { ArrowRight, Calendar, Search, Tag, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { blogApi, BlogPost } from "@/lib/supabase/blog";
+import { BlogPost } from "@/lib/supabase/blog";
+import { supabase } from "@/lib/supabase/client";
 
 const Blog = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,8 +22,16 @@ const Blog = () => {
     
     const loadPosts = async () => {
       try {
-        const posts = await blogApi.getPosts();
-        setBlogPosts(posts);
+        const { data, error } = await supabase
+          .from('posts')
+          .select('*')
+          .order('created_at', { ascending: false });
+          
+        if (error) {
+          throw error;
+        }
+        
+        setBlogPosts(data || []);
       } catch (error) {
         console.error('Error loading posts:', error);
       } finally {
@@ -50,8 +59,8 @@ const Blog = () => {
   }, []);
 
   const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = post.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          post.excerpt?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = activeCategory === null || activeCategory === "All" || post.category === activeCategory;
     
     return matchesSearch && matchesCategory;
@@ -134,11 +143,13 @@ const Blog = () => {
                   className="grid grid-cols-1 lg:grid-cols-2 gap-8 glass-card-glow rounded-2xl overflow-hidden border border-primary/20 animate-fade-up"
                 >
                   <div className="aspect-video lg:aspect-auto bg-gray-800 overflow-hidden">
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
-                    />
+                    {post.image && (
+                      <img 
+                        src={post.image} 
+                        alt={post.title}
+                        className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+                      />
+                    )}
                   </div>
                   <div className="p-8 flex flex-col justify-center">
                     <div className="flex items-center mb-4">
@@ -157,12 +168,14 @@ const Blog = () => {
                         </div>
                       </div>
                     </div>
-                    <Button 
-                      className="self-start bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:from-[#440000] hover:to-[#770000]"
-                    >
-                      Read Article
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    <Link to={`/blog/${post.id}`}>
+                      <Button 
+                        className="self-start bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:from-[#440000] hover:to-[#770000]"
+                      >
+                        Read Article
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -195,11 +208,13 @@ const Blog = () => {
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="aspect-video bg-gray-800 overflow-hidden">
-                      <img 
-                        src={post.image} 
-                        alt={post.title}
-                        className="object-cover w-full h-full hover:scale-105 transition-transform duration-700"
-                      />
+                      {post.image && (
+                        <img 
+                          src={post.image} 
+                          alt={post.title}
+                          className="object-cover w-full h-full hover:scale-105 transition-transform duration-700"
+                        />
+                      )}
                     </div>
                     <div className="p-6">
                       <div className="flex items-center mb-3">
@@ -220,13 +235,15 @@ const Blog = () => {
                       </div>
                     </div>
                     <div className="px-6 py-4 border-t border-gray-800/50">
-                      <Button 
-                        variant="ghost" 
-                        className="w-full justify-center hover:text-gradient-red hover:text-glow"
-                      >
-                        Read Article
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
+                      <Link to={`/blog/${post.id}`}>
+                        <Button 
+                          variant="ghost" 
+                          className="w-full justify-center hover:text-gradient-red hover:text-glow"
+                        >
+                          Read Article
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 ))}
