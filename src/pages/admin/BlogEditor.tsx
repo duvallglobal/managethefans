@@ -6,8 +6,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { ArrowLeft, Image as ImageIcon, Loader2 } from "lucide-react";
-import { blogApi, BlogPost } from "@/lib/supabase/blog";
-import { supabase } from '@/lib/supabase/client';
+import { 
+  getPostById, 
+  createPost, 
+  updatePost, 
+  uploadImage, 
+  BlogPost 
+} from "@/lib/firebase/blog";
+import { onAuthChange } from "@/lib/firebase/auth";
 
 const categories = [
   "OnlyFans Growth",
@@ -17,13 +23,16 @@ const categories = [
   "Industry News"
 ];
 
+// Post type without id for creating new posts
+type NewPost = Omit<BlogPost, 'id'>;
+
 const BlogEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
-  const [post, setPost] = useState({
+  const [post, setPost] = useState<NewPost>({
     title: "",
     excerpt: "",
     content: "",
@@ -35,31 +44,25 @@ const BlogEditor = () => {
   });
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+    const unsubscribe = onAuthChange((user) => {
+      if (!user) {
         navigate("/admin/login");
         return;
       }
-    };
-
-    checkAuth();
+    });
 
     if (id) {
       setLoading(true);
       const fetchPost = async () => {
         try {
-          const { data, error } = await supabase
-            .from('posts')
-            .select('*')
-            .eq('id', id)
-            .single();
-
-          if (error) {
-            console.error('Error fetching post:', error);
-            alert('Failed to load post');
+          const postData = await getPostById(id);
+          if (postData) {
+            // Extract all properties except 'id' from postData
+            const { id: _, ...postWithoutId } = postData;
+            setPost(postWithoutId);
           } else {
-            setPost(data);
+            alert('Post not found');
+            navigate('/admin/blog');
           }
         } catch (err) {
           console.error('Error:', err);
@@ -71,6 +74,8 @@ const BlogEditor = () => {
 
       fetchPost();
     }
+
+    return () => unsubscribe();
   }, [id, navigate]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,25 +84,8 @@ const BlogEditor = () => {
 
     setImageUploading(true);
     try {
-      // Upload image to Supabase Storage
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
-      const filePath = `blog/${fileName}`;
-      
-      const { error: uploadError } = await supabase.storage
-        .from('images')
-        .upload(filePath, file);
-        
-      if (uploadError) {
-        throw uploadError;
-      }
-      
-      // Get public URL for the uploaded image
-      const { data } = supabase.storage
-        .from('images')
-        .getPublicUrl(filePath);
-        
-      setPost({ ...post, image: data.publicUrl });
+      const imageUrl = await uploadImage(file);
+      setPost({ ...post, image: imageUrl });
     } catch (error) {
       console.error("Error uploading image:", error);
       alert("Failed to upload image");
@@ -118,46 +106,18 @@ const BlogEditor = () => {
         return;
       }
 
-      let result;
       if (id) {
         // Update existing post
-        result = await supabase
-          .from('posts')
-          .update({
-            title: post.title,
-            excerpt: post.excerpt,
-            content: post.content,
-            category: post.category,
-            author: post.author,
-            image: post.image,
-            featured: post.featured,
-            date: post.date
-          })
-          .eq('id', id);
+        await updatePost(id, post);
       } else {
         // Create new post
-        result = await supabase
-          .from('posts')
-          .insert([{
-            title: post.title,
-            excerpt: post.excerpt,
-            content: post.content,
-            category: post.category,
-            author: post.author,
-            image: post.image,
-            featured: post.featured,
-            date: post.date
-          }]);
-      }
-      
-      if (result.error) {
-        throw result.error;
+        await createPost(post);
       }
       
       navigate("/admin/blog");
     } catch (error) {
       console.error("Error saving post:", error);
-      alert("Failed to save post: " + (error as Error).message);
+      alert("Failed to save post: " + (error instanceof Error ? error.message : String(error)));
     } finally {
       setSaving(false);
     }
