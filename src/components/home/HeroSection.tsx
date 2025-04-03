@@ -86,7 +86,7 @@ const HeroSection = () => {
           <div className={`relative order-1 md:order-2 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <div className="flex items-center justify-center">
               {/* Adjusted container for better mobile display */}
-              <div className="relative w-[90%] mx-auto h-[260px] xs:h-[280px] sm:h-[320px] md:h-[400px] lg:h-[440px] overflow-hidden">
+              <div className="relative w-[90%] mx-auto h-[320px] xs:h-[340px] sm:h-[380px] md:h-[450px] lg:h-[480px] overflow-hidden">
                 {/* Added a scaling wrapper to ensure the globe fits on mobile */}
                 <div className="absolute inset-0 scale-[0.65] xs:scale-70 sm:scale-75 md:scale-85 lg:scale-90 origin-center">
                   <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
@@ -105,7 +105,7 @@ const HeroSection = () => {
                 )}
 
                 {/* Smaller black box to cover "Built with Spline" text on all devices */}
-                <div className="absolute bottom-[30px] right-0 bg-black w-[150px] h-[45px] z-30">
+                <div className="absolute bottom-[30px] right-0 bg-black w-[150px] md:w-[220px] h-[45px] md:h-[50px] z-30">
                   {/* Logo overlay for mobile only */}
                   {isMobile && (
                     <div className="absolute inset-0 flex items-center justify-center z-40">
