@@ -59,7 +59,7 @@ const Navbar = () => {
                 className={`px-3 py-2 rounded-lg text-sm lg:text-base transition-all duration-300 ${
                   isActive(link.path) 
                     ? "text-gradient-red font-semibold bg-primary/10" 
-                    : "text-white hover:text-primary"
+                    : "text-white hover:text-[#800000]"
                 }`}
               >
                 {isActive(link.path) ? (
@@ -75,7 +75,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg hover:bg-primary/10 text-white hover:text-primary transition-all duration-200 focus:outline-none"
+              className="p-2 rounded-lg hover:bg-primary/10 text-white hover:text-[#800000] transition-all duration-200 focus:outline-none"
               aria-label="Toggle menu"
             >
               {isOpen ? (

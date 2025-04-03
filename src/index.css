@@ -127,7 +127,7 @@
   }
   
   .hover-gradient-red:hover {
-    background: linear-gradient(135deg, #aa0000, #990000, #660000);
+    background: linear-gradient(135deg, #880000, #660000, #440000);
   }
 
   .animated-glow {

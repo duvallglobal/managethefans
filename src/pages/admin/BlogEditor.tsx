@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { ArrowLeft, Image as ImageIcon, Loader2, Bold, Italic, Underline, Heading1, Heading2, AlignLeft, AlignCenter, AlignRight, List, ListOrdered } from "lucide-react";
+import { ArrowLeft, Image as ImageIcon, Loader2, Bold, Italic, Underline, Heading1, Heading2, AlignLeft, AlignCenter, AlignRight, List, ListOrdered, Link as LinkIcon, Sparkles } from "lucide-react";
 import { 
   getPostById, 
   createPost, 
@@ -14,6 +14,7 @@ import {
   BlogPost 
 } from "@/lib/firebase/blog";
 import { onAuthChange } from "@/lib/firebase/auth";
+import { generateBlogPost } from "@/lib/openai";
 
 const categories = [
   "OnlyFans Growth",
@@ -32,6 +33,7 @@ const BlogEditor = () => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const [post, setPost] = useState<NewPost>({
     title: "",
     excerpt: "",
@@ -127,6 +129,30 @@ const BlogEditor = () => {
     }
   };
 
+  const handleAIGenerate = async () => {
+    const topic = prompt('What topic would you like to write about?');
+    if (!topic) return;
+
+    const tone = prompt('What tone should the content have? (e.g., professional, casual, educational)', 'professional');
+    if (!tone) return;
+
+    setGenerating(true);
+    try {
+      const generated = await generateBlogPost(topic, tone);
+      setPost(prev => ({
+        ...prev,
+        title: generated.title,
+        excerpt: generated.excerpt,
+        content: generated.content
+      }));
+    } catch (error) {
+      console.error('Error generating blog post:', error);
+      alert('Failed to generate blog post: ' + (error instanceof Error ? error.message : String(error)));
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   // Text formatting functions
   const formatText = (tag: string) => {
     if (!contentRef.current) return;
@@ -137,6 +163,8 @@ const BlogEditor = () => {
     const selectedText = post.content.substring(start, end);
     
     let formattedText = '';
+    let url = '';
+    
     switch (tag) {
       case 'bold':
         formattedText = `<strong>${selectedText}</strong>`;
@@ -167,6 +195,15 @@ const BlogEditor = () => {
         break;
       case 'ol':
         formattedText = `<ol>\n  <li>${selectedText}</li>\n</ol>`;
+        break;
+      case 'link':
+        url = prompt('Enter the URL:', 'https://') || '';
+        if (url) {
+          const linkText = prompt('Enter the text to display for the link:', selectedText) || url;
+          formattedText = `<a href="${url}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
+        } else {
+          return; // If no URL is provided, don't modify the text
+        }
         break;
       default:
         formattedText = selectedText;
@@ -204,15 +241,30 @@ const BlogEditor = () => {
   return (
     <div className="min-h-screen bg-black text-white py-8 pt-24 md:pt-28">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center mb-8">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center">
+            <Button
+              variant="ghost"
+              onClick={() => navigate("/admin/blog")}
+              className="mr-4 text-gray-400 hover:text-white"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+            <h1 className="text-3xl font-bold">{id ? "Edit Post" : "Create New Post"}</h1>
+          </div>
           <Button
-            variant="ghost"
-            onClick={() => navigate("/admin/blog")}
-            className="mr-4 text-gray-400 hover:text-white"
+            type="button"
+            onClick={handleAIGenerate}
+            disabled={generating}
+            className="bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white"
           >
-            <ArrowLeft className="h-5 w-5" />
+            {generating ? (
+              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+            ) : (
+              <Sparkles className="h-4 w-4 mr-2" />
+            )}
+            {generating ? "Generating..." : "Generate with AI"}
           </Button>
-          <h1 className="text-3xl font-bold">{id ? "Edit Post" : "Create New Post"}</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
@@ -332,6 +384,16 @@ const BlogEditor = () => {
                   className="text-gray-300 hover:text-white hover:bg-gray-700"
                 >
                   <ListOrdered className="h-4 w-4" />
+                </Button>
+                <div className="w-px h-6 bg-gray-700 mx-1"></div>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('link')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <LinkIcon className="h-4 w-4" />
                 </Button>
               </div>
               <Textarea

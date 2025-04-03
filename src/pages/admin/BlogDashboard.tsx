@@ -122,9 +122,9 @@ const BlogDashboard = () => {
                         </Button>
                         <Button
                           variant="ghost"
-                          size="sm"
+                          size="icon"
                           onClick={() => handleDeletePost(post.id)}
-                          className="text-red-400 hover:text-red-300"
+                          className="text-red-600 hover:text-red-800"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

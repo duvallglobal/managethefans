@@ -80,6 +80,7 @@ const SocialMediaGrowth = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
           <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
           <div className="absolute inset-0 bg-[url('/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png')] bg-cover bg-center opacity-40 transform scale-105 transition-transform duration-10000 hover:scale-110"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#330000] to-black opacity-50 z-20"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
@@ -221,7 +222,9 @@ const SocialMediaGrowth = () => {
                 key={service.title}
                 className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100"
               >
-                <service.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white mb-1 sm:mb-3 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <div className="flex justify-center mb-1 sm:mb-3">
+                  <service.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                </div>
                 <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
                 <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300">{service.description}</p>
               </div>
