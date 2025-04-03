@@ -38,7 +38,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-32 md:pt-32 overflow-hidden">
+    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-28 md:pt-32 overflow-hidden">
       {/* Simple background with gradient */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black z-10"></div>
@@ -85,8 +85,12 @@ const HeroSection = () => {
           {/* 3D Earth Model - Right side on desktop, properly positioned */}
           <div className={`relative order-1 md:order-2 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <div className="flex items-center justify-center">
-              <div className="relative w-full h-[200px] xs:h-[240px] sm:h-[260px] md:h-[340px] lg:h-[380px]">
-                <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
+              {/* Adjusted container for better mobile display */}
+              <div className="relative w-[90%] mx-auto h-[220px] xs:h-[240px] sm:h-[260px] md:h-[340px] lg:h-[380px] overflow-hidden">
+                {/* Added a scaling wrapper to ensure the globe fits on mobile */}
+                <div className="absolute inset-0 scale-[0.85] xs:scale-90 sm:scale-95 md:scale-100 origin-center">
+                  <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
+                </div>
                 
                 {/* Logo overlay ONLY shown on non-mobile */}
                 {!isMobile && (
@@ -100,8 +104,8 @@ const HeroSection = () => {
                   </div>
                 )}
 
-                {/* Black box to cover "Built with Spline" text */}
-                <div className="absolute bottom-0 right-0 bg-black w-[120px] h-[30px] z-30"></div>
+                {/* Enlarged black box to cover "Built with Spline" text on all devices */}
+                <div className="absolute bottom-0 right-0 bg-black w-[180px] h-[40px] z-30"></div>
               </div>
             </div>
           </div>
