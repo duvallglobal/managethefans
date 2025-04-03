@@ -47,29 +47,29 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
           {/* Text Content */}
           <div className={`space-y-6 sm:space-y-8 text-center lg:text-left transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="inline-block px-4 py-2 rounded-full bg-gradient-red text-white text-sm md:text-base font-semibold mb-2 border border-primary/30">
+            <div className="inline-block px-4 py-2 rounded-full bg-gradient-red text-white text-sm font-semibold mb-2 border border-primary/30">
               Premium Digital Management
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight [text-wrap:balance]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight [text-wrap:balance]">
               Elevate Your <span className="text-gradient-red">Online Presence</span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
               OnlyFans Management, Social Media Growth, and Rent.Men Concierge Services
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-6 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#440000] hover:to-[#770000]"
+                className="bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-4 sm:py-6 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#440000] hover:to-[#770000]"
                 asChild
               >
                 <Link to="/contact">
                   Start Managing YOUR Fans Now!
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>
               </Button>
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-[#1a0000] to-[#330000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-6 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#2a0000] hover:to-[#440000]"
+                className="bg-gradient-to-r from-[#1a0000] to-[#330000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-4 sm:py-6 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#2a0000] hover:to-[#440000]"
                 asChild
               >
                 <Link to="/pricing">
@@ -80,7 +80,7 @@ const HeroSection = () => {
           </div>
 
           {/* 3D Earth Model with zoomed out view and logo overlay */}
-          <div className={`relative h-[300px] sm:h-[400px] md:h-[450px] transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+          <div className={`relative h-[250px] xs:h-[280px] sm:h-[350px] md:h-[450px] transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative w-full h-full">
                 <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>

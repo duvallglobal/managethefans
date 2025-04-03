@@ -40,11 +40,11 @@ const CTASection = () => {
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className={`text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12 leading-tight [text-wrap:balance]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 md:mb-8 leading-tight [text-wrap:balance]">
             Ready to Transform Your <span className="text-gradient-red">Digital Presence</span>?
           </h2>
           
-          <p className="text-lg md:text-xl text-gray-300 mb-10 md:mb-16 mx-auto max-w-4xl [text-wrap:balance]">
+          <p className="text-base md:text-lg text-gray-300 mb-8 md:mb-12 mx-auto max-w-4xl [text-wrap:balance]">
             Our premium concierge services will help you maximize your potential and earnings.
           </p>
           

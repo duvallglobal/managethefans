@@ -38,12 +38,12 @@ const ProcessSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-12 md:mb-16">
           <h2 
-            className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white [text-wrap:balance] transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            className={`text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-white [text-wrap:balance] transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
           >
             Our <span className="text-gradient-red text-glow">Process</span>
           </h2>
           <p 
-            className={`text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance] transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            className={`text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
           >
             A simple, effective approach to elevating your professional presence
           </p>
@@ -83,13 +83,13 @@ const ProcessSection = () => {
                 style={{ transitionDelay: `${300 + index * 150}ms` }}
               >
                 <div className="relative mb-6">
-                  <div className="w-16 h-16 rounded-full bg-gradient-red flex items-center justify-center mx-auto text-white font-bold text-xl animate-pulse-glow">
+                  <div className="w-14 h-14 rounded-full bg-gradient-red flex items-center justify-center mx-auto text-white font-bold text-lg animate-pulse-glow">
                     {step.step}
                   </div>
                   <div className="absolute -top-1 -right-1 -bottom-1 -left-1 rounded-full border border-primary/30 opacity-50 animate-pulse"></div>
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-4 text-gradient-red">{step.title}</h3>
-                <p className="text-gray-300">{step.description}</p>
+                <h3 className="text-lg md:text-xl font-bold mb-3 text-gradient-red">{step.title}</h3>
+                <p className="text-gray-300 text-sm">{step.description}</p>
               </div>
             ))}
           </div>
