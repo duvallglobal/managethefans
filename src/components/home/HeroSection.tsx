@@ -38,51 +38,28 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-28 md:pt-28 overflow-hidden">
+    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-32 md:pt-32 overflow-hidden">
       {/* Simple background with gradient */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black z-10"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
       </div>
 
-      <div ref={parallaxRef} className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center">
-        {/* Mobile nav spacing - Empty div to push content down on mobile when nav is open */}
-        {isMobile && <div className="h-8"></div>}
-        
-        {/* 3D Earth Model with mobile-specific positioning */}
-        <div className={`relative w-full h-[120px] xs:h-[150px] sm:h-[200px] md:h-[280px] mt-8 xs:mt-10 sm:mt-6 md:mt-0 mb-2 sm:mb-6 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-full h-full">
-              <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
-              
-              {/* Logo overlay ONLY shown on non-mobile */}
-              {!isMobile && (
-                <div className="absolute top-[54%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-20">
-                  <div className="flex items-center justify-center text-center">
-                    <div className="font-bold text-xl sm:text-2xl">
-                      <span className="text-gradient-red">Manage</span>
-                      <span className="text-white">TheFans</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="w-full grid grid-cols-1 gap-3 md:gap-6 items-center">
-          {/* Text Content */}
-          <div className={`space-y-3 sm:space-y-5 text-center transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <div ref={parallaxRef} className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
+        {/* Desktop layout - Two columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          {/* Text Content - Left side on desktop */}
+          <div className={`space-y-3 sm:space-y-5 text-center md:text-left transition-all duration-1000 delay-500 order-2 md:order-1 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="inline-block px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-1 border border-primary/30">
               Premium Digital Management
             </div>
             <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight [text-wrap:balance]">
               Elevate Your <span className="text-gradient-red">Online Presence</span>
             </h1>
-            <p className="text-xs sm:text-sm md:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xs sm:text-sm md:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto md:mx-0">
               OnlyFans Management, Social Media Growth, and Rent.Men Concierge Services
             </p>
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center mt-3 sm:mt-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center md:justify-start mt-3 sm:mt-4">
               <Button 
                 size="default" 
                 className="bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 text-xs sm:text-sm shadow-lg hover:from-[#440000] hover:to-[#770000] w-full sm:w-auto"
@@ -102,6 +79,30 @@ const HeroSection = () => {
                   Packages and Service Pricing
                 </Link>
               </Button>
+            </div>
+          </div>
+          
+          {/* 3D Earth Model - Right side on desktop, properly positioned */}
+          <div className={`relative order-1 md:order-2 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+            <div className="flex items-center justify-center">
+              <div className="relative w-full h-[200px] xs:h-[240px] sm:h-[260px] md:h-[340px] lg:h-[380px]">
+                <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
+                
+                {/* Logo overlay ONLY shown on non-mobile */}
+                {!isMobile && (
+                  <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-20">
+                    <div className="flex items-center justify-center text-center">
+                      <div className="font-bold text-xl sm:text-2xl">
+                        <span className="text-gradient-red">Manage</span>
+                        <span className="text-white">TheFans</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Black box to cover "Built with Spline" text */}
+                <div className="absolute bottom-0 right-0 bg-black w-[120px] h-[30px] z-30"></div>
+              </div>
             </div>
           </div>
         </div>
