@@ -38,7 +38,7 @@ const LuxuryBanner = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
           <h2 
-            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 transition-all duration-1000 delay-100 ${
+            className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 transition-all duration-1000 delay-100 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
@@ -47,7 +47,7 @@ const LuxuryBanner = () => {
           </h2>
           
           <p 
-            className={`text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 transition-all duration-1000 delay-300 ${
+            className={`text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-8 transition-all duration-1000 delay-300 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >

@@ -13,22 +13,36 @@ const FansManagement = () => {
 
   useEffect(() => {
     setIsLoaded(true);
+    setIsVisible(true);
     
-    // Add intersection observer for scroll animations
+    // Immediately make all elements visible
+    document.querySelectorAll('.animate-on-scroll, .animate-fade-up').forEach((el) => {
+      el.classList.add('animate-in');
+      el.classList.add('opacity-100');
+      el.classList.remove('opacity-0');
+      el.classList.add('translate-y-0');
+      el.classList.remove('translate-y-10', 'translate-y-20');
+    });
+
+    // Add intersection observer for scroll animations (for future scrolling)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-in');
-          setIsVisible(true);
+          entry.target.classList.add('opacity-100');
+          entry.target.classList.remove('opacity-0');
         }
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+    document.querySelectorAll('.animate-on-scroll, .animate-fade-up').forEach((el) => {
       observer.observe(el);
     });
 
     if (sectionRef.current) {
+      sectionRef.current.classList.add('animate-in');
+      sectionRef.current.classList.add('opacity-100');
+      sectionRef.current.classList.remove('opacity-0');
       observer.observe(sectionRef.current);
     }
 
@@ -87,40 +101,40 @@ const FansManagement = () => {
   };
 
   return (
-    <div className={`overflow-hidden bg-black text-white transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className="overflow-hidden bg-black text-white opacity-100">
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-center bg-black pt-16 overflow-hidden">
+      <section className="relative min-h-[40vh] md:min-h-[55vh] flex items-center bg-black pt-20 pb-0 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black z-10"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
           <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-2 md:py-4">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-4 py-2 rounded-full bg-gradient-red text-white text-sm md:text-base font-semibold mb-4 border border-primary/30 animate-pulse-glow">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-red text-white text-sm font-semibold mb-2 border border-primary/30 animate-pulse-glow">
               Premium Management Services
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 [text-wrap:balance]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 [text-wrap:balance]">
               OnlyFans <span className="text-gradient-red text-glow">Management</span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 [text-wrap:balance]">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 [text-wrap:balance]">
               Expert strategies to grow your subscriber base, improve engagement, 
               and maximize your earnings on OnlyFans. We handle the business so you can focus on creating content.
             </p>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-6 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
+              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
               asChild
             >
               <Link to="/contact">
-                Book Your Free Strategy Call
+              Book Your Free Strategy Call
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+            </Link>
             </Button>
           </div>
         </div>
-        <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-black to-transparent"></div>
+        <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black to-transparent"></div>
       </section>
 
       {/* Services Grid */}
@@ -136,24 +150,29 @@ const FansManagement = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-6 md:mb-8">
-            <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 [text-wrap:balance] transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 [text-wrap:balance] opacity-100">
               End-to-End <span className="text-gradient-red text-glow">Creator Solutions</span>
             </h2>
-            <p className={`text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance] transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-4 [text-wrap:balance] opacity-100">
               Our full-service approach covers every aspect of growing and monetizing your OnlyFans presence
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="mb-4 text-center">
+            <h3 className="text-xl md:text-2xl font-bold text-white opacity-100">
+              Core <span className="text-gradient-red text-glow">Management</span> Services
+            </h3>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {services.map((service, index) => (
               <div 
                 key={service.title}
-                className={`glass-card-glow p-6 md:p-8 rounded-2xl transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
-                style={{ transitionDelay: `${300 + index * 150}ms` }}
+                className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100"
               >
-                <service.icon className="h-10 w-10 text-gradient-red text-glow mb-4 transition-transform duration-300 group-hover:scale-110" />
-                <h3 className="text-xl font-bold mb-4 text-gradient-red">{service.title}</h3>
-                <p className="text-gray-300">{service.description}</p>
+                <service.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white mb-2 sm:mb-3 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
+                <p className="text-gray-300 text-xs sm:text-sm">{service.description}</p>
               </div>
             ))}
           </div>
@@ -185,57 +204,54 @@ const FansManagement = () => {
         <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-6 md:mb-8 animate-on-scroll">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white [text-wrap:balance]">
+          <div className="text-center mb-2 md:mb-3 animate-on-scroll">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 text-white [text-wrap:balance]">
               Our <span className="text-gradient-red text-glow">Growth Process</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
+            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
               A proven methodology to help you achieve sustainable success
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mb-4 text-center animate-on-scroll">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+              Three-Step <span className="text-gradient-red text-glow">Success</span> Framework
+            </h3>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             {[
               {
                 step: "01",
                 title: "Strategy Development",
                 description: "We develop a customized content and engagement strategy based on your unique goals and audience. This includes identifying your ideal subscriber persona, analyzing successful creators in your niche, and creating a content calendar that maximizes both subscription and PPV revenue.",
-                image: "/lovable-uploads/001322db-ce1c-441c-a671-521ae32e3b4c.png"
+                image: "/strategy-development.jpg"
               },
               {
                 step: "02",
                 title: "Implementation & Optimization",
                 description: "Our team implements the strategy, optimizing every aspect from content to audience engagement. We handle subscriber messaging, set up tiered pricing, create promotional campaigns, and establish cross-platform promotion to drive traffic to your OnlyFans page.",
-                image: "/lovable-uploads/294d0c3d-2233-41d2-a06d-7971c96dfffc.png"
+                image: "/implementation.jpg"
               },
               {
                 step: "03",
                 title: "Analysis & Scaling",
                 description: "We continuously analyze results and scale successful tactics to maximize growth and revenue. Our team tracks key metrics like subscription rates, retention, PPV conversion, and tip frequency to refine your strategy and identify new revenue opportunities.",
-                image: "/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png"
+                image: "/analytics.jpg"
               }
             ].map((process, index) => (
               <div 
                 key={process.step}
-                className="card-3d glass-card-glow p-6 md:p-8 rounded-2xl transition-all duration-1000 animate-fade-up group h-full flex flex-col"
-                style={{ animationDelay: `${index * 150}ms` }}
+                className="card-3d glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100 group h-full flex flex-col"
               >
-                <div className="relative mb-6">
-                  <div className="w-16 h-16 rounded-full bg-gradient-red flex items-center justify-center mx-auto text-white font-bold text-xl animate-pulse-glow">
-                    {process.step}
-                  </div>
+                <div className="relative mb-3 sm:mb-4">
+                  <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-[#800000] flex items-center justify-center mx-auto text-white font-bold text-lg sm:text-2xl" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.7)' }}>
+                  {process.step}
+                </div>
                   <div className="absolute -top-1 -right-1 -bottom-1 -left-1 rounded-full border border-primary/30 opacity-50 animate-pulse"></div>
                 </div>
-                <div className="mb-6 rounded-lg overflow-hidden">
-                  <img 
-                    src={process.image} 
-                    alt={process.title} 
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-4 text-gradient-red">{process.title}</h3>
-                <p className="text-gray-300">{process.description}</p>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-gradient-red">{process.title}</h3>
+                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">{process.description}</p>
               </div>
             ))}
           </div>
@@ -247,31 +263,37 @@ const FansManagement = () => {
       </section>
 
       {/* Monetization Strategies Section */}
-      <section className="py-4 md:py-6 bg-black relative">
+      <section className="py-6 md:py-8 bg-black relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/5 to-transparent"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-6 md:mb-8 animate-on-scroll">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white [text-wrap:balance]">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 [text-wrap:balance] opacity-100">
               <span className="text-gradient-red text-glow">Monetization</span> Strategies
             </h2>
-            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
+            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-4 [text-wrap:balance]">
               Our expert team implements diverse revenue streams to maximize your OnlyFans income
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="mb-4 text-center">
+            <h3 className="text-xl md:text-2xl font-bold text-white">
+              Revenue <span className="text-gradient-red text-glow">Optimization</span> Solutions
+            </h3>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             {[
               {
+                icon: DollarSign,
                 title: "Subscription Tier Optimization",
-                description: "We analyze market trends and your unique content to set subscription pricing that maximizes both subscriber count and total revenue.",
+                description: "We help you develop and price multiple subscription tiers to maximize subscriber count and revenue. This includes free preview content, main tier, and VIP/premium tiers with exclusive perks and content.",
                 features: [
-                  "Multiple pricing tier strategy",
-                  "Subscription bundle offers",
-                  "Seasonal pricing adjustments",
-                  "Competitor analysis and positioning"
-                ],
-                icon: Users
+                  "Strategic tier pricing analysis based on market research",
+                  "Content segmentation across tiers for maximum value",
+                  "Conversion funnels to move subscribers up tiers",
+                  "Regular tier performance analysis and adjustment"
+                ]
               },
               {
                 title: "Pay-Per-View Content Strategy",
@@ -329,27 +351,29 @@ const FansManagement = () => {
                 icon: Handshake
               }
             ].map((strategy, index) => (
-              <div 
-                key={strategy.title}
-                className="glass-card-glow p-6 rounded-2xl transition-all duration-1000 animate-fade-up h-full flex flex-col"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className="flex items-center mb-4">
-                  <strategy.icon className="h-10 w-10 text-gradient-red text-glow mr-3" />
-                  <h3 className="text-xl font-bold text-gradient-red">{strategy.title}</h3>
+              <div key={strategy.title} className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl relative group h-full flex flex-col">
+                <div className="flex items-start mb-3">
+                  <div className="mr-3 mt-1 flex-shrink-0">
+                    <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-[#800000] rounded-full animate-glow-sm">
+                      <strategy.icon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                    </div>
+                  </div>
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gradient-red">{strategy.title}</h3>
                 </div>
-                <p className="text-gray-300 mb-4">{strategy.description}</p>
+                
+                <p className="text-gray-300 text-xs sm:text-sm mb-3">{strategy.description}</p>
+                
                 <div className="mt-auto">
-                  <h4 className="font-bold mb-2 text-white text-sm">Key Features:</h4>
-                  <ul className="space-y-2 text-sm">
-                    {strategy.features.map((feature, i) => (
-                      <li key={i} className="flex items-start">
-                        <div className="flex-shrink-0 mr-2 mt-0.5">
-                          <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
-                            <CheckCircle className="h-3 w-3 text-white" />
+                  <h4 className="font-semibold text-white text-xs sm:text-sm mb-2">Key Features:</h4>
+                  <ul className="space-y-1 sm:space-y-2">
+                    {strategy.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <div className="flex-shrink-0 mr-1.5 sm:mr-2 mt-0.5">
+                          <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000]" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                            <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                           </div>
                         </div>
-                        <span className="text-gray-300">{feature}</span>
+                        <span className="text-gray-300 text-xs sm:text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -361,20 +385,26 @@ const FansManagement = () => {
       </section>
 
       {/* Success Metrics Section */}
-      <section className="py-4 md:py-6 bg-black relative">
+      <section className="py-6 md:py-8 bg-black relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-6 md:mb-8 animate-on-scroll">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white [text-wrap:balance]">
+          <div className="text-center mb-0 animate-on-scroll">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 [text-wrap:balance] opacity-100">
               <span className="text-gradient-red text-glow">Results</span> You Can Expect
             </h2>
-            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
+            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-4 [text-wrap:balance]">
               Our clients see significant improvements in key success metrics
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="mb-4 text-center">
+            <h3 className="text-xl md:text-2xl font-bold text-white">
+              Performance <span className="text-gradient-red text-glow">Metrics</span>
+            </h3>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
             {[
               {
                 metric: "150%+",
@@ -399,12 +429,11 @@ const FansManagement = () => {
             ].map((item, index) => (
               <div 
                 key={item.title}
-                className="glass-card-glow p-6 md:p-8 rounded-2xl text-center transition-all duration-1000 animate-fade-up"
-                style={{ animationDelay: `${index * 150}ms` }}
+                className="glass-card-glow p-5 md:p-6 rounded-2xl text-center transition-all duration-1000 opacity-100"
               >
-                <div className="text-4xl md:text-5xl font-bold mb-3 text-gradient-red text-glow">{item.metric}</div>
-                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                <p className="text-gray-300">{item.description}</p>
+                <div className="text-3xl md:text-4xl font-bold mb-2 text-gradient-red text-glow">{item.metric}</div>
+                <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                <p className="text-gray-300 text-sm">{item.description}</p>
               </div>
             ))}
           </div>
@@ -412,18 +441,26 @@ const FansManagement = () => {
       </section>
 
       {/* Tools Section */}
-      <section className="py-4 md:py-6 bg-black relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6 md:mb-8 animate-on-scroll">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white [text-wrap:balance]">
+      <section className="py-8 md:py-10 bg-black relative border-t border-b border-primary/20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/20 to-transparent"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 [text-wrap:balance] opacity-100">
               Tools & Resources <span className="text-gradient-red text-glow">At Your Fingertips</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
+            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-4 [text-wrap:balance]">
               Access powerful tools and resources to enhance your OnlyFans presence
             </p>
-          </div>
+                  </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="mb-4 text-center">
+            <h3 className="text-xl md:text-2xl font-bold text-white">
+              Premium <span className="text-gradient-red text-glow">Management</span> Technology
+            </h3>
+                  </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {[
               {
                 title: "Analytics Dashboard",
@@ -472,23 +509,22 @@ const FansManagement = () => {
             ].map((tool, index) => (
               <div 
                 key={tool.title}
-                className="card-3d glass-card-glow p-6 md:p-8 rounded-2xl animate-on-scroll group h-full"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="card-3d glass-card-glow p-6 md:p-8 rounded-2xl group h-full"
               >
-                <div className="flex items-center mb-6">
-                  <tool.icon className="h-12 w-12 text-gradient-red text-glow mr-4" />
-                  <h3 className="text-2xl font-bold text-gradient-red">{tool.title}</h3>
+                <div className="flex items-center mb-4">
+                  <tool.icon className="h-10 w-10 text-white mr-3" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                  <h3 className="text-xl md:text-2xl font-bold text-gradient-red">{tool.title}</h3>
                 </div>
-                <p className="text-gray-300 mb-6">{tool.description}</p>
+                <p className="text-gray-300 mb-4 text-base">{tool.description}</p>
                 <ul className="space-y-3">
                   {tool.features.map((feature, i) => (
                     <li key={i} className="flex items-start group">
-                      <div className="flex-shrink-0 mr-3 mt-0.5">
-                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-red text-glow animate-pulse-glow">
-                          <CheckCircle className="h-4 w-4 text-white" />
+                      <div className="flex-shrink-0 mr-2 mt-0.5">
+                        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000]" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                          <CheckCircle className="h-3 w-3 text-white" />
                         </div>
                       </div>
-                      <span className="transition-colors duration-300 text-left text-gray-300">{feature}</span>
+                      <span className="transition-colors duration-300 text-left text-gray-200 text-base">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -497,9 +533,9 @@ const FansManagement = () => {
           </div>
         </div>
       </section>
-      
+
       {/* CTA Section */}
-      <section className="py-6 md:py-8 bg-black relative overflow-hidden">
+      <section className="py-6 md:py-8 bg-black relative">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black opacity-95 z-10"></div>
           <div className="absolute inset-0 bg-gradient-red-intense opacity-15 z-0"></div>
@@ -508,24 +544,24 @@ const FansManagement = () => {
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight [text-wrap:balance]">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 md:mb-5 leading-tight [text-wrap:balance] opacity-100">
               Ready to <span className="text-gradient-red text-glow">Maximize</span> Your OnlyFans Success?
-            </h2>
+              </h2>
             
-            <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-8 mx-auto max-w-4xl [text-wrap:balance]">
+            <p className="text-lg md:text-xl text-gray-300 mb-4 md:mb-5 mx-auto max-w-4xl [text-wrap:balance]">
               Our premium management services will help you grow your audience, increase engagement, and boost your earnings. Let us handle the business side while you focus on creating amazing content.
-            </p>
-            
-            <Button
-              size="lg"
+              </p>
+              
+              <Button 
+                size="lg" 
               className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-8 py-7 rounded-lg transition-all duration-300 text-lg shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
-              asChild
-            >
-              <Link to="/contact">
+                asChild
+              >
+                <Link to="/contact">
                 Start Your Journey Today
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
+                </Link>
+              </Button>
           </div>
         </div>
       </section>
