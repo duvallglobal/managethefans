@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Plus, Edit, Trash2, LogOut } from "lucide-react";
-import { blogApi, BlogPost } from "@/lib/supabase/blog";
+import { BlogPost } from "@/lib/supabase/blog";
 import { supabase } from "@/lib/supabase/client";
 
 const BlogDashboard = () => {
@@ -11,13 +11,30 @@ const BlogDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate("/admin/login");
+        return;
+      }
+    };
+
+    checkAuth();
     loadPosts();
   }, []);
 
   const loadPosts = async () => {
     try {
-      const data = await blogApi.getPosts();
-      setPosts(data);
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+        
+      if (error) {
+        throw error;
+      }
+      
+      setPosts(data || []);
     } catch (error) {
       console.error('Error loading posts:', error);
       alert('Failed to load posts');
@@ -46,7 +63,15 @@ const BlogDashboard = () => {
   const handleDeletePost = async (id: number) => {
     if (window.confirm("Are you sure you want to delete this post?")) {
       try {
-        await blogApi.deletePost(id);
+        const { error } = await supabase
+          .from('posts')
+          .delete()
+          .eq('id', id);
+          
+        if (error) {
+          throw error;
+        }
+        
         await loadPosts();
       } catch (error) {
         console.error('Error deleting post:', error);
