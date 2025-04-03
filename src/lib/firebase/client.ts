@@ -6,12 +6,12 @@ import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 // Replace with your actual Firebase config values from Firebase Console
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBaSZ-NWDExFnlMBy-aUsuJafA3LSVFrms",
+  authDomain: "mtf-blog-d669f.firebaseapp.com",
+  projectId: "mtf-blog-d669f",
+  storageBucket: "mtf-blog-d669f.firebasestorage.app",
+  messagingSenderId: "599347539940",
+  appId: "1:599347539940:web:1cf444eadc3eae270aa1f1"
 };
 
 // Initialize Firebase
