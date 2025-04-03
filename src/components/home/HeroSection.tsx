@@ -89,7 +89,7 @@ const HeroSection = () => {
               <div className="relative w-[90%] mx-auto h-[220px] xs:h-[240px] sm:h-[260px] md:h-[340px] lg:h-[380px] overflow-hidden">
                 {/* Added a scaling wrapper to ensure the globe fits on mobile */}
                 <div className="absolute inset-0 scale-[0.85] xs:scale-90 sm:scale-95 md:scale-100 origin-center">
-                  <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameborder='0' width='100%' height='100%'></iframe>
+                  <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
                 </div>
                 
                 {/* Logo overlay ONLY shown on non-mobile */}
@@ -105,7 +105,7 @@ const HeroSection = () => {
                 )}
 
                 {/* Enlarged black box to cover "Built with Spline" text on all devices */}
-                <div className="absolute bottom-0 right-0 bg-black w-[200px] h-[45px] z-30"></div>
+                <div className="absolute bottom-[10px] right-0 bg-black w-[200px] h-[45px] z-30"></div>
               </div>
             </div>
           </div>
