@@ -105,7 +105,7 @@ const HeroSection = () => {
                 )}
 
                 {/* Enlarged black box to cover "Built with Spline" text on all devices */}
-                <div className="absolute bottom-0 right-0 bg-black w-[180px] h-[40px] z-30"></div>
+                <div className="absolute bottom-0 right-0 bg-black w-[200px] h-[45px] z-30"></div>
               </div>
             </div>
           </div>
