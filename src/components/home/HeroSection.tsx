@@ -87,8 +87,19 @@ const HeroSection = () => {
           {/* Right side - Visual element */}
           <div className={`relative order-1 md:order-2 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <div className="flex items-center justify-center">
-              <div className="relative w-[90%] mx-auto h-[320px] xs:h-[340px] sm:h-[380px] md:h-[450px] lg:h-[480px]">
-                {/* Add any alternative visual content here if needed */}
+              <div className="relative w-[90%] mx-auto h-[320px] xs:h-[340px] sm:h-[380px] md:h-[450px] lg:h-[480px] bg-gray-900/50">
+                <img 
+                  src="/lovable-uploads/f9ffa256-0dd3-4b96-9750-fdad4dc022f2.png" 
+                  alt="Professional content creator in a studio setting" 
+                  className="w-full h-full object-cover rounded-lg shadow-2xl parallax-element"
+                  data-depth="0.2"
+                  onError={(e) => {
+                    console.error('Image failed to load:', e);
+                    const img = e.target as HTMLImageElement;
+                    img.style.display = 'none';
+                  }}
+                  style={{ maxWidth: '100%', maxHeight: '100%' }}
+                />
               </div>
             </div>
           </div>
