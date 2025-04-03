@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowRight, Check, CheckCircle, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -6,6 +6,29 @@ import { Link } from "react-router-dom";
 const Pricing = () => {
   type TabType = "onlyfans" | "bundles" | "addons" | "rentmen";
   const [activeTab, setActiveTab] = useState<TabType>("onlyfans");
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    setIsLoaded(true);
+    
+    // Add intersection observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          setIsVisible(true);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
   
   interface Plan {
     title: string;
@@ -199,26 +222,25 @@ const Pricing = () => {
       type: "rentmen"
     },
     {
-      title: "Elite Package",
-      description: "Full-service Rent.Men management for top-tier professionals.",
-      setupFee: 1299,
-      weeklyFee: 299,
+      title: "Premium Package",
+      description: "Comprehensive solution for top-tier professionals.",
+      setupFee: 999,
+      weeklyFee: 349,
       features: [
         "All Growth Package Benefits PLUS:",
-        "Premium content plan (3-4 posts/day)",
-        "Fast Response Time: 1-hour guaranteed response",
-        "Custom website with e-commerce",
-        "Platform verification assistance",
-        "Brand deals management",
-        "Revenue optimization strategies",
-        "VIP priority access and support",
-        "Enhanced AI Phone Service:",
-        "• Advanced AI voice mimicking",
-        "• Full call handling and scheduling",
-        "• 24/7 availability with call logging",
-        "Client Conversations: Unlimited"
+        "Premium Features:",
+        "Custom Branding & Website Development",
+        "Priority Support: 1-hour response time",
+        "Unlimited content updates",
+        "Advanced Analytics Dashboard",
+        "Professional Photo/Video Shoot (quarterly)",
+        "Dedicated Account Team (not just one manager)",
+        "Regular Strategy Meetings",
+        "Client Conversations: Unlimited",
+        "Fully Automated Booking System Integration",
+        "Custom Travel Itinerary Planning"
       ],
-      buttonText: "Go Elite",
+      buttonText: "Go Premium",
       type: "rentmen"
     }
   ];
@@ -226,76 +248,13 @@ const Pricing = () => {
   const addOnServices = [
     {
       title: "Content Creation",
-      description: "Professional editing for your content",
+      description: "Professional content creation services",
       options: [
-        "10 Photos, 4 Videos - $100",
-        "20 Photos, 8 Videos - $250",
-        "30 Photos, 12 Videos - $500",
-        "40 Photos, 16 Videos - $1,000"
-      ]
-    },
-    {
-      title: "DM Management",
-      description: "Dedicated message handling across platforms",
-      options: [
-        "12 Hour Response (1 Platform) - $100/month",
-        "6 Hour Response (2 Platforms) - $250/month",
-        "4 Hour Response (3 Platforms) - $500/month",
-        "1 Hour Response (5 Platforms) - $1,000/month"
-      ]
-    },
-    {
-      title: "Additional Services",
-      description: "Enhance your online presence",
-      options: [
-        "Custom Landing Page - $50 setup + $25/month",
-        "Platform Verification - $100",
-        "Logo & Branding Package - $250",
-        "Merchandise Design - Starting at $300"
-      ]
-    },
-    {
-      title: "Security & Safety",
-      description: "Professional security for discretion and safety during in-person client meetings or events",
-      options: [
-        "Security Presence - $300-$900/day",
-        "Background Checks - $150/client",
-        "Vetting System Setup - $300",
-        "Reputation Monitoring - $250/month",
-        "Review Mitigation - $500/case"
-      ]
-    },
-    {
-      title: "Travel Companion Management",
-      description: "Streamlined logistics for travel-based bookings",
-      options: [
-        "Itinerary Planning & Booking - $300/trip",
-        "Travel Concierge Services - $500/trip",
-        "Travel Documentation Support - $150/trip",
-        "24/7 Travel Support - $200/trip"
-      ]
-    }
-  ];
-
-  const rentMenAddOns = [
-    {
-      title: "Content Creation",
-      description: "Professional editing for your content",
-      options: [
-        "10 Photos, 4 Videos - $100",
-        "20 Photos, 8 Videos - $250",
-        "30 Photos, 12 Videos - $500",
-        "40 Photos, 16 Videos - $1,000"
-      ]
-    },
-    {
-      title: "DM Management",
-      description: "Dedicated message handling across platforms",
-      options: [
-        "12 Hour Response (1 Platform) - $100/month",
-        "6 Hour Response (2 Platforms) - $250/month",
-        "4 Hour Response (3 Platforms) - $500/month",
-        "1 Hour Response (5 Platforms) - $1,000/month"
+        "Professional Photoshoot - $500",
+        "Video Production - Starting at $750",
+        "Content Editing - $50/hour",
+        "Custom Graphics - $25/graphic",
+        "Custom Landing Page - $350"
       ]
     },
     {
@@ -335,38 +294,38 @@ const Pricing = () => {
   const renderPricing = (plan: Plan) => {
     const isBundle = plan.type === "bundles";
     return (
-      <div className={`relative p-8 rounded-xl border ${plan.mostPopular ? 'border-primary' : 'border-gray-800'} bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-xl`}>
+      <div className={`card-3d glass-card-glow p-6 md:p-8 rounded-2xl transition-all duration-500 relative ${plan.mostPopular ? 'border-primary/30 shadow-xl shadow-primary/10' : 'border-gray-800/50'}`}>
         {plan.mostPopular && (
-          <div className="absolute -top-4 left-8 px-4 py-1 bg-primary text-white text-sm font-semibold rounded-full">
+          <div className="absolute -top-4 left-8 px-4 py-1 bg-gradient-red text-white text-xs font-bold py-1 px-3 rounded-full animate-pulse-glow">
             Most Popular
           </div>
         )}
         
-        <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
+        <h3 className="text-2xl font-bold mb-2 text-gradient-red">{plan.title}</h3>
         <p className="text-gray-400 mb-6">{plan.description}</p>
         
         <div className="mb-6">
           {plan.setupFee && (
             <div className="mb-2">
-              <span className="text-3xl font-bold">${plan.setupFee}</span>
+              <span className="text-3xl font-bold text-white">${plan.setupFee}</span>
               <span className="text-gray-400"> one-time setup</span>
             </div>
           )}
           {plan.commission && (
             <div className="mb-2">
-              <span className="text-3xl font-bold">{plan.commission}%</span>
+              <span className="text-3xl font-bold text-white">{plan.commission}%</span>
               <span className="text-gray-400"> of gross earnings</span>
             </div>
           )}
           {plan.monthlyFee && (
             <div className="mb-2">
-              <span className="text-3xl font-bold">${plan.monthlyFee}</span>
+              <span className="text-3xl font-bold text-white">${plan.monthlyFee}</span>
               <span className="text-gray-400">/month flat rate</span>
             </div>
           )}
           {plan.weeklyFee && (
             <div className="mb-2">
-              <span className="text-3xl font-bold">${plan.weeklyFee}</span>
+              <span className="text-3xl font-bold text-white">${plan.weeklyFee}</span>
               <span className="text-gray-400">/week flat rate</span>
             </div>
           )}
@@ -381,10 +340,14 @@ const Pricing = () => {
                   <span className="text-gray-300 flex-grow text-left">{feature}</span>
                 </>
               ) : feature.endsWith(':') ? (
-                <span className="text-primary font-semibold w-full text-left">{feature}</span>
+                <span className="text-gradient-red text-glow font-semibold w-full text-left">{feature}</span>
               ) : (
                 <>
-                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
+                  <div className="flex-shrink-0 mr-3 mt-0.5">
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                      <CheckCircle className="h-4 w-4 text-white" />
+                    </div>
+                  </div>
                   <span className="text-gray-300 flex-grow text-left">{feature}</span>
                 </>
               )}
@@ -392,7 +355,11 @@ const Pricing = () => {
           ))}
         </ul>
 
-        <Button size="lg" className="w-full bg-primary hover:bg-primary-darker" asChild>
+        <Button 
+          size="lg" 
+          className="w-full bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium py-6 rounded-lg transition-all duration-300 shadow-lg hover:from-[#770000] hover:to-[#aa0000]" 
+          asChild
+        >
           <Link to="/contact">
             {plan.buttonText}
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -403,113 +370,177 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Transparent Pricing for Every Stage</h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Choose the perfect plan to accelerate your growth and maximize your earnings
-          </p>
+    <div className={`min-h-screen bg-black text-white pt-24 pb-16 transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden" ref={sectionRef}>
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-black z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
         </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12 md:mb-16">
+            <div className="inline-block px-4 py-2 rounded-full bg-gradient-red text-white text-sm md:text-base font-semibold mb-4 border border-primary/30 animate-pulse-glow">
+              Clear & Transparent
+            </div>
+            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 [text-wrap:balance] transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              Premium <span className="text-gradient-red text-glow">Service Pricing</span>
+            </h1>
+            <p className={`text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance] transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              Choose the perfect plan to accelerate your growth and maximize your earnings
+            </p>
+          </div>
 
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex bg-gray-900 p-1 rounded-full">
-            <button
-              onClick={() => setActiveTab("onlyfans")}
-              className={`px-6 py-3 rounded-full text-sm font-medium ${
-                activeTab === "onlyfans" 
-                  ? "bg-primary text-white" 
-                  : "text-gray-300 hover:text-white"
-              }`}
+          <div className={`flex justify-center mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="glass-card-glow rounded-full p-1">
+              <div className="inline-flex rounded-full overflow-hidden">
+                <button
+                  onClick={() => setActiveTab("onlyfans")}
+                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeTab === "onlyfans" 
+                      ? "bg-gradient-red text-white" 
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                >
+                  OnlyFans Services
+                </button>
+                <button
+                  onClick={() => setActiveTab("bundles")}
+                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeTab === "bundles" 
+                      ? "bg-gradient-red text-white" 
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                >
+                  Bundle Options
+                </button>
+                <button
+                  onClick={() => setActiveTab("rentmen")}
+                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeTab === "rentmen" 
+                      ? "bg-gradient-red text-white" 
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                >
+                  Rent.Men Services
+                </button>
+                <button
+                  onClick={() => setActiveTab("addons")}
+                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeTab === "addons" 
+                      ? "bg-gradient-red text-white" 
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                >
+                  Add-On Services
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {activeTab !== "addons" ? (
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+              {activeTab === "onlyfans" 
+                ? onlyFansPlans.map((plan, index) => (
+                    <div key={index} style={{ animationDelay: `${index * 150}ms` }} className="animate-fade-up">
+                      {renderPricing(plan)}
+                    </div>
+                  ))
+                : activeTab === "bundles"
+                ? bundlePlans.map((plan, index) => (
+                    <div key={index} style={{ animationDelay: `${index * 150}ms` }} className="animate-fade-up">
+                      {renderPricing(plan)}
+                    </div>
+                  ))
+                : rentMenPlans.map((plan, index) => (
+                    <div key={index} style={{ animationDelay: `${index * 150}ms` }} className="animate-fade-up">
+                      {renderPricing(plan)}
+                    </div>
+                  ))
+              }
+            </div>
+          ) : (
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+              {activeTab === "addons"
+                ? addOnServices.map((service, index) => (
+                  <div 
+                    key={index} 
+                    className="card-3d glass-card-glow p-6 md:p-8 rounded-2xl transition-all duration-500 animate-fade-up"
+                    style={{ animationDelay: `${index * 150}ms` }}
+                  >
+                    <h3 className="text-2xl font-bold mb-2 text-gradient-red">{service.title}</h3>
+                    <p className="text-gray-400 mb-6">{service.description}</p>
+                    <ul className="space-y-4">
+                      {service.options.map((option, optIndex) => (
+                        <li key={optIndex} className="flex items-start">
+                          <div className="flex-shrink-0 mr-3 mt-0.5">
+                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                              <CheckCircle className="h-4 w-4 text-white" />
+                            </div>
+                          </div>
+                          <span className="text-gray-300">{option}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))
+                : null
+              }
+            </div>
+          )}
+        </div>
+        
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {Array.from({ length: 15 }).map((_, i) => (
+            <div 
+              key={i}
+              className="absolute rounded-full bg-primary/5 animate-float"
+              style={{
+                width: `${Math.random() * 6 + 2}px`,
+                height: `${Math.random() * 6 + 2}px`,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${Math.random() * 10 + 5}s`
+              }}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 md:py-24 bg-black relative overflow-hidden mt-16">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-black opacity-95 z-10"></div>
+          <div className="absolute inset-0 bg-gradient-red-intense opacity-15 z-0"></div>
+          <div className="absolute inset-0 bg-pattern opacity-5 z-0"></div>
+        </div>
+        
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12 leading-tight [text-wrap:balance]">
+              Ready to <span className="text-gradient-red text-glow">Transform</span> Your Business?
+            </h2>
+            
+            <p className="text-lg md:text-xl text-gray-300 mb-10 md:mb-16 mx-auto max-w-4xl [text-wrap:balance]">
+              Contact us today for a personalized consultation and discover how our premium services can elevate your online presence.
+            </p>
+            
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-8 py-7 rounded-lg transition-all duration-300 text-lg shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
+              asChild
             >
-              OnlyFans Services
-            </button>
-            <button
-              onClick={() => setActiveTab("bundles")}
-              className={`px-6 py-3 rounded-full text-sm font-medium ${
-                activeTab === "bundles" 
-                  ? "bg-primary text-white" 
-                  : "text-gray-300 hover:text-white"
-              }`}
-            >
-              Bundle Options
-            </button>
-            <button
-              onClick={() => setActiveTab("rentmen")}
-              className={`px-6 py-3 rounded-full text-sm font-medium ${
-                activeTab === "rentmen" 
-                  ? "bg-primary text-white" 
-                  : "text-gray-300 hover:text-white"
-              }`}
-            >
-              Rent.Men Services
-            </button>
-            <button
-              onClick={() => setActiveTab("addons")}
-              className={`px-6 py-3 rounded-full text-sm font-medium ${
-                activeTab === "addons" 
-                  ? "bg-primary text-white" 
-                  : "text-gray-300 hover:text-white"
-              }`}
-            >
-              Add-On Services
-            </button>
+              <Link to="/contact">
+                Get Started Today
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
           </div>
         </div>
-
-        {activeTab !== "addons" ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {activeTab === "onlyfans" 
-              ? onlyFansPlans.map((plan, index) => (
-                  <div key={index}>{renderPricing(plan)}</div>
-                ))
-              : activeTab === "bundles"
-              ? bundlePlans.map((plan, index) => (
-                  <div key={index}>{renderPricing(plan)}</div>
-                ))
-              : rentMenPlans.map((plan, index) => (
-                  <div key={index}>{renderPricing(plan)}</div>
-                ))
-            }
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {activeTab === "addons"
-              ? addOnServices.map((service, index) => (
-                <div key={index} className="p-8 rounded-xl border border-gray-800 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm">
-                  <h3 className="text-2xl font-bold mb-2">{service.title}</h3>
-                  <p className="text-gray-400 mb-6">{service.description}</p>
-                  <ul className="space-y-4">
-                    {service.options.map((option, optIndex) => (
-                      <li key={optIndex} className="flex items-start">
-                        <CheckCircle className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-300">{option}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))
-              : addOnServices.map((service, index) => (
-                <div key={index} className="p-8 rounded-xl border border-gray-800 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm">
-                  <h3 className="text-2xl font-bold mb-2">{service.title}</h3>
-                  <p className="text-gray-400 mb-6">{service.description}</p>
-                  <ul className="space-y-4">
-                    {service.options.map((option, optIndex) => (
-                      <li key={optIndex} className="flex items-start">
-                        <CheckCircle className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-300">{option}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))
-            }
-          </div>
-        )}
-
-        <div className="mt-16 text-center">
-        </div>
-      </div>
+      </section>
     </div>
   );
 };

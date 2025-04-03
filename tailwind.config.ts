@@ -24,14 +24,18 @@ const config: Config = {
         nunito: ['Nunito', 'sans-serif'],
       },
       colors: {
-        primary: "#8B0000",
+        primary: "#990000",
         "primary-darker": "#660000",
+        "primary-darkest": "#330000",
         secondary: "#1A1A1A",
-        accent: "#111111",
+        accent: "#CC0000",
         muted: "#F5F5F5",
         border: "#333333",
         background: "#000000",
         foreground: "#FFFFFF",
+        "gradient-start": "#990000",
+        "gradient-middle": "#660000",
+        "gradient-end": "#330000",
       },
       keyframes: {
         fadeUp: {
