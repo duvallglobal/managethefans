@@ -21,6 +21,7 @@ const BlogEditor = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
   const [post, setPost] = useState({
     title: "",
     excerpt: "",
@@ -119,7 +120,7 @@ const BlogEditor = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white py-8">
+    <div className="min-h-screen bg-black text-white py-8 pt-24 md:pt-28">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center mb-8">
           <Button
