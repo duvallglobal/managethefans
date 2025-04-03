@@ -192,15 +192,15 @@ const MasseurConcierge = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+          <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 md:gap-6">
             {services.map((service, index) => (
               <div 
                 key={service.title}
-                className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 flex flex-col h-full"
+                className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 flex flex-col h-full"
               >
-                <service.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white mb-2 sm:mb-3 md:mb-4" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
-                <p className="text-xs sm:text-sm text-gray-300 flex-grow">{service.description}</p>
+                <service.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white mb-1 sm:mb-3 md:mb-4" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
+                <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300 flex-grow">{service.description}</p>
               </div>
             ))}
           </div>
@@ -240,103 +240,103 @@ const MasseurConcierge = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="glass-card-glow p-4 md:p-5 rounded-2xl relative opacity-100 flex flex-col h-full">
+            <div className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl relative opacity-100 flex flex-col h-full">
               <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#660000] to-[#990000] opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
               <div className="relative z-10 flex-grow">
-                <h3 className="text-xl font-bold mb-2 text-gradient-red">AI-Powered Phone Answering</h3>
-                <p className="text-gray-300 mb-3">Our proprietary AI technology can be trained to mimic your voice and handle client inquiries 24/7.</p>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-gradient-red">AI-Powered Phone Answering</h3>
+                <p className="text-xs sm:text-sm text-gray-300 mb-2 sm:mb-3">Our proprietary AI technology can be trained to mimic your voice and handle client inquiries 24/7.</p>
                 <ul className="space-y-1">
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                       </div>
                     </div>
-                    <span className="text-gray-300">Screens potential clients for you</span>
+                    <span className="text-xs sm:text-sm text-gray-300">Screens potential clients for you</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                       </div>
                     </div>
-                    <span className="text-gray-300">Handles booking inquiries and scheduling</span>
+                    <span className="text-xs sm:text-sm text-gray-300">Handles booking inquiries and scheduling</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                       </div>
                     </div>
-                    <span className="text-gray-300">Answers common client questions</span>
+                    <span className="text-xs sm:text-sm text-gray-300">Answers common client questions</span>
                   </li>
                 </ul>
               </div>
             </div>
             
-            <div className="glass-card-glow p-4 md:p-5 rounded-2xl relative opacity-100 flex flex-col h-full" style={{ animationDelay: "150ms" }}>
+            <div className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl relative opacity-100 flex flex-col h-full" style={{ animationDelay: "150ms" }}>
               <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#660000] to-[#990000] opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
               <div className="relative z-10 flex-grow">
-                <h3 className="text-xl font-bold mb-2 text-gradient-red">Smart Booking System</h3>
-                <p className="text-gray-300 mb-3">Automated scheduling system that integrates with your calendar and handles client bookings efficiently.</p>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-gradient-red">Smart Booking System</h3>
+                <p className="text-xs sm:text-sm text-gray-300 mb-2 sm:mb-3">Automated scheduling system that integrates with your calendar and handles client bookings efficiently.</p>
                 <ul className="space-y-1">
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                       </div>
                     </div>
-                    <span className="text-gray-300">Syncs with your personal calendar</span>
+                    <span className="text-xs sm:text-sm text-gray-300">Syncs with your personal calendar</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                       </div>
                     </div>
-                    <span className="text-gray-300">Sends automatic reminders to clients</span>
+                    <span className="text-xs sm:text-sm text-gray-300">Sends automatic reminders to clients</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                       </div>
                     </div>
-                    <span className="text-gray-300">Minimizes double-bookings and no-shows</span>
+                    <span className="text-xs sm:text-sm text-gray-300">Minimizes double-bookings and no-shows</span>
                   </li>
                 </ul>
               </div>
             </div>
             
-            <div className="glass-card-glow p-4 md:p-5 rounded-2xl relative opacity-100 flex flex-col h-full" style={{ animationDelay: "300ms" }}>
+            <div className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl relative opacity-100 flex flex-col h-full" style={{ animationDelay: "300ms" }}>
               <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#660000] to-[#990000] opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
               <div className="relative z-10 flex-grow">
-                <h3 className="text-xl font-bold mb-2 text-gradient-red">Client Verification System</h3>
-                <p className="text-gray-300 mb-3">Advanced screening protocols to ensure client authenticity and safety for your practice.</p>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-gradient-red">Client Verification System</h3>
+                <p className="text-xs sm:text-sm text-gray-300 mb-2 sm:mb-3">Advanced screening protocols to ensure client authenticity and safety for your practice.</p>
                 <ul className="space-y-1">
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                       </div>
                     </div>
-                    <span className="text-gray-300">Multi-point verification process</span>
+                    <span className="text-xs sm:text-sm text-gray-300">Multi-point verification process</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                       </div>
                     </div>
-                    <span className="text-gray-300">Discreet background checks</span>
+                    <span className="text-xs sm:text-sm text-gray-300">Discreet background checks</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-2 mt-0.5">
-                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-3 w-3 text-white" />
+                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                       </div>
                     </div>
-                    <span className="text-gray-300">Client reputation database access</span>
+                    <span className="text-xs sm:text-sm text-gray-300">Client reputation database access</span>
                   </li>
                 </ul>
               </div>
@@ -416,34 +416,34 @@ const MasseurConcierge = () => {
             ].map((tier, index) => (
               <div 
                 key={tier.title}
-                className={`card-3d glass-card-glow p-4 md:p-5 rounded-2xl opacity-100 relative flex flex-col h-full ${tier.featured ? 'border-primary/30 shadow-xl shadow-primary/10' : 'border-gray-800'}`}
+                className={`card-3d glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 relative flex flex-col h-full ${tier.featured ? 'border-primary/30 shadow-xl shadow-primary/10' : 'border-gray-800'}`}
               >
                 {tier.featured && (
-                  <div className="absolute -top-4 right-4 bg-gradient-red text-white text-xs font-bold py-1 px-3 rounded-full">Most Popular</div>
+                  <div className="absolute -top-3 sm:-top-4 right-2 sm:right-4 bg-gradient-red text-white text-[10px] xs:text-xs font-bold py-0.5 sm:py-1 px-2 sm:px-3 rounded-full">Most Popular</div>
                 )}
                 <div className="flex-grow">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-1 text-gradient-red text-glow">{tier.title}</h3>
-                  <div className="text-xl md:text-2xl font-bold mb-3 text-white">{tier.price}</div>
-                  <p className="text-gray-300 mb-4">{tier.description}</p>
-                  <ul className="space-y-2 mb-6">
+                  <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 text-gradient-red text-glow">{tier.title}</h3>
+                  <div className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-2 sm:mb-3 text-white">{tier.price}</div>
+                  <p className="text-xs sm:text-sm text-gray-300 mb-3 sm:mb-4">{tier.description}</p>
+                  <ul className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
                     {tier.features.map((feature, i) => (
                       <li key={i} className="flex items-start">
-                        <div className="flex-shrink-0 mr-3 mt-0.5">
-                          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                            <CheckCircle className="h-4 w-4 text-white" />
+                        <div className="flex-shrink-0 mr-2 sm:mr-3 mt-0.5">
+                          <div className="flex items-center justify-center w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                            <CheckCircle className="h-2.5 w-2.5 sm:h-4 sm:w-4 text-white" />
                     </div>
                   </div>
-                        <span className="text-gray-300">{feature}</span>
+                        <span className="text-xs sm:text-sm text-gray-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
                 <Button 
-                  className="w-full bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium py-3 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] mt-auto"
+                  className="w-full bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium py-2 sm:py-3 rounded-lg transition-all duration-300 text-xs sm:text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] mt-auto"
                   onClick={() => navigate('/contact')}
                 >
                   Get Started
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-5 sm:w-5" />
                 </Button>
               </div>
             ))}
