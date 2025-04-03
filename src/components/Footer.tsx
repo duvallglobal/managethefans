@@ -56,19 +56,19 @@ const Footer = () => {
                 href="https://www.instagram.com/managethefans" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-primary transition-all duration-300 hover:scale-110"
+                className="text-gray-400 hover:text-[#800000] transition-all duration-300 hover:scale-110"
               >
                 <Instagram size={20} className="hover:animate-pulse-glow" />
               </a>
               <a 
                 href="mailto:info@managethefans.com" 
-                className="text-gray-400 hover:text-primary transition-all duration-300 hover:scale-110"
+                className="text-gray-400 hover:text-[#800000] transition-all duration-300 hover:scale-110"
               >
                 <Mail size={20} className="hover:animate-pulse-glow" />
               </a>
               <a 
                 href="tel:615-549-5944" 
-                className="text-gray-400 hover:text-primary transition-all duration-300 hover:scale-110"
+                className="text-gray-400 hover:text-[#800000] transition-all duration-300 hover:scale-110"
               >
                 <Phone size={20} className="hover:animate-pulse-glow" />
               </a>

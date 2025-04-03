@@ -48,7 +48,7 @@ const Pricing = () => {
       title: "Starter Tier",
       description: "Essential OnlyFans management services for creators just starting out",
       setupFee: 100,
-      commission: 20,
+      commission: 30,
       features: [
         "Core Features:",
         "Account setup and optimization",
@@ -87,7 +87,7 @@ const Pricing = () => {
       title: "Premium Tier",
       description: "Full-service OnlyFans management for serious creators",
       setupFee: 500,
-      commission: 30,
+      commission: 20,
       features: [
         "All Growth Tier Benefits & Services PLUS:",
         "Premium Features:",
@@ -109,7 +109,7 @@ const Pricing = () => {
       title: "Basic Bundle",
       description: "Combined OnlyFans and Social Media management for new creators",
       setupFee: 150,
-      commission: 20,
+      commission: 30,
       features: [
         "OnlyFans Management:",
         "• Account setup and optimization",
@@ -157,7 +157,7 @@ const Pricing = () => {
       title: "Enterprise Bundle",
       description: "Custom solutions for top-tier creators or agencies",
       setupFee: 2000,
-      commission: 30,
+      commission: 20,
       features: [
         "All Premium Bundle Tier Benefits & Services PLUS:",
         "Enhanced Management:",
@@ -273,7 +273,7 @@ const Pricing = () => {
       description: "Professional security and safety services for in-person meetings",
       options: [
         "Security Presence - $300-$900/day",
-        "Background Checks - $150/client",
+        "Background Checks - $100/client",
         "Vetting System Setup - $300",
         "Reputation Monitoring - $250/month",
         "Review Mitigation - $500/case"
@@ -377,6 +377,7 @@ const Pricing = () => {
           <div className="absolute inset-0 bg-black z-10"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
           <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#330000] to-black opacity-50 z-20"></div>
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

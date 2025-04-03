@@ -25,6 +25,15 @@ import Login from "./pages/admin/Login";
 import BlogDashboard from "./pages/admin/BlogDashboard";
 import BlogEditor from "./pages/admin/BlogEditor";
 
+// Configure React Router future flags
+import { UNSAFE_NavigationContext as NavigationContext } from "react-router-dom";
+const router = {
+  future: {
+    v7_startTransition: true,
+    v7_relativeSplatPath: true
+  }
+};
+
 const queryClient = new QueryClient();
 
 // ScrollToTop component to handle scroll restoration
@@ -41,7 +50,7 @@ const ScrollToTop = () => {
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter {...router}>
         <div className="flex flex-col min-h-screen bg-black text-white">
           <ScrollToTop />
           <Navbar />

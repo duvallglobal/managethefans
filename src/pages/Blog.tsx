@@ -46,8 +46,12 @@ const Blog = () => {
   return (
     <div className="bg-black text-white min-h-screen">
       {/* Header */}
-      <section className="bg-black pt-24 md:pt-28 pb-8 border-b border-gray-800/30" ref={sectionRef}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <section className="bg-black pt-24 md:pt-28 pb-8 border-b border-gray-800/30 relative" ref={sectionRef}>
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-black z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#330000] to-black opacity-50 z-20"></div>
+        </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-6">
               <span className="text-gradient-red text-glow">Blog</span>

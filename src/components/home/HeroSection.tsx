@@ -43,13 +43,15 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black z-10"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
+        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#330000] to-black opacity-50 z-20"></div>
       </div>
 
-      <div ref={parallaxRef} className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
+      <div ref={parallaxRef} className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
         {/* Desktop layout - Two columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           {/* Text Content - Left side on desktop */}
-          <div className={`space-y-3 sm:space-y-5 text-center md:text-left transition-all duration-1000 delay-500 order-2 md:order-1 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className={`space-y-3 sm:space-y-5 text-center md:text-left transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="inline-block px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-1 border border-primary/30">
               Premium Digital Management
             </div>
@@ -62,7 +64,7 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center md:justify-start mt-3 sm:mt-4">
               <Button 
                 size="default" 
-                className="bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 text-xs sm:text-sm shadow-lg hover:from-[#440000] hover:to-[#770000] w-full sm:w-auto"
+                className="bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 text-xs sm:text-sm shadow-lg hover:from-[#220000] hover:to-[#550000] w-full sm:w-auto"
                 asChild
               >
                 <Link to="/contact">
@@ -72,7 +74,7 @@ const HeroSection = () => {
               </Button>
               <Button 
                 size="default" 
-                className="bg-gradient-to-r from-[#1a0000] to-[#330000] backdrop-blur-sm border border-primary/20 text-white font-medium px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 text-xs sm:text-sm shadow-lg hover:from-[#2a0000] hover:to-[#440000] w-full sm:w-auto"
+                className="bg-gradient-to-r from-[#1a0000] to-[#330000] backdrop-blur-sm border border-primary/20 text-white font-medium px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 text-xs sm:text-sm shadow-lg hover:from-[#120000] hover:to-[#220000] w-full sm:w-auto"
                 asChild
               >
                 <Link to="/pricing">
@@ -82,40 +84,11 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* 3D Earth Model - Right side on desktop, properly positioned */}
-          <div className={`relative order-1 md:order-2 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-100 scale-95'}`}>
+          {/* Right side - Visual element */}
+          <div className={`relative order-1 md:order-2 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <div className="flex items-center justify-center">
-              {/* Adjusted container for better mobile display */}
-              <div className="relative w-[90%] mx-auto h-[320px] xs:h-[340px] sm:h-[380px] md:h-[450px] lg:h-[480px] overflow-hidden">
-                {/* Added a scaling wrapper to ensure the globe fits on mobile */}
-                <div className="absolute inset-0 scale-[0.65] xs:scale-70 sm:scale-75 md:scale-85 lg:scale-90 origin-center">
-                  <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
-                </div>
-                
-                {/* Logo overlay ONLY shown on non-mobile */}
-                {!isMobile && (
-                  <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-20">
-                    <div className="flex items-center justify-center text-center">
-                      <div className="font-bold text-xl sm:text-2xl">
-                        <span className="text-gradient-red">Manage</span>
-                        <span className="text-white">TheFans</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Smaller black box to cover "Built with Spline" text on all devices */}
-                <div className="absolute bottom-[45px] right-0 bg-black w-[170px] md:w-[220px] h-[55px] md:h-[50px] z-30">
-                  {/* Logo overlay for mobile only */}
-                  {isMobile && (
-                    <div className="absolute inset-0 flex items-center justify-center z-40">
-                      <div className="font-bold text-sm sm:text-base">
-                        <span className="text-gradient-red">Manage</span>
-                        <span className="text-white">TheFans</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
+              <div className="relative w-[90%] mx-auto h-[320px] xs:h-[340px] sm:h-[380px] md:h-[450px] lg:h-[480px]">
+                {/* Add any alternative visual content here if needed */}
               </div>
             </div>
           </div>

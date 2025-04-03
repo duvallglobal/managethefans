@@ -5102,3 +5102,18 @@ h1, h2, h3, h4, h5, h6{
 [data-side=right] .\[\[data-side\=right\]_\&\]\:cursor-e-resize{
   cursor: e-resize;
 }
+
+.hover\:text-red-300:hover{
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-gradient-red:hover {
+  background: linear-gradient(to right, #990000, #660000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}

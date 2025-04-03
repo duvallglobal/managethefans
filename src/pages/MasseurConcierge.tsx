@@ -84,7 +84,7 @@ const MasseurConcierge = () => {
           <div className="absolute inset-0 bg-black z-10"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
           <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
-          <div className="absolute inset-0 bg-[url('/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png')] bg-cover bg-center opacity-40 transform scale-105 transition-transform duration-10000 hover:scale-110"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#330000] to-black opacity-50 z-20"></div>
         </div>
 
         <div ref={parallaxRef} className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
@@ -122,10 +122,10 @@ const MasseurConcierge = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 items-center">
             <div className="opacity-100">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance]">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 md:mb-6 text-white [text-wrap:balance]">
                 How Our <span className="text-gradient-red text-glow">Concierge Service</span> Simplifies Your Professional Life
               </h2>
-              <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-3 [text-wrap:balance]">
+              <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-5 sm:mb-6 md:mb-7 [text-wrap:balance]">
                 We handle the time-consuming aspects of managing your online presence, so you can focus on providing exceptional service to your clients.
               </p>
               
@@ -198,8 +198,10 @@ const MasseurConcierge = () => {
                 key={service.title}
                 className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 flex flex-col h-full"
               >
-                <service.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white mb-1 sm:mb-3 md:mb-4" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
+                <div className="flex justify-center">
+                  <service.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white mb-1 sm:mb-3 md:mb-4" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                </div>
+                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red text-center">{service.title}</h3>
                 <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300 flex-grow">{service.description}</p>
               </div>
             ))}
