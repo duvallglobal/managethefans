@@ -118,7 +118,7 @@ const Contact = () => {
                   <div className="bg-gradient-red p-3 rounded-lg mr-4 shadow-glow">
                     <Mail className="h-6 w-6 text-white" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h3 className="text-lg font-medium mb-1">Email</h3>
                     <p className="text-gray-300">info@managethefans.com</p>
                   </div>
@@ -128,7 +128,7 @@ const Contact = () => {
                   <div className="bg-gradient-red p-3 rounded-lg mr-4 shadow-glow">
                     <Phone className="h-6 w-6 text-white" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h3 className="text-lg font-medium mb-1">Phone</h3>
                     <p className="text-gray-300">(615) 549-5944</p>
                   </div>
@@ -138,7 +138,7 @@ const Contact = () => {
                   <div className="bg-gradient-red p-3 rounded-lg mr-4 shadow-glow">
                     <MapPin className="h-6 w-6 text-white" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h3 className="text-lg font-medium mb-1">Location</h3>
                     <p className="text-gray-300">Baltimore, MD</p>
                     <p className="text-gray-300">United States</p>

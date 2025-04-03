@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { ArrowLeft, Image as ImageIcon, Loader2 } from "lucide-react";
+import { ArrowLeft, Image as ImageIcon, Loader2, Bold, Italic, Underline, Heading1, Heading2, AlignLeft, AlignCenter, AlignRight, List, ListOrdered } from "lucide-react";
 import { 
   getPostById, 
   createPost, 
@@ -42,6 +42,10 @@ const BlogEditor = () => {
     featured: false,
     date: new Date().toISOString().split('T')[0]
   });
+
+  // Add state for selected text
+  const [selection, setSelection] = useState({ start: 0, end: 0 });
+  const contentRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthChange((user) => {
@@ -123,6 +127,72 @@ const BlogEditor = () => {
     }
   };
 
+  // Text formatting functions
+  const formatText = (tag: string) => {
+    if (!contentRef.current) return;
+
+    const textarea = contentRef.current;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = post.content.substring(start, end);
+    
+    let formattedText = '';
+    switch (tag) {
+      case 'bold':
+        formattedText = `<strong>${selectedText}</strong>`;
+        break;
+      case 'italic':
+        formattedText = `<em>${selectedText}</em>`;
+        break;
+      case 'underline':
+        formattedText = `<u>${selectedText}</u>`;
+        break;
+      case 'h1':
+        formattedText = `<h1>${selectedText}</h1>`;
+        break;
+      case 'h2':
+        formattedText = `<h2>${selectedText}</h2>`;
+        break;
+      case 'left':
+        formattedText = `<div style="text-align: left">${selectedText}</div>`;
+        break;
+      case 'center':
+        formattedText = `<div style="text-align: center">${selectedText}</div>`;
+        break;
+      case 'right':
+        formattedText = `<div style="text-align: right">${selectedText}</div>`;
+        break;
+      case 'ul':
+        formattedText = `<ul>\n  <li>${selectedText}</li>\n</ul>`;
+        break;
+      case 'ol':
+        formattedText = `<ol>\n  <li>${selectedText}</li>\n</ol>`;
+        break;
+      default:
+        formattedText = selectedText;
+    }
+
+    const newContent = post.content.substring(0, start) + formattedText + post.content.substring(end);
+    setPost({ ...post, content: newContent });
+    
+    // Reset focus after state update
+    setTimeout(() => {
+      textarea.focus();
+      textarea.selectionStart = start;
+      textarea.selectionEnd = start + formattedText.length;
+    }, 0);
+  };
+
+  // Track selection changes
+  const handleSelect = () => {
+    if (!contentRef.current) return;
+    
+    setSelection({
+      start: contentRef.current.selectionStart,
+      end: contentRef.current.selectionEnd
+    });
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
@@ -169,12 +239,112 @@ const BlogEditor = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1">Content</label>
+              <div className="mb-2 bg-gray-800 border border-gray-700 p-1 rounded-md flex flex-wrap gap-1">
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('bold')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <Bold className="h-4 w-4" />
+                </Button>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('italic')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <Italic className="h-4 w-4" />
+                </Button>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('underline')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <Underline className="h-4 w-4" />
+                </Button>
+                <div className="w-px h-6 bg-gray-700 mx-1"></div>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('h1')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <Heading1 className="h-4 w-4" />
+                </Button>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('h2')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <Heading2 className="h-4 w-4" />
+                </Button>
+                <div className="w-px h-6 bg-gray-700 mx-1"></div>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('left')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <AlignLeft className="h-4 w-4" />
+                </Button>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('center')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <AlignCenter className="h-4 w-4" />
+                </Button>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('right')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <AlignRight className="h-4 w-4" />
+                </Button>
+                <div className="w-px h-6 bg-gray-700 mx-1"></div>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('ul')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <List className="h-4 w-4" />
+                </Button>
+                <Button 
+                  type="button" 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => formatText('ol')} 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  <ListOrdered className="h-4 w-4" />
+                </Button>
+              </div>
               <Textarea
+                ref={contentRef}
                 required
                 value={post.content}
                 onChange={(e) => setPost({ ...post, content: e.target.value })}
+                onSelect={handleSelect}
                 className="bg-gray-800 border-gray-700 text-white h-64"
               />
+              <p className="text-xs text-gray-400 mt-1">
+                Use the formatting toolbar to style your content. HTML tags will be preserved.
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

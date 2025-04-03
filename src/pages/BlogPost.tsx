@@ -62,10 +62,15 @@ const BlogPost = () => {
     );
   }
 
-  // Format the content with proper line breaks
-  const formattedContent = post.content.split('\n').map((paragraph, index) => (
-    <p key={index} className="mb-4">{paragraph}</p>
-  ));
+  // Format the content with proper line breaks and parse HTML
+  const formattedContent = post.content.split('\n').map((paragraph, index) => {
+    // If paragraph contains HTML, preserve it
+    if (paragraph.match(/<[^>]*>/)) {
+      return <div key={index} className="mb-4" dangerouslySetInnerHTML={{ __html: paragraph }} />;
+    }
+    // Otherwise render as a standard paragraph
+    return <p key={index} className="mb-4">{paragraph}</p>;
+  });
 
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-28 pb-16">
@@ -95,18 +100,29 @@ const BlogPost = () => {
               <span>{post.author}</span>
             </div>
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">{post.title}</h1>
-          <p className="text-lg text-gray-300">{post.excerpt}</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-left">{post.title}</h1>
+          <p className="text-lg text-gray-300 text-left">{post.excerpt}</p>
         </div>
 
+        {/* Featured image if available */}
+        {post.image && (
+          <div className="mb-10">
+            <img 
+              src={post.image} 
+              alt={post.title} 
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+        )}
+
         {/* Post content */}
-        <div className="prose prose-invert prose-lg max-w-none">
+        <article className="prose prose-invert prose-lg max-w-none text-left">
           {formattedContent}
-        </div>
+        </article>
 
         {/* Related posts suggestion */}
         <div className="mt-16 pt-8 border-t border-gray-800">
-          <h3 className="text-xl font-bold mb-6">Want to read more?</h3>
+          <h3 className="text-xl font-bold mb-6 text-left">Want to read more?</h3>
           <Button
             onClick={() => navigate("/blog")}
             className="bg-gradient-to-r from-[#330000] to-[#660000] text-white"
