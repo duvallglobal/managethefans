@@ -38,7 +38,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-28 md:pt-32 overflow-hidden">
+    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center bg-black pt-20 md:pt-24 overflow-hidden">
       {/* Simple background with gradient */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black z-10"></div>
@@ -86,9 +86,9 @@ const HeroSection = () => {
           <div className={`relative order-1 md:order-2 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <div className="flex items-center justify-center">
               {/* Adjusted container for better mobile display */}
-              <div className="relative w-[90%] mx-auto h-[220px] xs:h-[240px] sm:h-[260px] md:h-[340px] lg:h-[380px] overflow-hidden">
+              <div className="relative w-[90%] mx-auto h-[240px] xs:h-[260px] sm:h-[300px] md:h-[380px] lg:h-[420px] overflow-hidden">
                 {/* Added a scaling wrapper to ensure the globe fits on mobile */}
-                <div className="absolute inset-0 scale-[0.85] xs:scale-90 sm:scale-95 md:scale-100 origin-center">
+                <div className="absolute inset-0 scale-[0.7] xs:scale-75 sm:scale-80 md:scale-90 lg:scale-95 origin-center">
                   <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
                 </div>
                 
@@ -105,7 +105,17 @@ const HeroSection = () => {
                 )}
 
                 {/* Enlarged black box to cover "Built with Spline" text on all devices */}
-                <div className="absolute bottom-[10px] right-0 bg-black w-[200px] h-[45px] z-30"></div>
+                <div className="absolute bottom-[30px] right-0 bg-black w-[200px] h-[45px] z-30">
+                  {/* Logo overlay for mobile only */}
+                  {isMobile && (
+                    <div className="absolute inset-0 flex items-center justify-center z-40">
+                      <div className="font-bold text-sm">
+                        <span className="text-gradient-red">Manage</span>
+                        <span className="text-white">TheFans</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
