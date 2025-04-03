@@ -1,8 +1,8 @@
-
 import React from "react";
 import HeroSection from "@/components/home/HeroSection";
 import LuxuryBanner from "@/components/home/LuxuryBanner";
 import ServicesSection from "@/components/home/ServicesSection";
+import ProcessSection from "@/components/home/ProcessSection";
 import CTASection from "@/components/home/CTASection";
 
 const Index = () => {
@@ -11,6 +11,7 @@ const Index = () => {
       <HeroSection />
       <LuxuryBanner />
       <ServicesSection />
+      <ProcessSection />
       <CTASection />
     </div>
   );

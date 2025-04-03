@@ -1,648 +1,326 @@
-import { useState } from "react";
-import { ArrowRight, Mail, Phone, Calendar, Rocket, HelpCircle, X, ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef, FormEvent } from "react";
+import { Instagram, Mail, MapPin, Phone, Send, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="border-b border-gray-800">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex justify-between items-center text-left focus:outline-none group"
-      >
-        <span className="text-lg font-medium text-white group-hover:text-primary transition-colors">{question}</span>
-        <ChevronDown className={`h-5 w-5 text-primary transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-      </button>
-      <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-96 pb-6' : 'max-h-0'
-        }`}
-      >
-        <p className="text-gray-400 leading-relaxed">{answer}</p>
-      </div>
-    </div>
-  );
-};
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 const Contact = () => {
-  const [activeForm, setActiveForm] = useState<'consultation' | 'getStarted' | 'general' | null>(null);
-  const [formData, setFormData] = useState({
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formState, setFormState] = useState({
     name: "",
     email: "",
-    phone: "",
-    services: [] as string[],
+    subject: "",
     message: "",
-    preferredDate: "",
-    preferredTime: "",
-    budget: "",
-    timeline: ""
   });
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    if (name === 'services') {
-      const select = e.target as HTMLSelectElement;
-      const selectedServices = Array.from(select.selectedOptions).map(option => option.value);
-      setFormData(prev => ({ ...prev, services: selectedServices }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Get user's timezone for better scheduling context
-    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    // Prepare enhanced data to send to webhook
-    const submissionData = {
-      formType: activeForm,
-      submissionDate: new Date().toISOString(),
-      source: {
-        page: window.location.pathname,
-        referrer: document.referrer || 'direct',
-        userAgent: navigator.userAgent,
-        timezone: userTimezone
-      },
-      formData: {
-        ...formData,
-        services: formData.services.length > 0 ? formData.services : [],
-        // Add formatted date/time for easier reading in notifications
-        formattedDateTime: formData.preferredDate && formData.preferredTime
-          ? `${formData.preferredDate} at ${formData.preferredTime}`
-          : undefined
-      }
-    };
-
-    try {
-      // Show loading state
-      const submitButton = e.currentTarget.querySelector('button[type="submit"]');
-      if (submitButton) {
-        submitButton.setAttribute('disabled', 'true');
-        submitButton.textContent = 'Sending...';
-      }
-
-      // Send data to webhook
-      const response = await fetch('https://hook.us2.make.com/j8tv2hblf3lf67e4nm19rlcr7t6cmmcb', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Source': 'ManageTheFans-Website'
-        },
-        body: JSON.stringify(submissionData)
+  useEffect(() => {
+    setIsLoaded(true);
+    
+    // Add intersection observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          entry.target.classList.add('animate-in');
+        }
       });
+    }, { threshold: 0.1 });
 
-      // Process webhook response
-      if (response.status === 200) {
-        // Track conversion for analytics (if you have analytics set up)
-        if (typeof window !== 'undefined' && 'gtag' in window) {
-          (window as any).gtag('event', 'form_submission', {
-            'event_category': 'engagement',
-            'event_label': activeForm
-          });
-        }
-
-        // Show success message based on form type
-        let successMessage = "";
-        switch(activeForm) {
-          case 'consultation':
-            successMessage = `Thanks ${formData.name}! Your consultation has been scheduled. We'll confirm your appointment shortly.`;
-            break;
-          case 'getStarted':
-            successMessage = `Awesome ${formData.name}! We're excited to work with you. Our team will reach out soon .`;
-            break;
-          case 'general':
-            successMessage = `Thanks for reaching out, ${formData.name}! We'll get back to you soon .`;
-            break;
-          default:
-            successMessage = `Thank you for your message, ${formData.name}! We'll be in touch soon.`;
-        }
-
-        alert(successMessage);
-
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          services: [],
-          message: "",
-          preferredDate: "",
-          preferredTime: "",
-          budget: "",
-          timeline: ""
-        });
-
-        // Close the modal
-        setActiveForm(null);
-      } else {
-        // Try to parse error response
-        let errorDetails = '';
-        try {
-          const errorData = await response.json();
-          errorDetails = errorData.message || JSON.stringify(errorData);
-        } catch (e) {
-          errorDetails = `Status code: ${response.status}`;
-        }
-
-        throw new Error(`Failed to submit form: ${errorDetails}`);
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('There was an error submitting your form. Please try again or contact us directly at info@managethefans.com');
-
-      // Re-enable submit button on error
-      const submitButton = e.currentTarget.querySelector('button[type="submit"]');
-      if (submitButton) {
-        submitButton.removeAttribute('disabled');
-        submitButton.textContent = activeForm === 'consultation'
-          ? 'Schedule Consultation'
-          : activeForm === 'getStarted'
-            ? 'Get Started Now'
-            : 'Send Message';
-      }
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const faqs = [
-    {
-      question: "What is ManageTheFans, and what services do you offer?",
-      answer: "ManageTheFans is a comprehensive management service designed to help content creators optimize their platforms, grow their audience, and maximize revenue. We offer services like account setup, content creation, audience engagement, social media promotion, SEO optimization, pricing strategies, and more."
-    },
-    {
-      question: "Who can benefit from your services?",
-      answer: "Our services are ideal for content creators, influencers, and entrepreneurs on platforms like OnlyFans, Fansly, Patreon, TikTok, and Instagram who want to grow their audience, streamline their workflow, and increase their earnings."
-    },
-    {
-      question: "How do I get started with ManageTheFans?",
-      answer: "Getting started is easy! Simply contact us through our website or social media, and we'll schedule a consultation to understand your needs and create a personalized plan for your success."
-    },
-    {
-      question: "Do you help with OnlyFans account setup and management?",
-      answer: "Yes, we assist with everything from setting up your account to managing your daily operations, including posting schedules, subscriber interaction, and growth strategies."
-    },
-    {
-      question: "Can you assist with creating engaging content for my platform?",
-      answer: "Absolutely! We can help you brainstorm content ideas, create a content calendar, and even assist with editing and optimizing your posts to ensure they resonate with your audience."
-    },
-    {
-      question: "Do you offer guidance on pricing strategies for my subscriptions?",
-      answer: "Yes, we analyze your platform and audience to recommend the most effective pricing strategies, ensuring you maximize both subscriptions and revenue."
-    },
-    {
-      question: "How can ManageTheFans help me grow my audience?",
-      answer: "We use proven strategies like social media promotion, SEO optimization, targeted campaigns, and audience engagement techniques to help you attract and retain subscribers."
-    },
-    {
-      question: "Do you provide SEO optimization for my profiles and content?",
-      answer: "Yes, we optimize your profiles, posts, and content with tailored keywords and strategies to improve visibility and search rankings, helping you reach a broader audience."
-    },
-    {
-      question: "Can you help me promote my page on social media platforms?",
-      answer: "Yes, we specialize in social media growth and can create customized promotion strategies, including hashtag research, content ideas, and ad campaigns, to boost your presence on platforms like TikTok and Instagram."
-    },
-    {
-      question: "Do you assist with website creation or customization?",
-      answer: "Yes, we can help you create or customize a professional website that aligns with your brand, integrates with your platform, and enhances your online presence."
-    },
-    {
-      question: "What if I already have an OnlyFans and it's not performing?",
-      answer: "If your OnlyFans account isn't performing as expected, we can perform a full audit to identify areas for improvement. We'll help you refine your content strategy, optimize your profile, and implement proven tactics to boost performance."
-    },
-    {
-      question: "Do you do rebranding?",
-      answer: "Yes, we specialize in rebranding to help you refresh your image and attract new subscribers. This can include redesigning your profile, updating your content style, creating a new logo, and refining your overall brand identity."
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setFormStatus("submitting");
+
+    // Simulate API call
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setFormStatus("success");
+      setFormState({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+      // Here you would typically send the form data to your backend
+    } catch (error) {
+      setFormStatus("error");
+      console.error("Error submitting form:", error);
     }
-  ];
+  };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className={`overflow-hidden bg-black text-white transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-black to-gray-900 pt-24 pb-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+      <section className="relative min-h-[60vh] flex items-center bg-black pt-16 overflow-hidden" ref={sectionRef}>
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-black z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 md:py-16">
+          <div className="text-center max-w-3xl mx-auto">
+            <div className="inline-block px-4 py-2 rounded-full bg-gradient-red text-white text-sm md:text-base font-semibold mb-4 border border-primary/30 animate-pulse-glow">
               Get in Touch
+            </div>
+            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 [text-wrap:balance] transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              Contact <span className="text-gradient-red text-glow">Us</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-              Choose how you'd like to connect with us
+            <p className={`text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 [text-wrap:balance] transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              Have questions or ready to get started? We're here to help you reach your goals.
             </p>
+          </div>
+        </div>
+        <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-black to-transparent"></div>
+      </section>
+
+      {/* Contact Form Section */}
+      <section className="py-12 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Contact Info */}
+            <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <div className="mb-12">
+                <h2 className="text-3xl font-bold mb-6">
+                  Let's <span className="text-gradient-red text-glow">Connect</span>
+                </h2>
+                <p className="text-gray-300 mb-8">
+                  Whether you're looking to boost your OnlyFans earnings, grow your social media presence, or optimize your Rent.Men profile, our team is ready to help you achieve your goals.
+                </p>
+                <p className="text-gray-300 mb-8">
+                  Fill out the form, and we'll get back to you within 24 hours to discuss how we can work together to elevate your online presence.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-start">
+                  <div className="bg-gradient-red p-3 rounded-lg mr-4 shadow-glow">
+                    <Mail className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium mb-1">Email</h3>
+                    <p className="text-gray-300">contact@managethefans.com</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="bg-gradient-red p-3 rounded-lg mr-4 shadow-glow">
+                    <Phone className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium mb-1">Phone</h3>
+                    <p className="text-gray-300">+1 (888) 123-4567</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="bg-gradient-red p-3 rounded-lg mr-4 shadow-glow">
+                    <MapPin className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium mb-1">Location</h3>
+                    <p className="text-gray-300">Los Angeles, CA</p>
+                    <p className="text-gray-300">United States</p>
+                  </div>
+                </div>
+                
+                <div className="pt-8">
+                  <h3 className="text-lg font-medium mb-4">Follow Us</h3>
+                  <div className="flex space-x-4">
+                    <a 
+                      href="#" 
+                      className="glass-card p-3 rounded-full hover:border-primary/50 hover:shadow-glow transition-all duration-300"
+                    >
+                      <Instagram className="h-5 w-5" />
+                    </a>
+                    <a 
+                      href="#" 
+                      className="glass-card p-3 rounded-full hover:border-primary/50 hover:shadow-glow transition-all duration-300"
+                    >
+                      <Mail className="h-5 w-5" />
+                    </a>
+                    <a 
+                      href="#" 
+                      className="glass-card p-3 rounded-full hover:border-primary/50 hover:shadow-glow transition-all duration-300"
+                    >
+                      <Phone className="h-5 w-5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
             
-            {/* Contact Option Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              <div 
-                onClick={() => setActiveForm('consultation')}
-                className="cursor-pointer group bg-gradient-to-br from-gray-900 to-black p-8 rounded-xl border border-gray-800 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/5"
-              >
-                <div className="flex flex-col items-center">
-                  <Calendar className="h-8 w-8 mb-4 text-primary group-hover:scale-110 transition-transform" />
-                  <h3 className="text-xl font-semibold mb-3">Schedule Consultation</h3>
-                  <p className="text-sm text-gray-400">Book a time to discuss your goals</p>
+            {/* Form */}
+            <div className="glass-card-glow rounded-2xl p-8 border border-primary/20 animate-fade-up bg-gradient-to-br from-black/80 to-primary-darkest/30">
+              <h3 className="text-2xl font-bold mb-6">Send Us a Message</h3>
+              
+              <form onSubmit={handleSubmit} ref={formRef} className="space-y-6">
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="name" className="text-white mb-2 block">Name</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formState.name}
+                        onChange={handleInputChange}
+                        placeholder="Your name"
+                        required
+                        className="pl-10 bg-black/50 border-primary/30 focus:border-primary rounded-lg"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="email" className="text-white mb-2 block">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formState.email}
+                        onChange={handleInputChange}
+                        placeholder="Your email"
+                        required
+                        className="pl-10 bg-black/50 border-primary/30 focus:border-primary rounded-lg"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="subject" className="text-white mb-2 block">Subject</Label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      value={formState.subject}
+                      onChange={handleInputChange}
+                      placeholder="What's this regarding?"
+                      required
+                      className="bg-black/50 border-primary/30 focus:border-primary rounded-lg"
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="message" className="text-white mb-2 block">Message</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formState.message}
+                      onChange={handleInputChange}
+                      placeholder="Tell us about your project or inquiry..."
+                      required
+                      className="min-h-[150px] bg-black/50 border-primary/30 focus:border-primary rounded-lg"
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div 
-                onClick={() => setActiveForm('getStarted')}
-                className="cursor-pointer group bg-gradient-to-br from-primary/10 to-secondary/10 p-8 rounded-xl border border-primary/20 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/5"
-              >
-                <div className="flex flex-col items-center">
-                  <Rocket className="h-8 w-8 mb-4 text-primary group-hover:scale-110 transition-transform" />
-                  <h3 className="text-xl font-semibold mb-3">Get Started Now</h3>
-                  <p className="text-sm text-gray-400">Ready to begin your journey</p>
-                </div>
-              </div>
-
-              <div 
-                onClick={() => setActiveForm('general')}
-                className="cursor-pointer group bg-gradient-to-br from-gray-900 to-black p-8 rounded-xl border border-gray-800 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/5"
-              >
-                <div className="flex flex-col items-center">
-                  <HelpCircle className="h-8 w-8 mb-4 text-primary group-hover:scale-110 transition-transform" />
-                  <h3 className="text-xl font-semibold mb-3">General Questions</h3>
-                  <p className="text-sm text-gray-400">Get answers to your queries</p>
-                </div>
-              </div>
+                
+                <Button 
+                  type="submit"
+                  disabled={formStatus === "submitting"}
+                  className="w-full bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
+                >
+                  {formStatus === "submitting" ? (
+                    <div className="flex items-center justify-center">
+                      <div className="animate-spin h-5 w-5 mr-2 border-2 border-white border-t-transparent rounded-full"></div>
+                      Sending...
+                    </div>
+                  ) : (
+                    <>
+                      Send Message <Send className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+                
+                {formStatus === "success" && (
+                  <div className="mt-4 p-3 bg-green-900/30 border border-green-600/30 rounded-lg text-green-400 text-sm animate-fade">
+                    Your message has been sent successfully! We'll get back to you soon.
+                  </div>
+                )}
+                
+                {formStatus === "error" && (
+                  <div className="mt-4 p-3 bg-red-900/30 border border-red-600/30 rounded-lg text-red-400 text-sm animate-fade">
+                    There was an error sending your message. Please try again.
+                  </div>
+                )}
+              </form>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Modal Forms */}
-      {activeForm && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 border border-gray-800 shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
-            <button 
-              onClick={() => setActiveForm(null)}
-              className="absolute right-4 top-4 text-gray-400 hover:text-white transition-colors"
-            >
-              <X className="h-6 w-6" />
-            </button>
-            
-            {activeForm === 'consultation' && (
-              <>
-                <div className="text-center mb-8">
-                  <Calendar className="h-12 w-12 mx-auto text-primary mb-4" />
-                  <h2 className="text-2xl md:text-3xl font-bold">Schedule a Consultation</h2>
-                  <p className="text-gray-400 mt-2">Choose your preferred date and time</p>
-                </div>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-1">
-                        Select Date
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="date"
-                          name="preferredDate"
-                          value={formData.preferredDate}
-                          onChange={handleChange}
-                          min={new Date().toISOString().split('T')[0]}
-                          className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-gray-900 text-white appearance-none"
-                          required
-                        />
-                        <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-1">
-                        Select Time
-                      </label>
-                      <select
-                        name="preferredTime"
-                        value={formData.preferredTime}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-gray-900 text-white appearance-none cursor-pointer"
-                        required
-                      >
-                        <option value="">Select a Time Slot</option>
-                        <option value="08:00">8:00 AM</option>
-                        <option value="08:30">8:30 AM</option>
-                        <option value="09:00">9:00 AM</option>
-                        <option value="09:30">9:30 AM</option>
-                        <option value="10:00">10:00 AM</option>
-                        <option value="10:30">10:30 AM</option>
-                        <option value="11:00">11:00 AM</option>
-                        <option value="11:30">11:30 AM</option>
-                        <option value="12:00">12:00 PM</option>
-                        <option value="12:30">12:30 PM</option>
-                        <option value="13:00">1:00 PM</option>
-                        <option value="13:30">1:30 PM</option>
-                        <option value="14:00">2:00 PM</option>
-                        <option value="14:30">2:30 PM</option>
-                        <option value="15:00">3:00 PM</option>
-                        <option value="15:30">3:30 PM</option>
-                        <option value="16:00">4:00 PM</option>
-                        <option value="16:30">4:30 PM</option>
-                        <option value="17:00">5:00 PM</option>
-                        <option value="17:30">5:30 PM</option>
-                        <option value="18:00">6:00 PM</option>
-                        <option value="18:30">6:30 PM</option>
-                        <option value="19:00">7:00 PM</option>
-                        <option value="19:30">7:30 PM</option>
-                        <option value="20:00">8:00 PM</option>
-                      </select>
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                        <ArrowRight className="h-5 w-5 text-gray-400" />
-                      </div>
-                    </div>
-                  </div>
-                  <CommonFormFields formData={formData} handleChange={handleChange} />
-                  <div className="flex justify-end mt-8">
-                    <Button type="submit" size="lg" className="w-full md:w-auto bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90">
-                      Schedule Consultation
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </div>
-                </form>
-              </>
-            )}
-
-            {activeForm === 'getStarted' && (
-              <>
-                <div className="text-center mb-8">
-                  <Rocket className="h-12 w-12 mx-auto text-primary mb-4" />
-                  <h2 className="text-2xl md:text-3xl font-bold">Get Started Now</h2>
-                  <p className="text-gray-400 mt-2">Begin your journey to success</p>
-                </div>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-1">
-                        Budget Range
-                      </label>
-                      <select
-                        name="budget"
-                        value={formData.budget}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-gray-900 text-white"
-                        required
-                      >
-                        <option value="">Select Budget Range</option>
-                        <option value="0-1000">$0 - $1,000</option>
-                        <option value="1000-5000">$1,000 - $5,000</option>
-                        <option value="5000+">$5,000+</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-1">
-                        Preferred Timeline
-                      </label>
-                      <select
-                        name="timeline"
-                        value={formData.timeline}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-gray-900 text-white"
-                        required
-                      >
-                        <option value="">Select Timeline</option>
-                        <option value="immediate">Immediate</option>
-                        <option value="1-2weeks">1-2 Weeks</option>
-                        <option value="1month">1 Month</option>
-                      </select>
-                    </div>
-                  </div>
-                  <CommonFormFields formData={formData} handleChange={handleChange} />
-                  <div className="flex justify-end mt-8">
-                    <Button type="submit" size="lg" className="w-full md:w-auto bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90">
-                      Start Now
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </div>
-                </form>
-              </>
-            )}
-
-            {activeForm === 'general' && (
-              <>
-                <div className="text-center mb-8">
-                  <HelpCircle className="h-12 w-12 mx-auto text-primary mb-4" />
-                  <h2 className="text-2xl md:text-3xl font-bold">General Questions</h2>
-                  <p className="text-gray-400 mt-2">We're here to help</p>
-                </div>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <CommonFormFields formData={formData} handleChange={handleChange} />
-                  <div className="flex justify-end mt-8">
-                    <Button type="submit" size="lg" className="w-full md:w-auto bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90">
-                      Send Message
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </div>
-                </form>
-              </>
-            )}
-          </div>
+      {/* Map Section */}
+      <section className="py-12 bg-black relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-black z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black to-transparent opacity-80 z-10"></div>
         </div>
-      )}
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-lg text-gray-400">
-              Everything you need to know about our services
+            <h2 className="text-3xl font-bold mb-4">
+              Our <span className="text-gradient-red text-glow">Location</span>
+            </h2>
+            <p className="text-gray-300 max-w-3xl mx-auto">
+              While we operate remotely and serve clients worldwide, our headquarters is located in sunny Los Angeles
             </p>
           </div>
           
-          <div className="space-y-1 bg-black/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-800">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} question={faq.question} answer={faq.answer} />
-            ))}
+          <div className="glass-card-glow rounded-2xl overflow-hidden border border-primary/20 h-[400px] shadow-glow">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.27405770525!2d-118.69192047471653!3d34.02016130653294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2sus!4v1625612035507!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              title="Map of Los Angeles"
+              className="filter brightness-75"
+            ></iframe>
           </div>
         </div>
-      </section>
-
-      {/* Contact Information Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Additional Ways to Reach Us</h2>
-            <p className="text-lg text-gray-300">
-              Choose the method that works best for you
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            <div className="bg-black/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-800 group hover:border-primary/50 transition-all duration-300">
-              <Mail className="h-8 w-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="font-semibold mb-2">Email</h3>
-              <a href="mailto:info@managethefans.com" className="text-gray-300 hover:text-primary transition-colors">
-                info@managethefans.com
-              </a>
-            </div>
-            
-            <div className="bg-black/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-800 group hover:border-primary/50 transition-all duration-300">
-              <Phone className="h-8 w-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="font-semibold mb-2">Phone</h3>
-              <a href="tel:615-549-5944" className="text-gray-300 hover:text-primary transition-colors">
-                615-549-5944
-              </a>
-            </div>
-          </div>
+        
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {Array.from({ length: 15 }).map((_, i) => (
+            <div 
+              key={i}
+              className="absolute rounded-full bg-primary/5 animate-float"
+              style={{
+                width: `${Math.random() * 6 + 2}px`,
+                height: `${Math.random() * 6 + 2}px`,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${Math.random() * 10 + 5}s`
+              }}
+            />
+          ))}
         </div>
       </section>
     </div>
-  );
-};
-
-// Common form fields component
-const CommonFormFields = ({ formData, handleChange }: { 
-  formData: any, 
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void 
-}) => {
-  const handleServiceChange = (service: string) => {
-    const currentServices = [...(formData.services || [])];
-    const newServices = currentServices.includes(service)
-      ? currentServices.filter(s => s !== service)
-      : [...currentServices, service];
-    
-    const syntheticEvent = {
-      target: {
-        name: 'services',
-        value: newServices,
-        type: 'select-multiple',
-        selectedOptions: newServices.map(s => ({ value: s }))
-      },
-      currentTarget: {
-        name: 'services',
-        value: newServices,
-        type: 'select-multiple',
-        selectedOptions: newServices.map(s => ({ value: s }))
-      }
-    } as unknown as React.ChangeEvent<HTMLSelectElement>;
-    
-    handleChange(syntheticEvent);
-  };
-
-  const handleCheckboxClick = (service: string, e: React.MouseEvent) => {
-    // Prevent the label click from triggering twice
-    e.stopPropagation();
-    handleServiceChange(service);
-  };
-
-  return (
-    <>
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-1">
-          Your Name
-        </label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-gray-900 text-white"
-          placeholder="Your name or what we should call you"
-          required
-        />
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
-            Email Address
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-gray-900 text-white"
-            placeholder="Where should we slide into?"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-gray-900 text-white"
-            placeholder="For those late night strategy calls"
-          />
-        </div>
-      </div>
-      
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-3">
-          Services You're Interested In (Select all that apply)
-        </label>
-        <div className="space-y-4">
-          <div 
-            onClick={(e) => handleCheckboxClick('fans', e)}
-            className="flex items-center group cursor-pointer bg-gray-900/50 p-4 rounded-lg border border-gray-800 hover:border-primary/50 transition-all duration-300"
-          >
-            <input
-              type="checkbox"
-              id="fans"
-              checked={formData.services?.includes('fans')}
-              onChange={() => {}}
-              className="w-5 h-5 rounded border-gray-700 bg-gray-900 text-primary focus:ring-primary cursor-pointer"
-            />
-            <label htmlFor="fans" className="ml-3 cursor-pointer flex-1" onClick={(e) => e.stopPropagation()}>
-              <span className="block font-medium text-white">OnlyFans Management</span>
-              <span className="block text-sm text-gray-400 mt-1">Let us handle your business and maximize your earnings</span>
-            </label>
-          </div>
-
-          <div 
-            onClick={(e) => handleCheckboxClick('social', e)}
-            className="flex items-center group cursor-pointer bg-gray-900/50 p-4 rounded-lg border border-gray-800 hover:border-primary/50 transition-all duration-300"
-          >
-            <input
-              type="checkbox"
-              id="social"
-              checked={formData.services?.includes('social')}
-              onChange={() => {}}
-              className="w-5 h-5 rounded border-gray-700 bg-gray-900 text-primary focus:ring-primary cursor-pointer"
-            />
-            <label htmlFor="social" className="ml-3 cursor-pointer flex-1" onClick={(e) => e.stopPropagation()}>
-              <span className="block font-medium text-white">Social Media Growth</span>
-              <span className="block text-sm text-gray-400 mt-1">Build your empire across all platforms</span>
-            </label>
-          </div>
-
-          <div 
-            onClick={(e) => handleCheckboxClick('masseur', e)}
-            className="flex items-center group cursor-pointer bg-gray-900/50 p-4 rounded-lg border border-gray-800 hover:border-primary/50 transition-all duration-300"
-          >
-            <input
-              type="checkbox"
-              id="masseur"
-              checked={formData.services?.includes('masseur')}
-              onChange={() => {}}
-              className="w-5 h-5 rounded border-gray-700 bg-gray-900 text-primary focus:ring-primary cursor-pointer"
-            />
-            <label htmlFor="masseur" className="ml-3 cursor-pointer flex-1" onClick={(e) => e.stopPropagation()}>
-              <span className="block font-medium text-white">Rent.Men Concierge</span>
-              <span className="block text-sm text-gray-400 mt-1">Dominate the platform with our premium service</span>
-            </label>
-          </div>
-        </div>
-      </div>
-      
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-1">
-          Your Message
-        </label>
-        <textarea
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          rows={5}
-          className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-gray-900 text-white"
-          placeholder="Tell us what you're working with... goals, current situation, dreams of world domination, etc."
-          required
-        ></textarea>
-      </div>
-    </>
   );
 };
 
