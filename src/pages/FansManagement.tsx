@@ -103,7 +103,7 @@ const FansManagement = () => {
   return (
     <div className="overflow-hidden bg-black text-white opacity-100">
       {/* Hero Section */}
-      <section className="relative min-h-[40vh] md:min-h-[55vh] flex items-center bg-black pt-20 pb-0 overflow-hidden">
+      <section className="relative min-h-[40vh] md:min-h-[55vh] flex items-center bg-black pt-24 pb-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black z-10"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
