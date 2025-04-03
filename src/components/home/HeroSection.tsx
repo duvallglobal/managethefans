@@ -1,12 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    // Set loaded after a small delay to trigger animations
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300);
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!parallaxRef.current) return;
 
@@ -25,66 +31,78 @@ const HeroSection = () => {
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
+      clearTimeout(timer);
     };
   }, []);
 
   return (
-    <section className="relative min-h-[60vh] md:min-h-screen flex items-center bg-black pt-12 md:pt-16 overflow-hidden">
-      {/* Background elements */}
+    <section className="relative min-h-[95vh] md:min-h-[95vh] flex items-center bg-black pt-8 md:pt-10 overflow-hidden">
+      {/* Simple background with gradient */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-90 z-10"></div>
-        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-20"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent z-20"></div>
-        <div className="absolute inset-0 bg-[url('/lovable-uploads/cad463e6-4289-4d2f-aca6-25a1b5fe09fd.png')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-black z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
       </div>
 
-      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-4 sm:py-8 md:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-12 items-center">
+      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-0 sm:py-0 md:py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
           {/* Text Content */}
-          <div className="space-y-5 sm:space-y-6 md:space-y-8 animate-fade-up text-center lg:text-left">
-            <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-base md:text-lg font-semibold mb-1 backdrop-blur-sm">
+          <div className={`space-y-6 sm:space-y-8 text-center lg:text-left transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="inline-block px-4 py-2 rounded-full bg-gradient-red text-white text-sm md:text-base font-semibold mb-2 border border-primary/30">
               Premium Digital Management
             </div>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-relaxed sm:leading-tight [text-wrap:balance]">
-              Elevate Your <span className="text-primary">Online Presence</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight [text-wrap:balance]">
+              Elevate Your <span className="text-gradient-red">Online Presence</span>
             </h1>
-            <p className="text-sm sm:text-lg md:text-xl text-gray-300 leading-relaxed sm:leading-normal">
-              OnlyFans Management,
-              Social Media Growth, and Rent.Men Concierge Services
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              OnlyFans Management, Social Media Growth, and Rent.Men Concierge Services
             </p>
-            <div className="w-full flex flex-col sm:flex-row gap-5 md:gap-4 justify-center lg:justify-start pt-2 sm:pt-0">
-              <Button size="lg" variant="default" className="btn-primary text-sm md:text-base py-2" asChild>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-[#330000] to-[#660000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-6 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#440000] hover:to-[#770000]"
+                asChild
+              >
                 <Link to="/contact">
-                Start Managing YOUR Fans Now!
-                  <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                  Start Managing YOUR Fans Now!
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="btn-secondary text-sm md:text-base py-2" asChild>
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-[#1a0000] to-[#330000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-6 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#2a0000] hover:to-[#440000]"
+                asChild
+              >
                 <Link to="/pricing">
-                Packages and Service Pricing
+                  Packages and Service Pricing
                 </Link>
               </Button>
             </div>
           </div>
 
-          {/* Parallax Elements */}
-          <div className="relative h-[180px] sm:h-[300px] md:h-[400px] lg:h-[500px] animate-fade-in block">
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-full blur-3xl parallax-element" data-depth="0.2"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 md:w-64 h-48 md:h-64 rounded-full bg-gradient-to-br from-gray-700/40 to-gray-800/40 opacity-20 animate-pulse parallax-element" data-depth="0.5"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-56 md:w-80 h-56 md:h-80 border border-gray-700/50 rounded-full animate-float parallax-element bg-gray-800/20" data-depth="0.3"></div>
-            <div className="absolute top-0 right-0 w-80 h-80 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm hidden md:block" data-depth="0.8">
-              <img src="/lovable-uploads/0ae570b5-e71a-4a45-ae1b-d849d1525992.png" alt="Masseur" className="rounded-2xl object-cover shadow-xl" />
-            </div>
-            <div className="absolute bottom-0 left-0 w-72 h-72 parallax-element bg-gray-800/30 rounded-2xl backdrop-blur-sm hidden md:block" data-depth="0.6">
-              <img src="/lovable-uploads/8704c8de-0bfc-443d-96d9-54b4c7c1f22b.png" alt="Professional" className="rounded-2xl object-cover shadow-xl" />
+          {/* 3D Earth Model with zoomed out view and logo overlay */}
+          <div className={`relative h-[300px] sm:h-[400px] md:h-[450px] transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative w-full h-full">
+                <iframe src='https://my.spline.design/worldplanetdarkred-f684f67ddb36c7119a2b0609974e5a7c/' frameBorder='0' width='100%' height='100%'></iframe>
+                
+                {/* Logo overlay positioned at center of Earth instead of black box */}
+                <div className="absolute top-[54%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-20">
+                  <div className="flex items-center justify-center text-center">
+                    <div className="font-bold text-xl sm:text-2xl">
+                      <span className="text-gradient-red">Manage</span>
+                      <span className="text-white">TheFans</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-0 sm:bottom-6 md:bottom-10 left-0 right-0 flex justify-center animate-bounce">
-        <svg className="w-4 h-4 sm:w-8 sm:h-8 md:w-10 md:h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <div className={`absolute bottom-4 sm:bottom-6 md:bottom-10 left-0 right-0 flex justify-center animate-bounce transition-opacity duration-1000 delay-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+        <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
       </div>
@@ -93,3 +111,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

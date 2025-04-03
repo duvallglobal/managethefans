@@ -5,7 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 const MasseurConcierge = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const parallaxRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,6 +18,7 @@ const MasseurConcierge = () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-in');
+          setIsVisible(true);
         }
       });
     }, { threshold: 0.1 });
@@ -23,6 +26,10 @@ const MasseurConcierge = () => {
     document.querySelectorAll('.animate-on-scroll').forEach((el) => {
       observer.observe(el);
     });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
     // Parallax effect
     const handleMouseMove = (e: MouseEvent) => {
@@ -102,32 +109,33 @@ const MasseurConcierge = () => {
   return (
     <div className={`overflow-hidden bg-black text-white transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-black pt-16 overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center bg-black pt-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-black via-black to-transparent opacity-90 z-10"></div>
-          <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-20"></div>
-          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent z-20"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
           <div className="absolute inset-0 bg-[url('/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png')] bg-cover bg-center opacity-40 transform scale-105 transition-transform duration-10000 hover:scale-110"></div>
         </div>
 
-        <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24">
+        <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 md:py-24">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-4 py-1 rounded-full bg-gradient-to-r from-primary to-primary-darker text-white text-sm font-semibold mb-6 parallax-element backdrop-blur-sm" data-depth="0.2">
+            <div className="inline-block px-4 py-2 rounded-full bg-gradient-red text-white text-sm md:text-base font-semibold mb-4 border border-primary/30 parallax-element animate-pulse-glow" data-depth="0.2">
               Premium Concierge Services
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-up parallax-element [text-wrap:balance]" data-depth="0.3">
-              Rent.Men <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Concierge Services</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 parallax-element [text-wrap:balance]" data-depth="0.3">
+              Rent.Men <span className="text-gradient-red text-glow">Concierge</span>
             </h1>
-            <p className="text-xl text-gray-300 mb-8 animate-fade-up delay-100 parallax-element [text-wrap:balance]" data-depth="0.4">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 parallax-element [text-wrap:balance]" data-depth="0.4">
               Premium profile management and client acquisition services for professional masseurs.
             </p>
             <Button 
               size="lg" 
-              className="relative z-10 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all duration-300 hover:scale-105 animate-fade-up delay-200 shadow-lg hover:shadow-primary/50"
+              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-6 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] parallax-element"
               onClick={() => navigate('/contact')}
+              data-depth="0.5"
             >
               Elevate Your Practice
-              <ArrowRight className="ml-2 h-5 w-5 animate-bounce-x" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </div>
@@ -140,51 +148,88 @@ const MasseurConcierge = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-black relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-on-scroll">
-            <span className="text-primary font-semibold">Comprehensive Services</span>
-            <h2 className="text-4xl font-bold mb-4 text-white mt-2 [text-wrap:balance]">Fully Managed, Custom Rent.Men Operation Solutions</h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto [text-wrap:balance]">
+      <section className="py-4 md:py-6 bg-black relative" ref={sectionRef}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
+        
+        {/* Dark diagonal lines for texture */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{ 
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(153, 0, 0, 0.05) 10px, rgba(153, 0, 0, 0.05) 11px)` 
+          }}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-4 md:mb-6">
+            <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-2 [text-wrap:balance] transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              Custom <span className="text-gradient-red text-glow">Rent.Men</span> Solutions
+            </h2>
+            <p className={`text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance] transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               End-to-end management of your online presence and client relationships
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {services.map((service, index) => (
               <div 
                 key={service.title}
-                className="group p-6 rounded-xl border border-gray-800 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm hover:border-primary/50 hover:shadow-xl transition-all duration-500 animate-on-scroll"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className={`glass-card-glow p-4 md:p-5 rounded-2xl transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
+                style={{ transitionDelay: `${300 + index * 150}ms` }}
               >
-                <service.icon className="h-10 w-10 text-primary mb-4 transition-transform duration-300 group-hover:scale-110" />
-                <h3 className="text-xl font-bold mb-2 text-white transition-colors duration-300 group-hover:text-primary">{service.title}</h3>
+                <service.icon className="h-8 w-8 text-gradient-red text-glow mb-3 transition-transform duration-300 group-hover:scale-110" />
+                <h3 className="text-xl font-bold mb-2 text-gradient-red">{service.title}</h3>
                 <p className="text-gray-300">{service.description}</p>
               </div>
             ))}
           </div>
         </div>
+        
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {Array.from({ length: 15 }).map((_, i) => (
+            <div 
+              key={i}
+              className="absolute rounded-full bg-primary/5 animate-float"
+              style={{
+                width: `${Math.random() * 6 + 2}px`,
+                height: `${Math.random() * 6 + 2}px`,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${Math.random() * 10 + 5}s`
+              }}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-secondary relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="py-4 md:py-6 relative overflow-hidden bg-black">
+        <div className="absolute inset-0 bg-black"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/5 to-transparent"></div>
+        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="animate-on-scroll">
-              <span className="text-primary font-semibold">Why Choose Us</span>
-              <h2 className="text-4xl font-bold mb-6 text-white mt-2 [text-wrap:balance]">How Our Concierge Service Simplifies Your Professional Life</h2>
-              <p className="text-xl text-gray-300 mb-8 [text-wrap:balance]">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white [text-wrap:balance]">
+                How Our <span className="text-gradient-red text-glow">Concierge Service</span> Simplifies Your Professional Life
+              </h2>
+              <p className="text-lg md:text-xl text-gray-300 mb-6 [text-wrap:balance]">
                 We handle the time-consuming aspects of managing your online presence, so you can focus on providing exceptional service to your clients.
               </p>
               
-              <ul className="space-y-4">
+              <ul className="space-y-3">
                 {benefits.map((benefit, index) => (
                   <li 
                     key={index} 
                     className="flex items-start animate-on-scroll"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                    <div className="flex-shrink-0 mr-3 mt-0.5">
+                      <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-4 w-4 text-white" />
+                      </div>
+                    </div>
                     <span className="text-lg text-gray-300">{benefit}</span>
                   </li>
                 ))}
@@ -193,13 +238,340 @@ const MasseurConcierge = () => {
             
             <div className="relative animate-on-scroll">
               <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-primary-darker/20 rounded-2xl blur-3xl"></div>
-              <div className="relative rounded-2xl overflow-hidden bg-gray-900 shadow-xl border border-white/10 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
+              <div className="relative card-3d glass-card-glow rounded-2xl overflow-hidden border border-primary/20 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-primary/30">
                 <div className="w-full h-[500px] bg-gray-800">
                   <img 
-                    src="images/drive-download-20250310T192226Z-001/rentmen-whychooseus.png" 
+                    src="/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png" 
                     alt="Why Choose Us" 
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <h3 className="text-3xl font-bold mb-4 text-gradient-red text-glow">Premium Experience</h3>
+                    <p className="text-lg text-gray-200 mb-6">Our concierge service transforms your online presence into a premium, professional offering that attracts high-quality clients.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute left-0 top-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
+        <div className="absolute right-0 bottom-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
+      </section>
+
+      {/* Advanced Features Section */}
+      <section className="py-4 md:py-6 bg-black relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-4 md:mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-white [text-wrap:balance]">
+              Advanced <span className="text-gradient-red text-glow">Technology</span> Solutions
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
+              Our premium concierge service includes cutting-edge technology to enhance your Rent.Men presence
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="glass-card-glow p-4 md:p-5 rounded-2xl transition-all duration-500 animate-fade-up relative">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#660000] to-[#990000] opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold mb-3 text-gradient-red">AI-Powered Phone Answering</h3>
+                <p className="text-gray-300 mb-4">Our proprietary AI technology can be trained to mimic your voice and handle client inquiries 24/7.</p>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-2 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300">Screens potential clients for you</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-2 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300">Handles booking inquiries and scheduling</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-2 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300">Answers common client questions</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="glass-card-glow p-4 md:p-5 rounded-2xl transition-all duration-500 animate-fade-up relative" style={{ animationDelay: "150ms" }}>
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#660000] to-[#990000] opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold mb-3 text-gradient-red">Smart Booking System</h3>
+                <p className="text-gray-300 mb-4">Automated scheduling system that integrates with your calendar and handles client bookings efficiently.</p>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-2 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300">Syncs with your personal calendar</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-2 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300">Sends automatic reminders to clients</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-2 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300">Minimizes double-bookings and no-shows</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="glass-card-glow p-4 md:p-5 rounded-2xl transition-all duration-500 animate-fade-up relative" style={{ animationDelay: "300ms" }}>
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#660000] to-[#990000] opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold mb-3 text-gradient-red">Client Verification System</h3>
+                <p className="text-gray-300 mb-4">Advanced screening protocols to ensure client authenticity and safety for your practice.</p>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-2 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300">Multi-point verification process</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-2 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300">Discreet background checks</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-2 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300">Client reputation database access</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Tiers */}
+      <section className="py-4 md:py-6 bg-black relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
+        
+        {/* Dark diagonal lines for texture */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{ 
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(153, 0, 0, 0.05) 10px, rgba(153, 0, 0, 0.05) 11px)` 
+          }}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-4 md:mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-white [text-wrap:balance]">
+              Our <span className="text-gradient-red text-glow">Service Tiers</span>
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
+              Choose the level of service that best fits your professional needs
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            {[
+              {
+                title: "Standard Tier",
+                price: "$299 setup + $99/week",
+                description: "Essential services to establish your Rent.Men presence.",
+                features: [
+                  "Profile optimization",
+                  "Basic content updates",
+                  "Hashtag optimization",
+                  "Weekly performance review",
+                  "25 client conversations/week",
+                  "Email support"
+                ]
+              },
+              {
+                title: "Premium Tier",
+                price: "$499 setup + $199/week",
+                description: "Enhanced management for established professionals.",
+                features: [
+                  "Everything in Standard Tier",
+                  "2-3 content updates/week",
+                  "3-hour response guarantee",
+                  "Custom promotional campaigns",
+                  "Dedicated account manager",
+                  "50 client conversations/week",
+                  "AI phone answering service",
+                  "Preferred client targeting"
+                ],
+                featured: true
+              },
+              {
+                title: "Enterprise Tier",
+                price: "$999 setup + $349/week",
+                description: "Comprehensive solution for top-tier professionals.",
+                features: [
+                  "Everything in Premium Tier",
+                  "Unlimited content updates",
+                  "1-hour response guarantee",
+                  "Multi-platform management",
+                  "Unlimited client conversations",
+                  "Custom branding package",
+                  "Professional photoshoot",
+                  "Priority support",
+                  "Revenue optimization"
+                ]
+              }
+            ].map((tier, index) => (
+              <div 
+                key={tier.title}
+                className={`card-3d glass-card-glow p-4 md:p-5 rounded-2xl transition-all duration-1000 animate-fade-up relative ${tier.featured ? 'border-primary/30 shadow-xl shadow-primary/10' : 'border-gray-800'}`}
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
+                {tier.featured && (
+                  <div className="absolute -top-4 right-4 bg-gradient-red text-white text-xs font-bold py-1 px-3 rounded-full">Most Popular</div>
+                )}
+                <h3 className="text-2xl md:text-3xl font-bold mb-2 text-gradient-red text-glow">{tier.title}</h3>
+                <div className="text-xl md:text-2xl font-bold mb-4 text-white">{tier.price}</div>
+                <p className="text-gray-300 mb-6">{tier.description}</p>
+                <ul className="space-y-3 mb-8">
+                  {tier.features.map((feature, i) => (
+                    <li key={i} className="flex items-start">
+                      <div className="flex-shrink-0 mr-3 mt-0.5">
+                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-red text-glow animate-pulse-glow">
+                          <CheckCircle className="h-4 w-4 text-white" />
+                        </div>
+                      </div>
+                      <span className="text-gray-300">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button 
+                  className={`w-full bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium py-6 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] mt-auto`}
+                  onClick={() => navigate('/contact')}
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Client Success Stories */}
+      <section className="py-4 md:py-6 bg-black relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-4 md:mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-white [text-wrap:balance]">
+              Client <span className="text-gradient-red text-glow">Success Stories</span>
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
+              Hear from professionals who have transformed their practice with our concierge service
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="glass-card-glow p-4 md:p-5 rounded-2xl relative animate-fade-up">
+              <div className="relative z-10">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-red text-glow flex items-center justify-center text-white font-bold text-xl">J</div>
+                  <div className="ml-3">
+                    <h3 className="font-bold text-white">Jason M.</h3>
+                    <p className="text-sm text-gray-400">Los Angeles, CA</p>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <div className="flex text-primary">
+                    {"★★★★★".split("").map((star, i) => (
+                      <span key={i} className="text-gradient-red">★</span>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-300 italic">
+                  "Since working with the Rent.Men Concierge team, my bookings have increased by 300% and I've been able to raise my rates significantly. The AI phone service alone has saved me countless hours of back-and-forth messaging."
+                </p>
+                <div className="mt-4 text-sm text-gray-400">
+                  <span className="text-white font-semibold">Results:</span> 300% booking increase, 40% higher rates
+                </div>
+              </div>
+            </div>
+            
+            <div className="glass-card-glow p-4 md:p-5 rounded-2xl relative animate-fade-up" style={{ animationDelay: "150ms" }}>
+              <div className="relative z-10">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-red text-glow flex items-center justify-center text-white font-bold text-xl">M</div>
+                  <div className="ml-3">
+                    <h3 className="font-bold text-white">Michael T.</h3>
+                    <p className="text-sm text-gray-400">New York, NY</p>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <div className="flex text-primary">
+                    {"★★★★★".split("").map((star, i) => (
+                      <span key={i} className="text-gradient-red">★</span>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-300 italic">
+                  "The profile optimization and professional photoshoot elevated my online presence dramatically. I'm now attracting a much higher-quality clientele and have eliminated nearly all cancellations and no-shows."
+                </p>
+                <div className="mt-4 text-sm text-gray-400">
+                  <span className="text-white font-semibold">Results:</span> 95% reduction in no-shows, exclusively premium clients
+                </div>
+              </div>
+            </div>
+            
+            <div className="glass-card-glow p-4 md:p-5 rounded-2xl relative animate-fade-up" style={{ animationDelay: "300ms" }}>
+              <div className="relative z-10">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-red text-glow flex items-center justify-center text-white font-bold text-xl">R</div>
+                  <div className="ml-3">
+                    <h3 className="font-bold text-white">Robert K.</h3>
+                    <p className="text-sm text-gray-400">Chicago, IL</p>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <div className="flex text-primary">
+                    {"★★★★★".split("").map((star, i) => (
+                      <span key={i} className="text-gradient-red">★</span>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-300 italic">
+                  "The automated scheduling and client screening have changed my business completely. I now have more free time, better clients, and higher income. The team's expertise in the platform is unmatched."
+                </p>
+                <div className="mt-4 text-sm text-gray-400">
+                  <span className="text-white font-semibold">Results:</span> 15+ hours saved weekly, 200% revenue increase
                 </div>
               </div>
             </div>
@@ -207,100 +579,33 @@ const MasseurConcierge = () => {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-20 bg-black relative">
-        <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-secondary to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-secondary to-transparent"></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16 animate-on-scroll">
-            <span className="text-primary font-semibold">Our Methodology</span>
-            <h2 className="text-4xl font-bold mb-4 text-white mt-2 [text-wrap:balance]">Our Process</h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto [text-wrap:balance]">
-              A simple, effective approach to elevating your professional presence
-            </p>
-          </div>
-          
-          <div className="relative">
-            <div className="absolute top-0 bottom-0 left-1/2 -ml-px w-0.5 bg-gradient-to-b from-primary/0 via-primary to-primary/0 hidden md:block"></div>
-            
-            {[
-              {
-                step: "01",
-                title: "Initial Consultation",
-                description: "We begin with a detailed consultation to understand your goals, target audience, and unique value proposition.",
-                image: "/images/drive-download-20250310T192226Z-001/rentmen-initialconsult.png"
-              },
-              {
-                step: "02",
-                title: "Strategic Planning",
-                description: "Our team develops a comprehensive strategy tailored to your specific market and goals.",
-                image: "/images/drive-download-20250310T192226Z-001/rentmen-strategicplanning.png"
-              },
-              {
-                step: "03",
-                title: "Implementation",
-                description: "We execute the strategy, optimizing your profile, content, and engagement tactics.",
-                image: "/images/drive-download-20250310T192226Z-001/rentmen-implimentation.png"
-              },
-              {
-                step: "04",
-                title: "Ongoing Management",
-                description: "Continuous optimization and support to ensure sustained growth and success.",
-                image: "/images/drive-download-20250310T192226Z-001/rentmen-ongoingmanagement.png"
-              }
-            ].map((step, index) => (
-              <div key={index} className="relative mb-16 md:mb-24 animate-on-scroll" style={{ animationDelay: `${index * 200}ms` }}>
-                <div className={`md:flex items-center ${index % 2 === 0 ? '' : 'flex-row-reverse'}`}>
-                  <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}>
-                    <div className="group bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm p-6 rounded-xl border border-gray-800 hover:border-primary/30 transition-all duration-500 hover:shadow-xl">
-                      <h3 className="text-2xl font-bold mb-2 text-white transition-colors duration-300 group-hover:text-primary">{step.title}</h3>
-                      <p className="text-gray-300">{step.description}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="hidden md:flex absolute top-6 left-1/2 transform -translate-x-1/2 z-10">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center font-bold transition-transform duration-300 hover:scale-110">
-                      {step.step}
-                    </div>
-                  </div>
-                  
-                  <div className="md:w-1/2 mt-6 md:mt-0">
-                    <div className={`group rounded-xl overflow-hidden shadow-lg ${index % 2 === 0 ? 'md:ml-16' : 'md:mr-16'}`}>
-                      <img 
-                        src={step.image} 
-                        alt={step.title} 
-                        className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110" 
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-black to-secondary relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png')] bg-cover bg-center opacity-10 transform scale-105 transition-transform duration-10000 hover:scale-110"></div>
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+      <section className="py-4 md:py-6 bg-black relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-black opacity-95 z-10"></div>
+          <div className="absolute inset-0 bg-gradient-red-intense opacity-15 z-0"></div>
+          <div className="absolute inset-0 bg-pattern opacity-5 z-0"></div>
+        </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white animate-on-scroll [text-wrap:balance]">
-            Enhance Your Professional Life with Ease and Sophistication
-          </h2>
-          <p className="text-xl mb-8 text-gray-300 max-w-3xl mx-auto animate-on-scroll delay-100 [text-wrap:balance]">
-            Join our exclusive concierge service and transform your online presence while saving time and increasing your income.
-          </p>
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-primary/50 animate-on-scroll delay-200"
-            onClick={() => navigate('/contact')}
-          >
-            Sign Up Today
-            <ArrowRight className="ml-2 h-5 w-5 animate-bounce-x" />
-          </Button>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight [text-wrap:balance]">
+              Ready to <span className="text-gradient-red text-glow">Elevate</span> Your Professional Presence?
+            </h2>
+            
+            <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-8 mx-auto max-w-4xl [text-wrap:balance]">
+              Our premium concierge services will help you attract better clients, raise your rates, and save valuable time.
+            </p>
+            
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-8 py-7 rounded-lg transition-all duration-300 text-lg shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
+              onClick={() => navigate('/contact')}
+            >
+              Start Your Journey Today
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
         </div>
       </section>
     </div>
