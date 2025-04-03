@@ -81,24 +81,24 @@ const SocialMediaGrowth = () => {
           <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-2 md:py-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-red text-white text-sm font-semibold mb-2 border border-primary/30 animate-pulse-glow">
+            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 border border-primary/30 animate-pulse-glow">
               Premium Growth Services
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 [text-wrap:balance]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 [text-wrap:balance]">
               Social Media <span className="text-gradient-red text-glow">Growth</span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 [text-wrap:balance]">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance]">
               Strategic growth, engagement, and monetization services for all major social platforms. We help creators build authentic audiences that convert to paying customers.
             </p>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-[#330000] to-[#800000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 text-base shadow-lg hover:from-[#440000] hover:to-[#990000]"
+              className="bg-gradient-to-r from-[#330000] to-[#800000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#440000] hover:to-[#990000]"
               onClick={() => navigate('/contact')}
             >
               Grow Your Following
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </div>
         </div>
@@ -106,7 +106,7 @@ const SocialMediaGrowth = () => {
       </section>
 
       {/* Platforms Section */}
-      <section className="py-8 md:py-12 bg-black relative" ref={sectionRef}>
+      <section className="py-6 sm:py-8 md:py-12 bg-black relative" ref={sectionRef}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
         
         {/* Dark diagonal lines for texture */}
@@ -116,12 +116,12 @@ const SocialMediaGrowth = () => {
           }}></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 [text-wrap:balance] opacity-100">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-4 sm:mb-5 md:mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 [text-wrap:balance] opacity-100">
               Platforms We <span className="text-gradient-red text-glow">Specialize In</span>
             </h2>
-            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
               Comprehensive growth strategies for today's top social media platforms
             </p>
           </div>
@@ -132,7 +132,7 @@ const SocialMediaGrowth = () => {
       name: "Instagram", 
                 color: "bg-gradient-to-r from-[#833AB4] to-[#FD5949]",
       logo: (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 mr-1 sm:mr-1.5 md:mr-2" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.012-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
         </svg>
       )
@@ -141,7 +141,7 @@ const SocialMediaGrowth = () => {
       name: "TikTok", 
                 color: "bg-gradient-to-r from-[#000000] to-[#25F4EE]",
       logo: (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 mr-1 sm:mr-1.5 md:mr-2" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
         </svg>
       )
@@ -150,7 +150,7 @@ const SocialMediaGrowth = () => {
       name: "Twitter/X", 
                 color: "bg-gradient-to-r from-[#000000] to-[#1DA1F2]",
       logo: (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 mr-1 sm:mr-1.5 md:mr-2" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
       )
@@ -159,7 +159,7 @@ const SocialMediaGrowth = () => {
       name: "YouTube", 
                 color: "bg-gradient-to-r from-[#c4302b] to-[#FF0000]",
       logo: (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 mr-1 sm:mr-1.5 md:mr-2" viewBox="0 0 24 24" fill="currentColor">
           <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
         </svg>
       )
@@ -168,7 +168,7 @@ const SocialMediaGrowth = () => {
       name: "Facebook", 
                 color: "bg-gradient-to-r from-[#1877F2] to-[#3b5998]",
       logo: (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 mr-1 sm:mr-1.5 md:mr-2" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C18.343 23.027 22 18.062 22 12.073z"/>
         </svg>
       )
@@ -177,7 +177,7 @@ const SocialMediaGrowth = () => {
       name: "LinkedIn", 
                 color: "bg-gradient-to-r from-[#0077b5] to-[#0A66C2]",
       logo: (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 mr-1 sm:mr-1.5 md:mr-2" viewBox="0 0 24 24" fill="currentColor">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
       )
@@ -186,7 +186,7 @@ const SocialMediaGrowth = () => {
       name: "Threads", 
                 color: "bg-gradient-to-r from-[#000000] to-[#333333]",
       logo: (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 mr-1 sm:mr-1.5 md:mr-2" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
         </svg>
       )
@@ -194,7 +194,7 @@ const SocialMediaGrowth = () => {
             ].map((platform, index) => (
               <div 
                 key={index}
-                className={`${platform.color} text-white px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm md:text-base font-semibold flex items-center shadow-lg backdrop-blur-sm border border-white/10 opacity-100`}
+                className={`${platform.color} text-white px-2 xs:px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-full text-xs sm:text-sm md:text-base font-semibold flex items-center shadow-lg backdrop-blur-sm border border-white/10 opacity-100`}
               >
                 {platform.logo}
                 {platform.name}
@@ -202,21 +202,15 @@ const SocialMediaGrowth = () => {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* Services Grid */}
-      <section className="py-8 md:py-12 relative overflow-hidden bg-black">
-        <div className="absolute inset-0 bg-black"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/5 to-transparent"></div>
-        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance] opacity-100">
-              Our <span className="text-gradient-red text-glow">Growth Services</span>
+        {/* Services Section */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 mt-8 sm:mt-10 md:mt-12">
+          <div className="text-center mb-4 sm:mb-5 md:mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 [text-wrap:balance] opacity-100">
+              Our <span className="text-gradient-red text-glow">Services</span>
             </h2>
-            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
-              Comprehensive strategies to grow your social media presence and engagement
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
+              Comprehensive social media management to grow your audience and increase your revenue
             </p>
           </div>
           
@@ -224,19 +218,15 @@ const SocialMediaGrowth = () => {
             {services.map((service, index) => (
               <div 
                 key={service.title}
-                className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl group h-full flex flex-col opacity-100"
+                className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100"
               >
-                <service.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white mb-2 sm:mb-3" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
-                <p className="text-gray-300 text-xs sm:text-sm">{service.description}</p>
+                <service.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white mb-2 sm:mb-3 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
+                <p className="text-xs sm:text-sm text-gray-300">{service.description}</p>
               </div>
             ))}
           </div>
         </div>
-        
-        {/* Decorative elements */}
-        <div className="absolute left-0 top-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
-        <div className="absolute right-0 bottom-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
       </section>
 
       {/* Platform-Specific Strategies */}
