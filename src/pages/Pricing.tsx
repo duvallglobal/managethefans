@@ -47,7 +47,7 @@ const Pricing = () => {
     {
       title: "Starter Tier",
       description: "Essential OnlyFans management services for creators just starting out",
-      setupFee: 100,
+      setupFee: 99,
       commission: 30,
       features: [
         "Core Features:",
@@ -66,7 +66,7 @@ const Pricing = () => {
     {
       title: "Growth Tier",
       description: "Enhanced OnlyFans management for established creators",
-      setupFee: 250,
+      setupFee: 249,
       commission: 25,
       features: [
         "All Starter Tier Benefits & Services PLUS:",
@@ -86,7 +86,7 @@ const Pricing = () => {
     {
       title: "Premium Tier",
       description: "Full-service OnlyFans management for serious creators",
-      setupFee: 500,
+      setupFee: 499,
       commission: 20,
       features: [
         "All Growth Tier Benefits & Services PLUS:",
@@ -108,7 +108,7 @@ const Pricing = () => {
     {
       title: "Basic Bundle",
       description: "Combined OnlyFans and Social Media management for new creators",
-      setupFee: 150,
+      setupFee: 199,
       commission: 30,
       features: [
         "OnlyFans Management:",
@@ -131,7 +131,7 @@ const Pricing = () => {
     {
       title: "Premium Bundle",
       description: "Comprehensive management solution for established creators",
-      setupFee: 350,
+      setupFee: 399,
       commission: 25,
       features: [
         "All Basic Bundle Tier Benefits & Services PLUS:",
@@ -156,7 +156,7 @@ const Pricing = () => {
     {
       title: "Enterprise Bundle",
       description: "Custom solutions for top-tier creators or agencies",
-      setupFee: 2000,
+      setupFee: 1999,
       commission: 20,
       features: [
         "All Premium Bundle Tier Benefits & Services PLUS:",
@@ -183,7 +183,7 @@ const Pricing = () => {
       title: "Starter Package",
       description: "Essential services to establish your Rent.Men presence.",
       setupFee: 299,
-      weeklyFee: 99,
+      weeklyFee: 149,
       features: [
         "Core Features:",
         "Account setup and optimization",
@@ -201,7 +201,7 @@ const Pricing = () => {
       title: "Growth Package",
       description: "Enhanced Rent.Men management for established professionals.",
       setupFee: 499,
-      weeklyFee: 199,
+      weeklyFee: 249,
       features: [
         "All Starter Package Benefits PLUS:",
         "Advanced content plan (2-3 posts/day)",
@@ -225,7 +225,7 @@ const Pricing = () => {
       title: "Premium Package",
       description: "Comprehensive solution for top-tier professionals.",
       setupFee: 999,
-      weeklyFee: 349,
+      weeklyFee: 399,
       features: [
         "All Growth Package Benefits PLUS:",
         "Premium Features:",
