@@ -1,13 +1,7 @@
-import HeroSection from "@/components/home/HeroSection";
-import ServicesSection from "@/components/home/ServicesSection";
-import ProcessSection from "@/components/home/ProcessSection";
-
 export default function Home() {
   return (
-    <main className="bg-black min-h-screen">
-      <HeroSection />
-      <ServicesSection />
-      <ProcessSection />
-    </main>
-  );
-} 
+    <div className="min-h-screen bg-black text-white">
+      <h1 className="text-4xl font-bold">Welcome to Manage the Fans</h1>
+    </div>
+  )
+}

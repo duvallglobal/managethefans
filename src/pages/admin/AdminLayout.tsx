@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { auth } from '@/lib/firebase/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
+import { onAuthChange } from '@/lib/firebase';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthChange((user) => {
       if (!user) {
         navigate('/admin/login');
       }

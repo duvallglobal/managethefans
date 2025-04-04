@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Plus, Edit, Trash2, LogOut } from "lucide-react";
 import { BlogPost, getPosts, deletePost } from "@/lib/firebase/blog";
-import { onAuthChange, logOut } from "@/lib/firebase/auth";
+import { onAuthChange, logOut } from "@/lib/firebase";
 
 const BlogDashboard = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);

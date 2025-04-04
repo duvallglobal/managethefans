@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Mail, Loader2 } from "lucide-react";
-import { signIn } from "@/lib/firebase/auth";
+import { signIn } from "@/lib/firebase";
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 
