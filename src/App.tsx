@@ -25,6 +25,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import Login from "./pages/admin/Login";
 import BlogDashboard from "./pages/admin/BlogDashboard";
 import BlogEditor from "./pages/admin/BlogEditor";
+import BlogGenerator from "./pages/admin/BlogGenerator";
 
 // Configure React Router future flags
 import { UNSAFE_NavigationContext as NavigationContext } from "react-router-dom";
@@ -76,6 +77,7 @@ const App = () => {
                 <Route path="login" element={<Login />} />
                 <Route path="blog" element={<BlogDashboard />} />
                 <Route path="blog/new" element={<BlogEditor />} />
+                <Route path="blog/generate" element={<BlogGenerator />} />
                 <Route path="blog/edit/:id" element={<BlogEditor />} />
               </Route>
             </Routes>
