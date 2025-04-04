@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Mail, Loader2 } from "lucide-react";
 import { signIn } from "@/lib/firebase/auth";
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/components/ui/use-toast';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +13,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,12 +21,31 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const user = await signIn(email, password);
+      const { user, error } = await signIn(email, password);
+      
+      if (error) {
+        toast({
+          variant: "destructive",
+          title: "Error signing in",
+          description: "Please check your credentials and try again."
+        });
+        return;
+      }
+
       if (user) {
+        toast({
+          title: "Success",
+          description: "You have been signed in successfully."
+        });
         navigate("/admin/blog");
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred during login");
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "An unexpected error occurred. Please try again."
+      });
     } finally {
       setLoading(false);
     }
@@ -76,10 +98,10 @@ const Login = () => {
             disabled={loading}
           >
             {loading ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              <div className="flex items-center justify-center">
+                <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2" />
                 Signing in...
-              </>
+              </div>
             ) : (
               "Sign in"
             )}

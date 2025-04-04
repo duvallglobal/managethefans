@@ -17,6 +17,7 @@ import About from "./pages/About";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
+import TestForms from "./pages/TestForms";
 import "./App.css";
 
 // Admin imports
@@ -67,6 +68,7 @@ const App = () => {
               <Route path="/about" element={<About />} />
               <Route path="/terms" element={<TermsOfService />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/test-forms" element={<TestForms />} />
               <Route path="*" element={<NotFound />} />
 
               {/* Admin routes */}

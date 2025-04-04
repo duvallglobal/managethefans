@@ -1,35 +1,41 @@
+import { auth } from './firebase';
 import { 
-  signInWithEmailAndPassword, 
-  signOut,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
   onAuthStateChanged,
   User
-} from "firebase/auth";
-import { auth } from "./client";
+} from 'firebase/auth';
 
 // Sign in with email and password
 export const signIn = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
+    return { user: userCredential.user, error: null };
   } catch (error) {
-    console.error("Error signing in:", error);
-    throw error;
+    console.error('Error signing in:', error);
+    return { user: null, error };
   }
 };
 
 // Sign out
-export const logOut = async () => {
+export const signOut = async () => {
   try {
-    await signOut(auth);
+    await firebaseSignOut(auth);
+    return { error: null };
   } catch (error) {
-    console.error("Error signing out:", error);
-    throw error;
+    console.error('Error signing out:', error);
+    return { error };
   }
 };
 
 // Get current user
-export const getCurrentUser = (): User | null => {
-  return auth.currentUser;
+export const getCurrentUser = (): Promise<User | null> => {
+  return new Promise((resolve) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe();
+      resolve(user);
+    });
+  });
 };
 
 // Subscribe to auth state changes

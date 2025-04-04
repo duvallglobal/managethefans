@@ -1,30 +1,34 @@
-import { useEffect } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
-import { supabase } from "@/lib/supabase/client";
+import { useEffect, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { auth } from '@/lib/firebase/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
-const AdminLayout = () => {
+export default function AdminLayout() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate("/admin/login");
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate('/admin/login');
       }
-    };
-
-    checkAuth();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        navigate("/admin/login");
-      }
+      setIsLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => unsubscribe();
   }, [navigate]);
 
-  return <Outlet />;
-};
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#cc0000] border-t-transparent"></div>
+      </div>
+    );
+  }
 
-export default AdminLayout;
+  return (
+    <div className="min-h-screen bg-black">
+      <Outlet />
+    </div>
+  );
+}
