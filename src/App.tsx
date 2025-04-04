@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import { RouterProvider } from 'react-router-dom';
-import { router } from './routes';
-import { ErrorBoundary } from 'react-error-boundary';
-import { Toaster } from '@/components/ui/toaster';
-import { Suspense } from 'react';
-import { ErrorFallback } from '@/components/ErrorFallback';
-
-function LoadingFallback() {
-  return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#cc0000] border-t-transparent"></div>
-    </div>
-=======
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -98,17 +84,7 @@ const App = () => {
         <Sonner />
       </BrowserRouter>
     </QueryClientProvider>
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e
   );
 }
 
-export default function App() {
-  return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Suspense fallback={<LoadingFallback />}>
-        <RouterProvider router={router} />
-        <Toaster />
-      </Suspense>
-    </ErrorBoundary>
-  );
-}
+export default App;

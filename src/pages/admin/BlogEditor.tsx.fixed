@@ -4,55 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-<<<<<<< HEAD
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
-import { Loader2, Save, Upload } from 'lucide-react';
-import { createBlogPost, getPostById, updateBlogPost, uploadBlogImage, BlogPost } from '@/lib/firebase/blog';
-
-interface BlogFormData extends Omit<BlogPost, 'id' | 'created_at' | 'updated_at'> {
-  title: string;
-  content: string;
-  description: string;
-  image_url?: string;
-  published: boolean;
-  slug: string;
-}
-
-export default function BlogEditor() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
-  const [formData, setFormData] = useState<BlogFormData>({
-    title: '',
-    content: '',
-    description: '',
-    image_url: '',
-    published: false,
-    slug: ''
-  });
-
-  useEffect(() => {
-    if (id) {
-      loadBlogPost();
-    }
-  }, [id]);
-
-  const loadBlogPost = async () => {
-    try {
-      const post = await getPostById(id!);
-      if (post) {
-        setFormData({
-          title: post.title,
-          content: post.content,
-          description: post.description,
-          image_url: post.image_url || '',
-          published: post.published,
-          slug: post.slug
-        });
-=======
 import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { ArrowLeft, Image as ImageIcon, Loader2, Bold, Italic, Underline, Heading1, Heading2, AlignLeft, AlignCenter, AlignRight, List, ListOrdered, Link as LinkIcon, Sparkles } from "lucide-react";
@@ -104,107 +55,73 @@ const BlogEditor = () => {
       if (!user) {
         navigate("/admin/login");
         return;
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e
+      }
+    });
+
+    return () => unsubscribe();
+  }, [id, navigate]);
+
+  useEffect(() => {
+    if (id) {
+      loadPost();
+    }
+  }, [id]);
+
+  const loadPost = async () => {
+    try {
+      setLoading(true);
+      const loadedPost = await getPostById(id!);
+      if (loadedPost) {
+        setPost(loadedPost);
       }
     } catch (error) {
-      console.error('Error loading blog post:', error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to load blog post."
-      });
+      console.error('Error loading post:', error);
+      alert('Failed to load post: ' + (error instanceof Error ? error.message : String(error)));
+    } finally {
+      setLoading(false);
     }
   };
 
-<<<<<<< HEAD
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setPost(prev => ({ ...prev, [name]: value }));
   };
-=======
-    return () => unsubscribe();
-  }, [id, navigate]);
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e
+
+  const handleSwitchChange = (checked: boolean) => {
+    setPost(prev => ({ ...prev, featured: checked }));
+  };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setIsUploading(true);
+    setImageUploading(true);
     try {
-<<<<<<< HEAD
-      // Create a unique filename using timestamp and original name
-      const timestamp = Date.now();
-      const filename = `${timestamp}-${file.name}`;
-      
-      // Upload image and get URL
-      const { url } = await uploadBlogImage(file, filename);
-      
-      // Update form data with image URL
-      setFormData(prev => ({ ...prev, image_url: url }));
-      
-      toast({
-        title: "Success",
-        description: "Image uploaded successfully."
-      });
-=======
       const imageUrl = await uploadImage(file);
       setPost({ ...post, image: imageUrl });
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e
     } catch (error) {
       console.error('Error uploading image:', error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to upload image."
-      });
+      alert('Failed to upload image: ' + (error instanceof Error ? error.message : String(error)));
     } finally {
-      setIsUploading(false);
+      setImageUploading(false);
     }
-  };
-
-  const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setSaving(true);
 
     try {
-<<<<<<< HEAD
-      // Generate slug from title if not provided
-      const slug = formData.slug || generateSlug(formData.title);
-      const postData = { ...formData, slug };
-=======
       // Make sure the post has all required fields
       if (!post.title || !post.excerpt || !post.content || !post.author) {
         alert("Please fill all required fields");
         setSaving(false);
         return;
       }
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e
 
       if (id) {
-        await updateBlogPost(id, postData);
-        toast({
-          title: "Success",
-          description: "Blog post updated successfully."
-        });
+        await updatePost(id, post);
       } else {
-<<<<<<< HEAD
-        const result = await createBlogPost(postData);
-        toast({
-          title: "Success",
-          description: "Blog post created successfully."
-        });
-        // Navigate to edit page if new post
-        if (result.id) {
-          navigate(`/admin/blog/edit/${result.id}`);
-=======
         // Create new post
         await createPost(post);
       }
@@ -292,29 +209,23 @@ const BlogEditor = () => {
           formattedText = `<a href="${url}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
         } else {
           return; // If no URL is provided, don't modify the text
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e
         }
-      }
-    } catch (error) {
-      console.error('Error saving blog post:', error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to save blog post."
-      });
-    } finally {
-      setIsLoading(false);
+        break;
     }
+    
+    const newContent = post.content.substring(0, start) + formattedText + post.content.substring(end);
+    setPost(prev => ({ ...prev, content: newContent }));
+    
+    // Set focus back to textarea
+    setTimeout(() => {
+      if (contentRef.current) {
+        contentRef.current.focus();
+        contentRef.current.selectionStart = start + formattedText.length;
+        contentRef.current.selectionEnd = start + formattedText.length;
+      }
+    }, 0);
   };
 
-<<<<<<< HEAD
-  return (
-    <div className="min-h-screen bg-black text-white py-20">
-      <div className="container max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-8">
-          {id ? 'Edit Blog Post' : 'Create New Blog Post'}
-        </h1>
-=======
   // Track selection changes
   const handleSelect = () => {
     if (!contentRef.current) return;
@@ -361,47 +272,121 @@ const BlogEditor = () => {
             {generating ? "Generating..." : "Generate with AI"}
           </Button>
         </div>
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="title">Title</Label>
-              <Input
-                id="title"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-                className="bg-black/50 border-[#800000]/50 focus:border-[#cc0000]"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="description">Description (SEO)</Label>
-              <Input
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-                className="bg-black/50 border-[#800000]/50 focus:border-[#cc0000]"
-              />
-            </div>
-
-            <div>
-<<<<<<< HEAD
-              <Label htmlFor="image">Featured Image</Label>
-              <div className="space-y-4">
-                {formData.image_url && (
-                  <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-[#800000]/30">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  name="title"
+                  value={post.title}
+                  onChange={handleChange}
+                  className="bg-gray-900 border-gray-700"
+                  required
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="excerpt">Excerpt</Label>
+                <Textarea
+                  id="excerpt"
+                  name="excerpt"
+                  value={post.excerpt}
+                  onChange={handleChange}
+                  className="bg-gray-900 border-gray-700 h-24"
+                  required
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="author">Author</Label>
+                <Input
+                  id="author"
+                  name="author"
+                  value={post.author}
+                  onChange={handleChange}
+                  className="bg-gray-900 border-gray-700"
+                  required
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="category">Category</Label>
+                <select
+                  id="category"
+                  name="category"
+                  value={post.category}
+                  onChange={handleChange}
+                  className="w-full bg-gray-900 border border-gray-700 rounded-md p-2 text-white"
+                  required
+                >
+                  {categories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <Label htmlFor="date">Date</Label>
+                <Input
+                  id="date"
+                  name="date"
+                  type="date"
+                  value={post.date}
+                  onChange={handleChange}
+                  className="bg-gray-900 border-gray-700"
+                  required
+                />
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="featured"
+                  checked={post.featured}
+                  onCheckedChange={handleSwitchChange}
+                />
+                <Label htmlFor="featured">Featured Post</Label>
+              </div>
+              
+              <div>
+                <Label htmlFor="image">Featured Image</Label>
+                {post.image && (
+                  <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-2 border border-gray-700">
                     <img
-                      src={formData.image_url}
+                      src={post.image}
                       alt="Featured"
                       className="w-full h-full object-cover"
                     />
                   </div>
-=======
+                )}
+                <div className="flex items-center">
+                  <Label
+                    htmlFor="image-upload"
+                    className="cursor-pointer flex items-center justify-center w-full py-2 px-4 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-md transition-colors"
+                  >
+                    {imageUploading ? (
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <ImageIcon className="h-4 w-4 mr-2" />
+                    )}
+                    {imageUploading ? "Uploading..." : "Upload Image"}
+                  </Label>
+                  <Input
+                    id="image-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                </div>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-300 mb-1">Content</label>
               <div className="mb-2 bg-gray-800 border border-gray-700 p-1 rounded-md flex flex-wrap gap-1">
                 <Button 
@@ -497,7 +482,6 @@ const BlogEditor = () => {
                 >
                   <ListOrdered className="h-4 w-4" />
                 </Button>
-                <div className="w-px h-6 bg-gray-700 mx-1"></div>
                 <Button 
                   type="button" 
                   size="sm" 
@@ -510,158 +494,33 @@ const BlogEditor = () => {
               </div>
               <Textarea
                 ref={contentRef}
-                required
-                value={post.content}
-                onChange={(e) => setPost({ ...post, content: e.target.value })}
-                onSelect={handleSelect}
-                className="bg-gray-800 border-gray-700 text-white h-64"
-              />
-              <p className="text-xs text-gray-400 mt-1">
-                Use the formatting toolbar to style your content. HTML tags will be preserved.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Category</label>
-                <select
-                  value={post.category}
-                  onChange={(e) => setPost({ ...post, category: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 text-white rounded-md px-3 py-2"
-                >
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Author</label>
-                <Input
-                  required
-                  value={post.author}
-                  onChange={(e) => setPost({ ...post, author: e.target.value })}
-                  className="bg-gray-800 border-gray-700 text-white"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Featured Image</label>
-              <div className="flex items-center space-x-4">
-                {post.image && (
-                  <img
-                    src={post.image}
-                    alt="Featured"
-                    className="h-20 w-20 object-cover rounded-lg border border-gray-700"
-                  />
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e
-                )}
-                <div className="flex items-center gap-4">
-                  <Input
-                    id="image"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => document.getElementById('image')?.click()}
-                    disabled={isUploading}
-                    className="flex-1 border-[#800000]/50 text-[#cc0000] hover:bg-[#cc0000]/10"
-                  >
-                    {isUploading ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Uploading...
-                      </>
-                    ) : (
-                      <>
-                        <Upload className="w-4 h-4 mr-2" />
-                        Upload Image
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="content">Content</Label>
-              <Textarea
                 id="content"
                 name="content"
-                value={formData.content}
+                value={post.content}
                 onChange={handleChange}
+                onSelect={handleSelect}
+                className="bg-gray-900 border-gray-700 h-[500px] font-mono text-sm"
                 required
-                className="min-h-[400px] bg-black/50 border-[#800000]/50 focus:border-[#cc0000]"
               />
-            </div>
-
-            <div>
-              <Label htmlFor="slug">URL Slug (optional)</Label>
-              <Input
-                id="slug"
-                name="slug"
-                value={formData.slug}
-                onChange={handleChange}
-                placeholder="Will be generated from title if left empty"
-                className="bg-black/50 border-[#800000]/50 focus:border-[#cc0000]"
-              />
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="published"
-                name="published"
-                checked={formData.published}
-                onChange={(e) => setFormData(prev => ({ ...prev, published: e.target.checked }))}
-                className="rounded border-[#800000]/50 text-[#cc0000] focus:ring-[#cc0000]"
-              />
-              <Label htmlFor="published">Publish immediately</Label>
             </div>
           </div>
-
-          <div className="flex justify-end gap-4">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => navigate('/admin/blog')}
-              className="border-[#800000]/50 text-[#cc0000] hover:bg-[#cc0000]/10"
-            >
-              Cancel
-            </Button>
+          
+          <div className="flex justify-end">
             <Button
               type="submit"
-              disabled={isLoading}
-              className="bg-gradient-to-r from-[#800000] to-[#cc0000] hover:from-[#990000] hover:to-[#dd0000]"
+              disabled={saving}
+              className="bg-primary hover:bg-primary/90"
             >
-              {isLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Saving...
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4 mr-2" />
-                  Save Post
-                </>
-              )}
+              {saving ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : null}
+              {saving ? "Saving..." : "Save Post"}
             </Button>
           </div>
         </form>
       </div>
     </div>
   );
-<<<<<<< HEAD
-}
-=======
 };
 
 export default BlogEditor;
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e

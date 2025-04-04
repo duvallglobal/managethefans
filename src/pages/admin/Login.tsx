@@ -3,13 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Mail, Loader2 } from "lucide-react";
-<<<<<<< HEAD
-import { signIn } from "@/lib/firebase";
+import { signIn } from "@/lib/firebase/auth";
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
-=======
-import { signIn } from "@/lib/firebase/auth";
->>>>>>> db5dfb256ee0813110ffa4c6d9b0a9902e5af32e
 
 const Login = () => {
   const [email, setEmail] = useState("");
