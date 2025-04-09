@@ -1,5 +1,8 @@
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from './config';
+import { collection, addDoc, getFirestore } from 'firebase/firestore';
+import { app } from './index';
+
+// Initialize Firestore with the app instance from index.ts
+const db = getFirestore(app);
 
 type ContactFormBase = {
   name: string;

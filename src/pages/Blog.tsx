@@ -30,9 +30,14 @@ const Blog = () => {
   }, []);
 
   const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.excerpt?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = activeCategory === null || activeCategory === "All" || post.category === activeCategory;
+    // Safely handle potentially undefined properties
+    const title = post.title?.toLowerCase() || '';
+    const excerpt = post.excerpt?.toLowerCase() || '';
+    const postCategory = post.category || '';
+    
+    const matchesSearch = title.includes(searchQuery.toLowerCase()) || 
+                          excerpt.includes(searchQuery.toLowerCase());
+    const matchesCategory = activeCategory === null || activeCategory === "All" || postCategory === activeCategory;
     
     return matchesSearch && matchesCategory;
   });
@@ -115,20 +120,24 @@ const Blog = () => {
                 >
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary/90">{post.category}</span>
+                      <span className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary/90">
+                        {post.category || 'Uncategorized'}
+                      </span>
                       <div className="flex items-center text-xs text-gray-400">
                         <Calendar className="h-3 w-3 mr-1" />
-                        <span>{post.date}</span>
+                        <span>
+                          {post.date || new Date(post.createdAt).toISOString().split('T')[0]}
+                        </span>
                       </div>
                       <div className="flex items-center text-xs text-gray-400">
                         <User className="h-3 w-3 mr-1" />
-                        <span>{post.author}</span>
+                        <span>{post.author || 'Anonymous'}</span>
                       </div>
                     </div>
                     <Link to={`/blog/${post.id}`}>
                       <h3 className="text-xl font-bold mb-2 hover:text-primary/90 transition-colors">{post.title}</h3>
                     </Link>
-                    <p className="text-gray-300 mb-4">{post.excerpt}</p>
+                    <p className="text-gray-300 mb-4">{post.excerpt || post.description || post.content.substring(0, 150) + '...'}</p>
                     <Link to={`/blog/${post.id}`}>
                       <Button 
                         variant="link" 

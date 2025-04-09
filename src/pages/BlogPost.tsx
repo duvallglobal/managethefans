@@ -90,25 +90,37 @@ const BlogPost = () => {
         {/* Post header */}
         <div className="mb-10">
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/90 text-sm">{post.category}</span>
-            <div className="flex items-center text-sm text-gray-400">
-              <Calendar className="h-4 w-4 mr-2" />
-              <span>{post.date}</span>
-            </div>
-            <div className="flex items-center text-sm text-gray-400">
-              <User className="h-4 w-4 mr-2" />
-              <span>{post.author}</span>
-            </div>
+            {post.category && (
+              <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/90 text-sm">
+                {post.category}
+              </span>
+            )}
+            {(post.date || post.createdAt) && (
+              <div className="flex items-center text-sm text-gray-400">
+                <Calendar className="h-4 w-4 mr-2" />
+                <span>{post.date || new Date(post.createdAt).toISOString().split('T')[0]}</span>
+              </div>
+            )}
+            {post.author && (
+              <div className="flex items-center text-sm text-gray-400">
+                <User className="h-4 w-4 mr-2" />
+                <span>{post.author}</span>
+              </div>
+            )}
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-left">{post.title}</h1>
-          <p className="text-lg text-gray-300 text-left">{post.excerpt}</p>
+          {(post.excerpt || post.description) && (
+            <p className="text-lg text-gray-300 text-left">
+              {post.excerpt || post.description}
+            </p>
+          )}
         </div>
 
         {/* Featured image if available */}
-        {post.image && (
+        {(post.image || post.imageUrl) && (
           <div className="mb-10">
             <img 
-              src={post.image} 
+              src={post.image || post.imageUrl} 
               alt={post.title} 
               className="w-full h-auto rounded-lg shadow-lg"
             />

@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Wand2 } from 'lucide-react';
-import { createBlogPost } from '@/lib/firebase/blog';
+import { createBlogPost, BlogPost } from '@/lib/firebase/blog';
 
 interface GeneratedContent {
   title: string;
@@ -78,22 +78,30 @@ export default function BlogGenerator() {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '');
 
-      const result = await createBlogPost({
+      // Create a post object that matches the BlogPost interface
+      const postData: Omit<BlogPost, 'id'> = {
         title: generatedContent.title,
         content: generatedContent.content,
         description: generatedContent.description,
+        excerpt: generatedContent.description.substring(0, 150) + '...',
         published: true,
-        slug
-      });
+        slug,
+        category: 'OnlyFans Growth', // Default category
+        author: 'AI Assistant',      // Default author
+        date: new Date().toISOString().split('T')[0],
+        featured: false,
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      };
 
-      if (result.id) {
-        toast({
-          title: "Success",
-          description: "Blog post has been published successfully."
-        });
-        setGeneratedContent(null);
-        setPrompt('');
-      }
+      const postId = await createBlogPost(postData);
+
+      toast({
+        title: "Success",
+        description: "Blog post has been published successfully."
+      });
+      setGeneratedContent(null);
+      setPrompt('');
     } catch (error) {
       console.error('Error publishing post:', error);
       toast({

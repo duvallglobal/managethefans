@@ -104,9 +104,11 @@ const BlogDashboard = () => {
                 {posts.map((post) => (
                   <tr key={post.id} className="border-b border-gray-800 hover:bg-gray-800/50">
                     <td className="px-6 py-4 text-sm">{post.title}</td>
-                    <td className="px-6 py-4 text-sm text-gray-300">{post.category}</td>
-                    <td className="px-6 py-4 text-sm text-gray-300">{post.author}</td>
-                    <td className="px-6 py-4 text-sm text-gray-300">{post.date}</td>
+                    <td className="px-6 py-4 text-sm text-gray-300">{post.category || 'Uncategorized'}</td>
+                    <td className="px-6 py-4 text-sm text-gray-300">{post.author || 'Anonymous'}</td>
+                    <td className="px-6 py-4 text-sm text-gray-300">
+                      {post.date || new Date(post.createdAt).toISOString().split('T')[0]}
+                    </td>
                     <td className="px-6 py-4 text-sm text-gray-300">
                       {post.featured ? "Yes" : "No"}
                     </td>
