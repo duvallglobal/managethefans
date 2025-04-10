@@ -10,12 +10,12 @@
     <link rel="manifest" href="/site.webmanifest">
     <meta http-equiv="Content-Security-Policy" content="
       default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval';
+      script-src 'self' https://unpkg.com 'unsafe-inline' 'unsafe-eval';
       frame-src 'self';
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       font-src 'self' https://fonts.gstatic.com;
       img-src 'self' data: blob:;
-      connect-src 'self' ws: wss:;
+      connect-src 'self' ws: wss: https://prod.spline.design;
       worker-src 'self' blob:;
       child-src 'self' blob:">
     <title>Manage the Fans</title>

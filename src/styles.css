@@ -3128,7 +3128,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 .text-gradient-red {
-  background: linear-gradient(to right, #cc0000, #990000);
+  background: linear-gradient(to right, #d00000, #990000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -3563,7 +3563,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 .hover\:text-gradient-red:hover {
-  background: linear-gradient(to right, #cc0000, #990000);
+  background: linear-gradient(to right, #d00000, #990000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -5109,7 +5109,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 .hover\:text-gradient-red:hover {
-  background: linear-gradient(to right, #990000, #660000);
+  background: linear-gradient(to right, #d00000, #990000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

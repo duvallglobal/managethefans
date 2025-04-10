@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config: Config = {
   darkMode: ["class"],
@@ -20,22 +21,31 @@ const config: Config = {
       fontFamily: {
         sans: ["Montserrat", "sans-serif"],
         serif: ["Playfair Display", "serif"],
-        lato: ['Lato', 'sans-serif'],
-        nunito: ['Nunito', 'sans-serif'],
+        lato: ["Lato", "sans-serif"],
+        nunito: ["Nunito", "sans-serif"],
       },
       colors: {
-        primary: "#990000",
-        "primary-darker": "#660000",
-        "primary-darkest": "#330000",
-        secondary: "#1A1A1A",
-        accent: "#CC0000",
-        muted: "#F5F5F5",
-        border: "#333333",
+        primary: "#d00000",
+        "primary-darker": "#990000",
+        "primary-darkest": "#660000",
+        accent: "#d00000",
+        muted: "#1A1A1A",
         background: "#000000",
         foreground: "#FFFFFF",
-        "gradient-start": "#990000",
-        "gradient-middle": "#660000",
-        "gradient-end": "#330000",
+        border: "#333333",
+        secondary: "#1A1A1A",
+        "gradient-start": "#cc0000",
+        "gradient-middle": "#990000",
+        "gradient-end": "#660000",
+        "text-foreground": "#FFFFFF",
+        "text-primary": "#d00000",
+        "text-secondary": "#1A1A1A",
+        "text-muted": "#1A1A1A",
+        "primary-foreground": "rgb(255 255 255 / <alpha-value>)",
+      },
+      spacing: {
+        section: "4rem", // py-16
+        container: "2rem", // px-8
       },
       keyframes: {
         fadeUp: {

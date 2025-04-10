@@ -193,7 +193,7 @@ body {
     object-fit: cover; /* Ensure proper scaling */
   }
 
-  .relative.h-[300px] {
+  .relative.h-\[300px\] {
     height: auto; /* Allow the container to adjust height based on content */
     display: flex;
     flex-direction: column; /* Stack elements vertically */
@@ -201,7 +201,8 @@ body {
     padding: 1rem; /* Add padding for better spacing */
   }
 
-  .glass-card, .glass-card-glow {
+  .glass-card, 
+  .glass-card-glow {
     width: 100%; /* Full width cards on mobile */
     margin: 0.5rem 0; /* Add vertical spacing */
     padding: 1rem; /* Add padding for readability */

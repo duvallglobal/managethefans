@@ -30,6 +30,19 @@ const Pricing = () => {
     return () => observer.disconnect();
   }, []);
   
+  // Add a reset effect when tab changes
+  useEffect(() => {
+    // Brief reset of animations when tab changes
+    setIsVisible(false);
+    
+    // Reactivate animations after a short delay
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 50);
+    
+    return () => clearTimeout(timer);
+  }, [activeTab]);
+  
   interface Plan {
     title: string;
     description: string;
@@ -294,75 +307,81 @@ const Pricing = () => {
   const renderPricing = (plan: Plan) => {
     const isBundle = plan.type === "bundles";
     return (
-      <div className={`card-3d glass-card-glow p-6 md:p-8 rounded-2xl transition-all duration-500 relative ${plan.mostPopular ? 'border-primary/30 shadow-xl shadow-primary/10' : 'border-gray-800/50'}`}>
+      <div className={`card-3d glass-card-glow p-6 md:p-7 rounded-xl transition-all duration-300 relative h-full flex flex-col ${plan.mostPopular ? 'border-primary/40 shadow-lg shadow-primary/10' : 'border-gray-800/50'} hover:scale-[1.01] hover:shadow-xl hover:shadow-primary/20`}>
         {plan.mostPopular && (
-          <div className="absolute -top-4 left-8 px-4 py-1 bg-gradient-red text-white text-xs font-bold py-1 px-3 rounded-full animate-pulse-glow">
+          <div className="absolute -top-3.5 left-1/2 transform -translate-x-1/2 px-4 py-1.5 bg-gradient-red text-white text-xs font-bold rounded-full shadow-md shadow-primary/10 z-10">
             Most Popular
           </div>
         )}
         
-        <h3 className="text-2xl font-bold mb-2 text-gradient-red">{plan.title}</h3>
-        <p className="text-gray-400 mb-6">{plan.description}</p>
-        
-        <div className="mb-6">
-          {plan.setupFee && (
-            <div className="mb-2">
-              <span className="text-3xl font-bold text-white">${plan.setupFee}</span>
-              <span className="text-gray-400"> one-time setup</span>
-            </div>
-          )}
-          {plan.commission && (
-            <div className="mb-2">
-              <span className="text-3xl font-bold text-white">{plan.commission}%</span>
-              <span className="text-gray-400"> of gross earnings</span>
-            </div>
-          )}
-          {plan.monthlyFee && (
-            <div className="mb-2">
-              <span className="text-3xl font-bold text-white">${plan.monthlyFee}</span>
-              <span className="text-gray-400">/month flat rate</span>
-            </div>
-          )}
-          {plan.weeklyFee && (
-            <div className="mb-2">
-              <span className="text-3xl font-bold text-white">${plan.weeklyFee}</span>
-              <span className="text-gray-400">/week flat rate</span>
-            </div>
-          )}
+        <div className="flex-grow">
+          <h3 className="text-2xl font-bold mb-3 text-gradient-red">{plan.title}</h3>
+          <p className="text-gray-300 mb-5 text-base">{plan.description}</p>
+          
+          <div className="mb-6 mt-2">
+            {plan.setupFee && (
+              <div className="mb-2">
+                <span className="text-3xl font-bold text-white">${plan.setupFee}</span>
+                <span className="text-gray-400 ml-1"> one-time setup</span>
+              </div>
+            )}
+            {plan.commission && (
+              <div className="mb-2">
+                <span className="text-3xl font-bold text-white">{plan.commission}%</span>
+                <span className="text-gray-400 ml-1"> of gross earnings</span>
+              </div>
+            )}
+            {plan.monthlyFee && (
+              <div className="mb-2">
+                <span className="text-3xl font-bold text-white">${plan.monthlyFee}</span>
+                <span className="text-gray-400 ml-1">/month flat rate</span>
+              </div>
+            )}
+            {plan.weeklyFee && (
+              <div className="mb-2">
+                <span className="text-3xl font-bold text-white">${plan.weeklyFee}</span>
+                <span className="text-gray-400 ml-1">/week flat rate</span>
+              </div>
+            )}
+          </div>
+
+          <ul className="space-y-3 mb-7">
+            {plan.features.map((feature, index) => (
+              <li key={index} className="flex items-start w-full">
+                {feature.startsWith('•') ? (
+                  <>
+                    <div className="flex-shrink-0 mr-3 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300 flex-grow text-base text-left">{feature.substring(1).trim()}</span>
+                  </>
+                ) : feature.endsWith(':') ? (
+                  <span className="text-gradient-red font-semibold w-full text-base text-left">{feature}</span>
+                ) : (
+                  <>
+                    <div className="flex-shrink-0 mr-3 mt-0.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow">
+                        <CheckCircle className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <span className="text-gray-300 flex-grow text-base text-left">{feature}</span>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <ul className="space-y-3 mb-8">
-          {plan.features.map((feature, index) => (
-            <li key={index} className="flex items-start w-full">
-              {feature.startsWith('•') ? (
-                <>
-                  <div className="w-4 flex-shrink-0" />
-                  <span className="text-gray-300 flex-grow text-left">{feature}</span>
-                </>
-              ) : feature.endsWith(':') ? (
-                <span className="text-gradient-red text-glow font-semibold w-full text-left">{feature}</span>
-              ) : (
-                <>
-                  <div className="flex-shrink-0 mr-3 mt-0.5">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-red text-glow animate-pulse-glow">
-                      <CheckCircle className="h-4 w-4 text-white" />
-                    </div>
-                  </div>
-                  <span className="text-gray-300 flex-grow text-left">{feature}</span>
-                </>
-              )}
-            </li>
-          ))}
-        </ul>
-
         <Button 
-          size="lg" 
-          className="w-full bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium py-6 rounded-lg transition-all duration-300 shadow-lg hover:from-[#770000] hover:to-[#aa0000]" 
+          size="default" 
+          className="w-full bg-gradient-to-r from-[#660000] to-[#990000] hover:from-[#770000] hover:to-[#aa0000] backdrop-blur-sm border border-primary/20 text-white font-medium py-2.5 rounded-md transition-all duration-200 mt-auto text-sm" 
           asChild
         >
           <Link to="/contact">
             {plan.buttonText}
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
       </div>
@@ -372,66 +391,65 @@ const Pricing = () => {
   return (
     <div className={`min-h-screen bg-black text-white pt-24 pb-16 transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       {/* Hero Section */}
-      <section className="relative overflow-hidden" ref={sectionRef}>
+      <section className="relative overflow-hidden pt-8 pb-4" ref={sectionRef}>
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-primary-darkest/5 via-black to-black opacity-95 z-10"></div>
-          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#330000] to-black opacity-50 z-20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-[#1A0000] to-black opacity-80 z-10"></div>
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-3 mix-blend-overlay"></div>
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12 md:mb-16">
-            <div className="inline-block px-4 py-2 rounded-full bg-gradient-red text-white text-sm md:text-base font-semibold mb-4 border border-primary/30 animate-pulse-glow">
+          <div className="text-center mb-14 md:mb-16">
+            <div className="inline-block px-4 py-1 rounded-full bg-gradient-red text-white text-xs font-medium mb-5 border border-primary/20">
               Clear & Transparent
             </div>
-            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 [text-wrap:balance] transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              Premium <span className="text-gradient-red text-glow">Service Pricing</span>
+            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-5 font-sans [text-wrap:balance] transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              Premium <span className="text-gradient-red">Service Pricing</span>
             </h1>
-            <p className={`text-lg md:text-xl text-gray-300 max-w-3xl mx-auto [text-wrap:balance] transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <p className={`text-base md:text-lg text-gray-400 max-w-2xl mx-auto font-sans [text-wrap:balance] transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               Choose the perfect plan to accelerate your growth and maximize your earnings
             </p>
           </div>
 
-          <div className={`flex justify-center mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="glass-card-glow rounded-full p-1">
+          <div className={`flex justify-center mb-12 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="glass-card-glow rounded-full p-0.5 shadow-sm">
               <div className="inline-flex rounded-full overflow-hidden">
                 <button
                   onClick={() => setActiveTab("onlyfans")}
-                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
                     activeTab === "onlyfans" 
                       ? "bg-gradient-red text-white" 
-                      : "text-gray-300 hover:text-white"
+                      : "text-gray-300 hover:text-white hover:bg-gray-800/30"
                   }`}
                 >
                   OnlyFans Services
                 </button>
                 <button
                   onClick={() => setActiveTab("bundles")}
-                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
                     activeTab === "bundles" 
                       ? "bg-gradient-red text-white" 
-                      : "text-gray-300 hover:text-white"
+                      : "text-gray-300 hover:text-white hover:bg-gray-800/30"
                   }`}
                 >
                   Bundle Options
                 </button>
                 <button
                   onClick={() => setActiveTab("rentmen")}
-                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
                     activeTab === "rentmen" 
                       ? "bg-gradient-red text-white" 
-                      : "text-gray-300 hover:text-white"
+                      : "text-gray-300 hover:text-white hover:bg-gray-800/30"
                   }`}
                 >
                   Rent.Men Services
                 </button>
                 <button
                   onClick={() => setActiveTab("addons")}
-                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
                     activeTab === "addons" 
                       ? "bg-gradient-red text-white" 
-                      : "text-gray-300 hover:text-white"
+                      : "text-gray-300 hover:text-white hover:bg-gray-800/30"
                   }`}
                 >
                   Add-On Services
@@ -441,53 +459,74 @@ const Pricing = () => {
           </div>
 
           {activeTab !== "addons" ? (
-            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
               {activeTab === "onlyfans" 
                 ? onlyFansPlans.map((plan, index) => (
-                    <div key={index} style={{ animationDelay: `${index * 150}ms` }} className="animate-fade-up">
+                    <div 
+                      key={index} 
+                      className="transition-all duration-500 opacity-0 translate-y-8 animate-fade-up"
+                      style={{ 
+                        animationDelay: `${150 + (index * 150)}ms`,
+                        animationFillMode: 'forwards'
+                      }}
+                    >
                       {renderPricing(plan)}
                     </div>
                   ))
                 : activeTab === "bundles"
                 ? bundlePlans.map((plan, index) => (
-                    <div key={index} style={{ animationDelay: `${index * 150}ms` }} className="animate-fade-up">
+                    <div 
+                      key={index} 
+                      className="transition-all duration-500 opacity-0 translate-y-8 animate-fade-up"
+                      style={{ 
+                        animationDelay: `${150 + (index * 150)}ms`,
+                        animationFillMode: 'forwards'
+                      }}
+                    >
                       {renderPricing(plan)}
                     </div>
                   ))
                 : rentMenPlans.map((plan, index) => (
-                    <div key={index} style={{ animationDelay: `${index * 150}ms` }} className="animate-fade-up">
+                    <div 
+                      key={index} 
+                      className="transition-all duration-500 opacity-0 translate-y-8 animate-fade-up"
+                      style={{ 
+                        animationDelay: `${150 + (index * 150)}ms`,
+                        animationFillMode: 'forwards'
+                      }}
+                    >
                       {renderPricing(plan)}
                     </div>
                   ))
               }
             </div>
           ) : (
-            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-              {activeTab === "addons"
-                ? addOnServices.map((service, index) => (
-                  <div 
-                    key={index} 
-                    className="card-3d glass-card-glow p-6 md:p-8 rounded-2xl transition-all duration-500 animate-fade-up"
-                    style={{ animationDelay: `${index * 150}ms` }}
-                  >
-                    <h3 className="text-2xl font-bold mb-2 text-gradient-red">{service.title}</h3>
-                    <p className="text-gray-400 mb-6">{service.description}</p>
-                    <ul className="space-y-4">
-                      {service.options.map((option, optIndex) => (
-                        <li key={optIndex} className="flex items-start">
-                          <div className="flex-shrink-0 mr-3 mt-0.5">
-                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-red text-glow animate-pulse-glow">
-                              <CheckCircle className="h-4 w-4 text-white" />
-                            </div>
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-5 transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+              {addOnServices.map((service, index) => (
+                <div 
+                  key={index} 
+                  className="card-3d glass-card-glow p-5 md:p-6 rounded-lg transition-all duration-300 opacity-0 translate-y-8 animate-fade-up"
+                  style={{ 
+                    animationDelay: `${200}ms`,
+                    animationFillMode: 'forwards'
+                  }}
+                >
+                  <h3 className="text-2xl font-bold mb-3 text-gradient-red">{service.title}</h3>
+                  <p className="text-gray-300 mb-5 text-base">{service.description}</p>
+                  <ul className="space-y-3">
+                    {service.options.map((option, optIndex) => (
+                      <li key={optIndex} className="flex items-start">
+                        <div className="flex-shrink-0 mr-3 mt-0.5">
+                          <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-red text-glow">
+                            <CheckCircle className="h-3 w-3 text-white" />
                           </div>
-                          <span className="text-gray-300">{option}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))
-                : null
-              }
+                        </div>
+                        <span className="text-gray-300 text-base">{option}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -512,31 +551,31 @@ const Pricing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-black relative overflow-hidden mt-16">
+      <section className="py-12 md:py-16 bg-black relative overflow-hidden mt-12">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black opacity-95 z-10"></div>
-          <div className="absolute inset-0 bg-gradient-red-intense opacity-15 z-0"></div>
-          <div className="absolute inset-0 bg-pattern opacity-5 z-0"></div>
+          <div className="absolute inset-0 bg-black z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-[#1A0000] to-black opacity-70 z-0"></div>
+          <div className="absolute inset-0 bg-pattern opacity-3 z-0"></div>
         </div>
         
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12 leading-tight [text-wrap:balance]">
-              Ready to <span className="text-gradient-red text-glow">Transform</span> Your Business?
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight [text-wrap:balance]">
+              Ready to <span className="text-gradient-red">Transform</span> Your Business?
             </h2>
             
-            <p className="text-lg md:text-xl text-gray-300 mb-10 md:mb-16 mx-auto max-w-4xl [text-wrap:balance]">
+            <p className="text-base md:text-lg text-gray-400 mb-8 mx-auto max-w-3xl [text-wrap:balance]">
               Contact us today for a personalized consultation and discover how our premium services can elevate your online presence.
             </p>
             
             <Button
-              size="lg"
-              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-8 py-7 rounded-lg transition-all duration-300 text-lg shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
+              size="default"
+              className="bg-gradient-to-r from-[#660000] to-[#990000] hover:from-[#770000] hover:to-[#aa0000] backdrop-blur-sm border border-primary/20 text-white font-medium px-6 py-2.5 rounded-md transition-all duration-200 text-sm"
               asChild
             >
               <Link to="/contact">
                 Get Started Today
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
