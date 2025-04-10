@@ -1,11 +1,14 @@
 import React, { useRef, useEffect, useState, ErrorInfo, Component } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '../../lib/utils';
-import { buttonVariants } from '../../components/ui/button';
+import { Button, buttonVariants } from '../../components/ui/button';
+import useWindowSize from '@/hooks/useWindowSize';
+import Spline from '@splinetool/react-spline';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
-// Error boundary to prevent Spline failures from crashing the entire page
+// Error boundary specifically for Spline component
 class SplineErrorBoundary extends Component<{children: React.ReactNode}, {hasError: boolean}> {
   constructor(props: {children: React.ReactNode}) {
     super(props);
@@ -44,248 +47,295 @@ declare global {
   }
 }
 
-const HeroSection = () => {
-  const parallaxRef = useRef<HTMLDivElement>(null);
+// Define the Spline component props with correct types for event handlers
+type SplineProps = {
+  scene: string;
+  className?: string;
+  onLoad?: () => void;
+  onError?: (error: unknown) => void;
+};
+
+// Define platform blobs for the background
+const platformBlobs = [
+  { name: 'RentMen', color: 'from-red-900 to-red-600', position: 'top-[10%] right-[20%]', size: 'w-24 h-24', delay: 0 },
+  { name: 'OnlyFans', color: 'from-blue-600 to-blue-400', position: 'top-[30%] right-[15%]', size: 'w-20 h-20', delay: 2 },
+  { name: 'Instagram', color: 'from-pink-600 to-purple-600', position: 'bottom-[20%] right-[25%]', size: 'w-28 h-28', delay: 1 },
+  { name: 'TikTok', color: 'from-cyan-400 to-teal-400', position: 'bottom-[40%] right-[10%]', size: 'w-16 h-16', delay: 3 },
+  { name: 'Twitter', color: 'from-sky-600 to-sky-400', position: 'top-[50%] right-[30%]', size: 'w-14 h-14', delay: 2.5 },
+  { name: 'YouTube', color: 'from-red-600 to-red-400', position: 'bottom-[30%] right-[40%]', size: 'w-18 h-18', delay: 1.5 },
+  { name: 'LinkedIn', color: 'from-blue-800 to-blue-600', position: 'top-[40%] right-[40%]', size: 'w-12 h-12', delay: 0.5 },
+  { name: 'Chaturbate', color: 'from-orange-500 to-yellow-500', position: 'bottom-[15%] right-[15%]', size: 'w-16 h-16', delay: 4 },
+  { name: 'JustForFans', color: 'from-purple-600 to-purple-400', position: 'top-[20%] right-[35%]', size: 'w-22 h-22', delay: 1.8 },
+];
+
+// As a fallback, use a simpler 3D element to avoid Spline issues
+const SplineFallback = () => {
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-black to-gray-900 flex items-center justify-center relative overflow-hidden">
+      <div className="animate-float absolute w-40 h-40 rounded-full bg-primary/5 blur-2xl top-1/4 left-1/3"></div>
+      <div className="animate-float absolute w-32 h-32 rounded-full bg-primary/5 blur-2xl bottom-1/4 right-1/3" style={{animationDelay: "1s"}}></div>
+      <div className="animate-pulse-slow absolute w-60 h-60 rounded-full bg-primary/5 blur-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+    </div>
+  );
+};
+
+// Platform blob component with animation
+const PlatformBlob = ({ color, position, size, delay }: { color: string; position: string; size: string; delay: number }) => {
+  return (
+    <motion.div
+      className={`absolute ${position} ${size} rounded-full bg-gradient-to-br ${color} opacity-20 mix-blend-screen blur-xl`}
+      animate={{
+        scale: [1, 1.2, 1],
+        opacity: [0.15, 0.25, 0.15],
+      }}
+      transition={{
+        duration: 5,
+        delay: delay,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut"
+      }}
+    />
+  );
+};
+
+const HeroSection: React.FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
   const [isSplineLoaded, setIsSplineLoaded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [splineError, setSplineError] = useState(false);
+  const splineContainerRef = useRef<HTMLDivElement>(null);
+  const { width } = useWindowSize();
+  const isMobile = width < 768; // MD breakpoint in Tailwind
 
-  const SPLINE_SCENE_URL = "https://prod.spline.design/WqA05cwHRcVcpKqp/scene.splinecode";
-
-  // Load the Spline viewer web component
+  // Make sure the section has position relative for proper scroll calculations
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js';
-    script.type = 'module';
-    
-    // Handle load events
-    script.onload = () => {
-      console.log('Spline viewer script loaded');
-      setIsSplineLoaded(true);
-    };
-    
-    script.onerror = (error) => {
-      console.error('Failed to load Spline viewer script:', error);
-      setSplineError(true);
-    };
-    
-    document.head.appendChild(script);
-    
-    return () => {
-      // Clean up script if component unmounts
-      if (document.head.contains(script)) {
-        document.head.removeChild(script);
+    const section = ref.current;
+    if (section) {
+      const computedStyle = window.getComputedStyle(section);
+      if (computedStyle.position === 'static') {
+        section.style.position = 'relative';
       }
-    };
+    }
   }, []);
 
-  // Add global error logging
-  useEffect(() => {
-    const handleGlobalError = (e: ErrorEvent) => {
-      console.error('Global Error:', e.message);
-      // If the error relates to Spline or fetching, set the splineError state
-      if (e.message.includes('Spline') || e.message.includes('fetch')) {
-        setSplineError(true);
-      }
-    };
-    
-    window.addEventListener('error', handleGlobalError);
-    
-    return () => {
-      window.removeEventListener('error', handleGlobalError);
-    };
-  }, []);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  });
 
-  // Check if mobile on initial render and when window resizes
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkMobile();
-    
-    // Add resize listener
-    window.addEventListener('resize', checkMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, []);
+  // Parallax effect values
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
   useEffect(() => {
-    const parallaxInstance = parallaxRef.current;
+    if (isMobile) return;
     
-    // Simple parallax effect for enhanced visual depth
     const handleMouseMove = (e: MouseEvent) => {
-      if (!parallaxInstance) return;
-      
-      const moveX = (e.clientX - window.innerWidth / 2) / -50;
-      const moveY = (e.clientY - window.innerHeight / 2) / -50;
-      
-      const elements = parallaxInstance.querySelectorAll('.parallax-element');
-      elements.forEach(element => {
-        const el = element as HTMLElement;
-        const depth = parseFloat(el.getAttribute('data-depth') || '0');
-        const translateX = moveX * depth;
-        const translateY = moveY * depth;
-        
-        el.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
+      setMousePosition({
+        x: e.clientX / window.innerWidth - 0.5,
+        y: e.clientY / window.innerHeight - 0.5,
       });
     };
 
-    // Only add mousemove handler if not mobile
-    if (!isMobile) {
-      document.addEventListener('mousemove', handleMouseMove);
-    }
-    
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [isMobile]);
 
-  // Fallback element when Spline fails to load
-  const SplineFallback = () => (
-    <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black opacity-70">
-      {/* Optional: Add some visual indication that would normally be shown by the 3D scene */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
-        <div className="absolute w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl -right-64 top-1/2 transform -translate-y-1/2"></div>
-        <div className="absolute w-[400px] h-[400px] rounded-full bg-primary/5 blur-2xl -right-32 top-1/3"></div>
-      </div>
-    </div>
-  );
+  const handleSplineLoad = () => {
+    console.log('Spline loaded successfully');
+    setIsSplineLoaded(true);
+  };
+
+  const handleSplineError = (err: unknown) => {
+    console.error("Spline loading error:", err);
+    setSplineError(true);
+    setIsSplineLoaded(false);
+  };
+
+  // Updated Spline scene URL as requested
+  const splineSceneUrl = "https://prod.spline.design/WqA05cwHRcVcpKqp/scene.splinecode";
 
   return (
-    <section className="relative flex flex-col md:flex-row items-center bg-black min-h-[90vh] overflow-hidden pt-20 pb-16">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black"></div>
-      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5"></div>
-      
-      {/* Spline container with responsive positioning */}
-      <div 
-        className={`
-          ${isMobile ? 'relative w-full h-[50vh] -mb-16' : 'absolute right-0 w-[50%] h-screen'}
-          z-[1] overflow-hidden
-        `}
-      >
-        {/* Always render a container for either Spline or fallback */}
-        <div className="w-full h-full relative">
-          {/* Fallback background always present */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black opacity-40" />
-          
-          {/* Spline Web Component wrapped in error boundary */}
-          <SplineErrorBoundary>
-            <div className="absolute inset-0 w-full h-full" style={{ pointerEvents: 'none' }}>
+    <motion.section
+      ref={ref}
+      style={{ opacity }}
+      className="relative w-full overflow-hidden bg-black hero-section"
+    >
+      {/* Layered animated background with black-to-deep-red gradient */}
+      <div className="absolute inset-0 w-full h-full">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-black to-primary-darkest"></div>
+        
+        {/* Textured overlay with blend mode */}
+        <div className="absolute inset-0 opacity-20 mix-blend-soft-light bg-noise"></div>
+        <div className="absolute inset-0 opacity-30 mix-blend-screen bg-gradient-to-t from-primary/10 to-transparent"></div>
+        
+        {/* Glowing orbs */}
+        <motion.div 
+          className="absolute -left-20 top-[20%] w-[300px] h-[300px] rounded-full bg-primary/20 blur-[100px] mix-blend-screen"
+          animate={{
+            x: [0, 20, 0],
+            opacity: [0.2, 0.3, 0.2],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        <motion.div 
+          className="absolute -right-40 bottom-[10%] w-[400px] h-[400px] rounded-full bg-primary/15 blur-[120px] mix-blend-screen"
+          animate={{
+            x: [0, -30, 0],
+            opacity: [0.15, 0.25, 0.15],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        {/* Platform-specific glowing blobs */}
+        {platformBlobs.map((blob, index) => (
+          <PlatformBlob 
+            key={index}
+            color={blob.color}
+            position={blob.position}
+            size={blob.size}
+            delay={blob.delay}
+          />
+        ))}
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 bg-grid-white/[0.03] bg-[length:40px_40px] mix-blend-overlay"></div>
+      </div>
+
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 py-20 md:py-32">
+        <div className="flex flex-col md:flex-row md:items-center">
+          {/* Content area */}
+          <motion.div 
+            className={`relative z-10 w-full md:w-1/2 ${isMobile ? '-mt-24' : ''}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            style={!isMobile ? {
+              transform: `translate3d(${mousePosition.x * -15}px, ${mousePosition.y * -15}px, 0px)`,
+            } : undefined}
+          >
+            {/* Small label */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="inline-flex items-center px-4 py-2 rounded-full backdrop-blur-md bg-black/20 border border-white/10 text-white/80 glassmorphism"
+            >
+              <span className="mr-2 text-primary animate-pulse">⭐</span>
+              <span className="text-sm font-medium">Trusted by over 400+ clients</span>
+            </motion.div>
+
+            {/* Heading */}
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="font-display text-[2.5rem] md:text-[4rem] tracking-tight leading-tight text-white mt-6 mb-4"
+            >
+              Manage your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-darker animate-pulse-slow">digital presence</span> with ease
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-[50ch]"
+            >
+              Your all-in-one platform for content creators who want to simplify their workflow, maximize earnings, and grow their audience.
+            </motion.p>
+
+            {/* CTA buttons - centered */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center mt-8 mx-auto md:mx-0"
+            >
+              <Button 
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "rounded-full backdrop-blur-lg bg-gradient-to-r from-red-900 to-red-700 border border-white/10 shadow-xl hover:shadow-red-500/20 hover:scale-105 transition-all duration-300"
+                )}
+                asChild
+              >
+                <Link to="/signup" className="px-8 py-6 flex items-center gap-2">
+                  Start Free Trial
+                  <motion.div
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <ArrowRight className="ml-1 h-5 w-5" />
+                  </motion.div>
+                </Link>
+              </Button>
+              <Button 
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" }),
+                  "rounded-full border-white/10 bg-black/20 backdrop-blur-lg hover:bg-black/30 text-white hover:scale-105 transition-all duration-300 glassmorphism"
+                )}
+                asChild
+              >
+                <Link to="/demo" className="px-8 py-6">Book Demo</Link>
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* Globe - Spline container using Spline component */}
+          <motion.div
+            ref={splineContainerRef}
+            className={`
+              ${isMobile ? 'relative w-full h-[50vh] -mb-16 mt-8' : 'absolute right-0 w-[55%] h-full'}
+              z-[1] pointer-events-none overflow-hidden
+            `}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            style={!isMobile ? {
+              transform: `translate3d(${mousePosition.x * 20}px, ${mousePosition.y * 20}px, 0px)`,
+              position: 'relative', // Ensure position is set for scroll calculations
+            } : {
+              position: 'relative', // Ensure position is set for scroll calculations
+            }}
+          >
+            {/* Glowing backdrop for the globe */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full bg-primary/5 blur-[100px] mix-blend-screen"></div>
+            
+            {/* Fallback content to show if Spline fails to load */}
+            {splineError && <SplineFallback />}
+            
+            {/* Wrapped Spline component with error boundary */}
+            <ErrorBoundary
+              fallback={<SplineFallback />}
+            >
               {!splineError ? (
-                <spline-viewer 
-                  url={SPLINE_SCENE_URL} 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%',
-                    opacity: isSplineLoaded ? 1 : 0,
-                    transition: 'opacity 1s ease'
-                  }}
-                ></spline-viewer>
+                <Spline
+                  scene={splineSceneUrl}
+                  onLoad={handleSplineLoad}
+                  onError={handleSplineError}
+                  className="w-full h-full scale-[0.9]"
+                />
               ) : (
                 <SplineFallback />
               )}
-            </div>
-          </SplineErrorBoundary>
-          
-          {/* Debug info - only shown during development */}
-          {import.meta.env.DEV && (
-            <div className="absolute bottom-4 right-4 text-xs text-white bg-black/50 p-2 rounded">
-              Status: {isSplineLoaded ? 'Loaded' : 'Loading'} 
-              {splineError ? ' (Error)' : ''}
-            </div>
-          )}
+            </ErrorBoundary>
+          </motion.div>
         </div>
       </div>
-      
-      <div ref={parallaxRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-4 md:py-8 w-full">
-        <div className={`
-          grid grid-cols-1 md:grid-cols-12 gap-8 items-center
-        `}>
-          {/* Text Content */}
-          <div className={`
-            space-y-6 text-center md:text-left md:col-span-7
-            ${isMobile ? '-mt-24' : ''}
-          `}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30 parallax-element"
-              data-depth="0.2"
-            >
-              <span className="text-sm font-medium text-primary">Premium Digital Management</span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight parallax-element"
-              data-depth="0.1"
-            >
-              Elevate Your <br />
-              <span className="text-gradient-red">Online Influence</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-lg text-gray-300 leading-relaxed max-w-xl parallax-element"
-              data-depth="0.15"
-            >
-              Expert management solutions for premium creators and influencers. Transform your online presence into a thriving business.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4 parallax-element"
-              data-depth="0.25"
-            >
-              <Link 
-                to="/pricing" 
-                className={cn(
-                  buttonVariants({ 
-                    size: "lg", 
-                    variant: "default" 
-                  }),
-                  "bg-primary hover:bg-primary-darker text-white font-medium"
-                )}
-              >
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-
-              <Link 
-                to="/contact" 
-                className={cn(
-                  buttonVariants({ 
-                    size: "lg", 
-                    variant: "outline" 
-                  }),
-                  "border-gray-600 text-white hover:bg-gray-800"
-                )}
-              >
-                <span className="text-sm font-medium text-primary">
-                  <ArrowRight className="w-4 h-4 mr-2" />
-                  Book Consultation
-                </span>
-              </Link>
-            </motion.div>
-          </div>
-          
-          {/* Empty column for spacing that helps position the globe */}
-          <div className="hidden md:block md:col-span-5"></div>
-        </div>
-      </div>
-    </section>
+    </motion.section>
   );
 };
 

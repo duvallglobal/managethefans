@@ -6,25 +6,25 @@ const steps = [
     icon: ClipboardCheck,
     title: "Initial Consultation",
     description: "In-depth discussion of your goals, current status, and growth strategy.",
-    color: "from-blue-500/20 to-blue-600/20"
+    color: "from-red-900/20 to-red-700/20 hover:from-red-900/30 hover:to-red-700/30"
   },
   {
     icon: Users2,
     title: "Strategy Development",
     description: "Custom tailored plan creation based on your unique needs and market position.",
-    color: "from-purple-500/20 to-purple-600/20"
+    color: "from-red-800/20 to-red-600/20 hover:from-red-800/30 hover:to-red-600/30"
   },
   {
     icon: BarChart3,
     title: "Implementation",
     description: "Expert execution of your strategy with continuous optimization and support.",
-    color: "from-rose-500/20 to-rose-600/20"
+    color: "from-red-700/20 to-red-500/20 hover:from-red-700/30 hover:to-red-500/30"
   },
   {
     icon: Rocket,
     title: "Growth & Scaling",
     description: "Monitoring progress and adjusting strategies to maximize your success.",
-    color: "from-emerald-500/20 to-emerald-600/20"
+    color: "from-red-600/20 to-red-400/20 hover:from-red-600/30 hover:to-red-400/30"
   }
 ];
 
@@ -33,22 +33,32 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2
+      staggerChildren: 0.2,
+      delayChildren: 0.3
     }
   }
 };
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.1, 0.25, 1.0]
+    }
+  }
 };
 
 export default function ProcessSection() {
   return (
-    <section className="relative py-20 bg-gradient-to-b from-black to-black/95 overflow-hidden">
+    <section className="relative py-20 lg:py-28 bg-gradient-to-b from-[#111] to-black/95 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5"></div>
       <div className="absolute inset-0 bg-gradient-to-br from-primary-darkest/5 via-transparent to-transparent"></div>
+      <div className="absolute left-20 top-1/3 w-40 h-40 rounded-full bg-primary/5 blur-3xl"></div>
+      <div className="absolute right-20 bottom-1/3 w-40 h-40 rounded-full bg-primary/5 blur-3xl"></div>
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -56,12 +66,12 @@ export default function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 md:mb-20"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-heading font-display font-bold tracking-tight leading-tight mb-4">
             Our <span className="text-gradient-red">Process</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-[50ch] mx-auto">
             A systematic approach to transforming your online presence and maximizing your success.
           </p>
         </motion.div>
@@ -70,7 +80,7 @@ export default function ProcessSection() {
           variants={container}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           className="relative"
         >
           {/* Timeline Line */}
@@ -85,15 +95,15 @@ export default function ProcessSection() {
                 className={`relative ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12 md:mt-32'}`}
               >
                 {/* Timeline Dot */}
-                <div className="absolute top-12 left-1/2 w-4 h-4 -ml-2 rounded-full bg-gradient-to-r from-primary to-primary-dark border-2 border-black md:left-0 md:right-0 md:mx-auto"></div>
+                <div className="absolute top-12 left-1/2 w-6 h-6 -ml-3 rounded-full bg-gradient-to-r from-red-800 to-red-600 border-2 border-black shadow-lg shadow-red-900/30 md:left-0 md:right-0 md:mx-auto z-10"></div>
 
-                <div className={`h-full p-6 rounded-2xl bg-gradient-to-br ${step.color} border border-white/5 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white/20`}>
+                <div className={`h-full p-8 rounded-2xl bg-gradient-to-br ${step.color} border border-white/5 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white/20 hover:shadow-lg hover:shadow-red-900/10`}>
                   <div className="flex flex-col h-full">
-                    <div className="mb-4">
-                      <step.icon className="w-8 h-8 text-white" />
+                    <div className="mb-6 p-4 rounded-full bg-gradient-to-br from-red-950 to-red-800 shadow-inner inline-flex w-16 h-16 items-center justify-center">
+                      <step.icon className="w-8 h-8 text-red-300" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-white">{step.title}</h3>
-                    <p className="text-gray-300 text-sm">{step.description}</p>
+                    <h3 className="text-xl md:text-2xl font-semibold mb-4 text-white font-display tracking-tight leading-tight">{step.title}</h3>
+                    <p className="text-muted-foreground text-sm md:text-base">{step.description}</p>
                   </div>
                 </div>
               </motion.div>

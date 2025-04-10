@@ -17,6 +17,8 @@ import About from "./pages/About";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
+import { fixScrollContainers } from "./utils/scrollFix";
+import ErrorBoundary from "./components/ErrorBoundary";
 import "./App.css";
 
 // Admin imports
@@ -34,7 +36,14 @@ const router = {
   }
 };
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 // ScrollToTop component to handle scroll restoration
 const ScrollToTop = () => {
@@ -47,39 +56,71 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Main app wrapper component
+const AppContent = () => {
+  // Fix scroll containers on mount
+  useEffect(() => {
+    // Immediate fix for crucial containers
+    fixScrollContainers();
+    
+    // Secondary fix after DOM has settled
+    const timeoutId = setTimeout(() => {
+      fixScrollContainers();
+      
+      // Add position relative to section elements where needed
+      document.querySelectorAll('section').forEach(section => {
+        const computedStyle = window.getComputedStyle(section);
+        if (computedStyle.position === 'static') {
+          section.setAttribute('style', 'position: relative;');
+        }
+      });
+    }, 100);
+    
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return (
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      <ScrollToTop />
+      <Navbar />
+      <main className="flex-grow relative">
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/fans" element={<FansManagement />} />
+            <Route path="/masseur" element={<MasseurConcierge />} />
+            <Route path="/social" element={<SocialMediaGrowth />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="*" element={<NotFound />} />
+
+            {/* Admin routes */}
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route path="login" element={<Login />} />
+              <Route path="blog" element={<BlogDashboard />} />
+              <Route path="blog/new" element={<BlogEditor />} />
+              <Route path="blog/edit/:id" element={<BlogEditor />} />
+            </Route>
+          </Routes>
+        </ErrorBoundary>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter {...router}>
-        <div className="flex flex-col min-h-screen bg-black text-white">
-          <ScrollToTop />
-          <Navbar />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/fans" element={<FansManagement />} />
-              <Route path="/masseur" element={<MasseurConcierge />} />
-              <Route path="/social" element={<SocialMediaGrowth />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:id" element={<BlogPost />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/terms" element={<TermsOfService />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
-              <Route path="*" element={<NotFound />} />
-
-              {/* Admin routes */}
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route path="login" element={<Login />} />
-                <Route path="blog" element={<BlogDashboard />} />
-                <Route path="blog/new" element={<BlogEditor />} />
-                <Route path="blog/edit/:id" element={<BlogEditor />} />
-              </Route>
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+        <ErrorBoundary>
+          <AppContent />
+        </ErrorBoundary>
         <Toaster />
         <Sonner />
       </BrowserRouter>

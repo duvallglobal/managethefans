@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import './App.css'
+import ErrorBoundary from './components/ErrorBoundary'
 
 try {
   const root = document.getElementById('root')
@@ -10,7 +11,9 @@ try {
 
   ReactDOM.createRoot(root).render(
     <React.StrictMode>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </React.StrictMode>
   )
 } catch (error) {

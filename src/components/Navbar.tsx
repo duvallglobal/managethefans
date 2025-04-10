@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
+import { cn } from "../lib/utils";
+import { buttonVariants } from "./ui/button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,45 +39,69 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
       scrolled 
-        ? "bg-black/98 backdrop-blur-sm shadow-md border-b border-primary/15" 
-        : "bg-gradient-to-b from-black/90 to-black/70"
+        ? "bg-black/90 backdrop-blur-lg shadow-lg border-b border-primary/20" 
+        : "bg-gradient-to-b from-black/90 to-black/70 backdrop-blur-sm"
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link 
-            to="/" 
-            className="font-bold text-2xl text-white transition-all duration-300 flex items-center"
-          >
-            <span className={`text-gradient-red ${scrolled ? 'text-glow' : ''}`}>ManageThe</span>
-            <span className="text-white">Fans</span>
-          </Link>
+          {/* Logo - Left */}
+          <div className="flex-shrink-0">
+            <Link 
+              to="/" 
+              className="font-bold text-2xl text-white transition-all duration-300 flex items-center"
+            >
+              <div className={`glass-card-glow py-1 px-3 rounded-lg ${scrolled ? 'shadow-red' : ''}`}>
+                <span className={`text-gradient-red ${scrolled ? 'text-glow' : ''}`}>ManageThe</span>
+                <span className="text-white">Fans</span>
+              </div>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`px-3 py-2 rounded-lg text-sm lg:text-base transition-all duration-300 ${
-                  isActive(link.path) 
-                    ? "text-gradient-red font-semibold bg-primary/10" 
-                    : "text-white hover:text-[#800000]"
-                }`}
-              >
-                {isActive(link.path) ? (
-                  <span className={`${scrolled ? 'text-glow' : ''}`}>{link.name}</span>
-                ) : (
-                  link.name
-                )}
-              </Link>
-            ))}
+          {/* Navigation Links - Center */}
+          <div className="hidden md:flex items-center justify-center flex-1 mx-4">
+            <div className="flex space-x-1 lg:space-x-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
+                    isActive(link.path) 
+                      ? "text-gradient-red font-semibold bg-primary/10" 
+                      : "text-white hover:text-[#d00000] hover:bg-white/5"
+                  }`}
+                >
+                  {isActive(link.path) ? (
+                    <span className={`${scrolled ? 'text-glow' : ''}`}>{link.name}</span>
+                  ) : (
+                    link.name
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA Button - Right */}
+          <div className="hidden md:block">
+            <Link 
+              to="/pricing" 
+              className={cn(
+                buttonVariants({ 
+                  size: "default", 
+                  variant: "default" 
+                }),
+                "bg-primary hover:bg-primary-darker text-white font-medium shadow-red btn-glow"
+              )}
+            >
+              Get Started
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </div>
 
           {/* Mobile Navigation Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg hover:bg-primary/10 text-white hover:text-[#800000] transition-all duration-200 focus:outline-none"
+              className="p-2 rounded-lg hover:bg-primary/10 text-white hover:text-[#d00000] transition-all duration-200 focus:outline-none"
               aria-label="Toggle menu"
             >
               {isOpen ? (
@@ -90,7 +116,7 @@ const Navbar = () => {
         {/* Mobile Navigation Menu */}
         {isOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 p-4 mt-0">
-            <div className="glass-card-glow rounded-xl shadow-xl backdrop-blur-md divide-y divide-primary/10 animate-fade-up border border-primary/30 bg-black/95">
+            <div className="glass-card-glow rounded-xl shadow-xl backdrop-blur-lg divide-y divide-primary/10 animate-fade-up border border-primary/30 bg-black/95">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -105,6 +131,18 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
+              
+              {/* Mobile CTA */}
+              <Link
+                to="/pricing"
+                className="block px-4 py-4 bg-primary text-white font-medium rounded-b-xl transition-all duration-200 hover:bg-primary-darker"
+                onClick={() => setIsOpen(false)}
+              >
+                <div className="flex items-center justify-center">
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </div>
+              </Link>
             </div>
           </div>
         )}
