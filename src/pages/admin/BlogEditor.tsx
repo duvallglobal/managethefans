@@ -321,10 +321,6 @@ const BlogEditor = () => {
     });
   };
 
-  const formattedContent = post.content.split('\n').map((paragraph: string, index: number) => {
-    return <p key={index}>{paragraph}</p>;
-  });
-
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
