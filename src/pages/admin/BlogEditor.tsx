@@ -321,6 +321,10 @@ const BlogEditor = () => {
     });
   };
 
+  const formattedContent = post.content.split('\n').map((paragraph: string, index: number) => {
+    return <p key={index}>{paragraph}</p>;
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
@@ -365,7 +369,7 @@ const BlogEditor = () => {
               <Input
                 id="title"
                 value={post.title}
-                onChange={(e) => setPost({ ...post, title: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPost({ ...post, title: e.target.value })}
                 required
                 className="bg-gray-800 border-gray-700 text-white"
               />
@@ -376,7 +380,7 @@ const BlogEditor = () => {
               <Input
                 id="excerpt"
                 value={post.excerpt}
-                onChange={(e) => setPost({ ...post, excerpt: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPost({ ...post, excerpt: e.target.value })}
                 required
                 className="bg-gray-800 border-gray-700 text-white"
               />
@@ -493,7 +497,7 @@ const BlogEditor = () => {
                 ref={contentRef}
                 required
                 value={post.content}
-                onChange={(e) => setPost({ ...post, content: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setPost({ ...post, content: e.target.value })}
                 onSelect={handleSelect}
                 className="bg-gray-800 border-gray-700 text-white h-64"
               />
@@ -507,7 +511,7 @@ const BlogEditor = () => {
                 <label className="block text-sm font-medium text-gray-300 mb-1">Category</label>
                 <select
                   value={post.category}
-                  onChange={(e) => setPost({ ...post, category: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPost({ ...post, category: e.target.value })}
                   className="w-full bg-gray-800 border border-gray-700 text-white rounded-md px-3 py-2"
                 >
                   {categories.map((category) => (
@@ -523,7 +527,7 @@ const BlogEditor = () => {
                 <Input
                   required
                   value={post.author}
-                  onChange={(e) => setPost({ ...post, author: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPost({ ...post, author: e.target.value })}
                   className="bg-gray-800 border-gray-700 text-white"
                 />
               </div>
@@ -574,7 +578,7 @@ const BlogEditor = () => {
               <Switch
                 id="featured"
                 checked={post.featured}
-                onCheckedChange={(checked) => setPost({ ...post, featured: checked })}
+                onCheckedChange={(checked: boolean) => setPost({ ...post, featured: checked })}
               />
               <Label htmlFor="featured">Featured Post</Label>
             </div>

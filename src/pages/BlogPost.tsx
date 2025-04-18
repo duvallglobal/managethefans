@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Calendar, Tag, User } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft, Calendar, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getPostById, BlogPost as BlogPostType } from "@/lib/firebase/blog";
 
@@ -63,7 +63,7 @@ const BlogPost = () => {
   }
 
   // Format the content with proper line breaks and parse HTML
-  const formattedContent = post.content.split('\n').map((paragraph, index) => {
+  const formattedContent = post.content.split('\n').map((paragraph: string, index: number) => {
     // If paragraph contains HTML, preserve it
     if (paragraph.match(/<[^>]*>/)) {
       return <div key={index} className="mb-4" dangerouslySetInnerHTML={{ __html: paragraph }} />;
@@ -147,4 +147,4 @@ const BlogPost = () => {
   );
 };
 
-export default BlogPost; 
+export default BlogPost;

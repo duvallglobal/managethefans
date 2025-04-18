@@ -1,0 +1,87 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
+import fs from "fs";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  server: {
+    host: "::",
+    port: 8080,
+    strictPort: false,
+    hmr: {
+      overlay: true,
+    },
+  },
+  plugins: [
+    react({
+      jsxImportSource: "react",
+      tsDecorators: true,
+      devTarget: "es2022",
+    }),
+    {
+      name: "copy-htaccess",
+      closeBundle() {
+        const distPath = path.resolve(__dirname, "dist");
+        const htaccessPath = path.join(distPath, ".htaccess");
+
+        // Ensure the dist directory exists
+        if (!fs.existsSync(distPath)) {
+          fs.mkdirSync(distPath, { recursive: true });
+        }
+
+        const htaccessContent = `
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+        `.trim();
+
+        fs.writeFileSync(htaccessPath, htaccessContent);
+        console.log("Created .htaccess file in dist directory");
+      },
+    },
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+    extensions: [".mjs", ".js", ".jsx", ".ts", ".tsx", ".json"],
+  },
+  esbuild: {
+    loader: "jsx",
+    include: /src\/.*\.(js|jsx|ts|tsx)$/,
+    exclude: [],
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        ".js": "jsx",
+        ".ts": "tsx",
+      },
+      target: "es2022",
+    },
+  },
+  build: {
+    sourcemap: true,
+    reportCompressedSize: false,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes("node_modules")) {
+            if (id.includes("@splinetool")) {
+              return "vendor-spline";
+            }
+            if (id.includes("framer-motion")) {
+              return "vendor-framer";
+            }
+            return "vendor";
+          }
+        },
+      },
+    },
+  },
+});

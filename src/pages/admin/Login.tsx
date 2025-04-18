@@ -2,9 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Lock, Mail, Loader2 } from "lucide-react";
+import { Lock, Mail } from "lucide-react";
 import { signIn } from "@/lib/firebase/auth";
-import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 
 const Login = () => {
@@ -74,7 +73,7 @@ const Login = () => {
                 required
                 placeholder="Email address"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 className="pl-10 bg-gray-800 border-gray-700 text-white"
               />
             </div>
@@ -86,7 +85,7 @@ const Login = () => {
                 required
                 placeholder="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 className="pl-10 bg-gray-800 border-gray-700 text-white"
               />
             </div>

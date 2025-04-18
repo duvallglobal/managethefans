@@ -94,7 +94,7 @@ export default function BlogGenerator() {
         updatedAt: Date.now()
       };
 
-      const postId = await createBlogPost(postData);
+      await createBlogPost(postData);
 
       toast({
         title: "Success",
@@ -128,7 +128,7 @@ export default function BlogGenerator() {
               <Textarea
                 id="prompt"
                 value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setPrompt(e.target.value)}
                 placeholder="E.g., Top 10 strategies for growing your OnlyFans subscriber base in 2024"
                 className="min-h-[100px] bg-black/50 border-[#800000]/50 focus:border-[#cc0000]"
               />
@@ -175,4 +175,4 @@ export default function BlogGenerator() {
       </div>
     </div>
   );
-} 
+}
