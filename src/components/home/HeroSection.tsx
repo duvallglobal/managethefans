@@ -28,21 +28,21 @@ const HeroSection: React.FC = () => {
         <div className="max-w-6xl mx-auto text-center">
           {/* Badge with no animations */}
           <div className="inline-flex items-center px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-gradient-to-r from-[#660000]/20 to-[#440000]/20 text-red-300 border border-red-900/30 backdrop-blur-sm">
-            Premier Digital Management Services
+          Monetize Smarter. Scale Faster.
           </div>
           
-          {/* Main heading - static, no animations */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight mb-6 hw-accelerated">
-            Turn Your Content Into a 
-            <span className="block mt-2 md:mt-3 text-gradient-red">
-              Thriving Empire
+          {/* Main heading with improved spacing */}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight mb-6 hw-accelerated">
+            Manage your Fans.
+            <span className="block mt-6 md:mt-8 text-gradient-red">
+              Like a Pro.
             </span>
           </h1>
           
-          {/* Subheading - static, no animations */}
-          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-8 md:mb-10">
-            Comprehensive management solutions that 
-            <span className="text-gradient-red"> maximize revenue</span>, 
+          {/* Subheading with improved spacing around gradient text */}
+          <p className="text-base md:text-lg text-white/80 max-w-3xl mx-auto mb-8 md:mb-10">
+            Comprehensive management solutions that
+            <span className="text-gradient-red px-1">maximize revenue</span>, 
             grow your audience, and save you valuable time.
           </p>
           
