@@ -12,8 +12,7 @@ import MasseurConcierge from "./pages/MasseurConcierge";
 import SocialMediaGrowth from "./pages/SocialMediaGrowth";
 import Contact from "./pages/Contact";
 import Pricing from "./pages/Pricing";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
+
 import About from "./pages/About";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -22,11 +21,6 @@ import { fixScrollContainers } from "./utils/scrollFix";
 import ErrorBoundary from "./components/ErrorBoundary";
 import "./App.css";
 
-// Admin imports
-import AdminLayout from "./pages/admin/AdminLayout";
-import Login from "./pages/admin/Login";
-import BlogDashboard from "./pages/admin/BlogDashboard";
-import BlogEditor from "./pages/admin/BlogEditor";
 
 // Configure React Router future flags
 import { UNSAFE_NavigationContext as NavigationContext } from "react-router-dom";
@@ -100,20 +94,12 @@ const AppContent = () => {
             <Route path="/social" element={<SocialMediaGrowth />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/pricing" element={<Pricing />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/about" element={<About />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="*" element={<NotFound />} />
 
-            {/* Admin routes */}
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route path="login" element={<Login />} />
-              <Route path="blog" element={<BlogDashboard />} />
-              <Route path="blog/new" element={<BlogEditor />} />
-              <Route path="blog/edit/:id" element={<BlogEditor />} />
-            </Route>
+           
           </Routes>
         </ErrorBoundary>
       </main>

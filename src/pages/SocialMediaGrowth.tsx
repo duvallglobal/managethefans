@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowRight, CheckCircle, Film, Hash, Users, MessageSquare, BarChart3, Handshake, FileVideo, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -27,13 +27,10 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const SocialMediaGrowth = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsLoaded(true);
-    
     // Remove all animation logic
     document.querySelectorAll('.animate-on-scroll, .animate-fade-up').forEach((el) => {
       // Remove animation classes and add visible state
@@ -133,7 +130,7 @@ const SocialMediaGrowth = () => {
       </section>
 
       {/* Platforms Section */}
-      <section className="py-6 sm:py-8 md:py-12 bg-black relative" ref={sectionRef}>
+      <section className="py-4 sm:py-6 md:py-6 bg-black relative" ref={sectionRef}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
         
         {/* Dark diagonal lines for texture */}
@@ -144,7 +141,7 @@ const SocialMediaGrowth = () => {
         </div>
         
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 sm:mb-5 md:mb-6">
+          <div className="text-center mb-2 sm:mb-3 md:mb-3">
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-2 [text-wrap:balance] animate-on-scroll fade-up opacity-0">
               Platforms We <span className="text-gradient-red text-glow">Specialize In</span>
             </h2>
@@ -218,11 +215,11 @@ const SocialMediaGrowth = () => {
         </svg>
       )
               }
-            ].map((platform, index) => (
+            ].map((platform, i) => (
               <div 
-                key={index}
+                key={platform.name}
                 className={`${platform.color} text-white px-2 xs:px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-full text-xs sm:text-sm md:text-base font-semibold flex items-center shadow-lg backdrop-blur-sm border border-white/10 animate-on-scroll opacity-0`}
-                data-delay={`${200 + (index * 50)}`}
+                data-delay={`${200 + (i * 50)}`}
               >
                 {platform.logo}
                 {platform.name}
@@ -232,8 +229,8 @@ const SocialMediaGrowth = () => {
         </div>
         
         {/* Services Section */}
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 mt-8 sm:mt-10 md:mt-12">
-          <div className="text-center mb-4 sm:mb-5 md:mb-6">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 mt-4 sm:mt-5 md:mt-6">
+          <div className="text-center mb-2 sm:mb-3 md:mb-3">
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-2 [text-wrap:balance] opacity-100">
               Our <span className="text-gradient-red text-glow">Services</span>
             </h2>
@@ -243,15 +240,18 @@ const SocialMediaGrowth = () => {
           </div>
           
           <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 xs:gap-3 sm:gap-4 md:gap-6">
-            {services.map((service, index) => (
+            {services.map((service) => (
               <div 
                 key={service.title}
                 className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl transition-all duration-1000 opacity-100"
               >
                 <div className="flex justify-center mb-1 sm:mb-3">
-                  <service.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                  <service.icon 
+                    className="h-4 w-4 sm:h-6 sm:w-6 text-primary text-glow transition-transform duration-300 group-hover:scale-110" 
+                    style={{ color: '#800000' }} 
+                  />
                 </div>
-                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red">{service.title}</h3>
+                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-white">{service.title}</h3>
                 <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300">{service.description}</p>
               </div>
             ))}
@@ -260,11 +260,11 @@ const SocialMediaGrowth = () => {
       </section>
 
       {/* Platform-Specific Strategies */}
-      <section className="py-8 md:py-12 bg-black relative">
+      <section className="py-4 md:py-6 bg-black relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 md:mb-6">
+          <div className="text-center mb-2 md:mb-3">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-light mb-2 text-white [text-wrap:balance] opacity-100">
               Platform-Specific <span className="text-gradient-red text-glow">Strategies</span>
             </h2>
@@ -327,7 +327,7 @@ const SocialMediaGrowth = () => {
                 color: "from-[#c4302b] to-[#FF0000]",
                 icon: Youtube
               }
-            ].map((platform, index) => (
+            ].map((platform) => (
               <div 
                 key={platform.platform}
                 className="card-3d glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl relative overflow-hidden opacity-100"
@@ -335,8 +335,11 @@ const SocialMediaGrowth = () => {
                 <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${platform.color} opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2`}></div>
                 
                 <div className="flex items-center mb-1 sm:mb-2 relative z-10">
-                  <platform.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white mr-1.5 sm:mr-2" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                  <h3 className="text-base sm:text-lg font-bold text-gradient-red">{platform.title}</h3>
+                  <platform.icon 
+                    className="h-5 w-5 sm:h-6 sm:w-6 text-primary text-glow mr-1.5 sm:mr-2" 
+                    style={{ color: '#800000' }} 
+                  />
+                  <h3 className="text-base sm:text-lg font-bold text-white">{platform.title}</h3>
                 </div>
                 <p className="text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 relative z-10">{platform.description}</p>
                 
@@ -362,7 +365,7 @@ const SocialMediaGrowth = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-8 md:py-12 bg-black relative">
+      <section className="py-4 md:py-6 bg-black relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/10 to-transparent"></div>
         
         {/* Dark diagonal lines for texture */}
@@ -373,7 +376,7 @@ const SocialMediaGrowth = () => {
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 md:mb-6">
+          <div className="text-center mb-2 md:mb-3">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance] opacity-100">
               Our Growth <span className="text-gradient-red text-glow">Process</span>
             </h2>
@@ -409,7 +412,7 @@ const SocialMediaGrowth = () => {
                   title: "Monitor & Optimize",
                   description: "We continuously track results, refine the approach, and scale successful tactics. Regular reporting keeps you informed of progress and strategic adjustments based on performance data."
                 }
-              ].map((step, index) => (
+              ].map((step) => (
                 <div 
                   key={step.step}
                   className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl text-center opacity-100"
@@ -446,11 +449,11 @@ const SocialMediaGrowth = () => {
       </section>
 
       {/* Results Section */}
-      <section className="py-8 md:py-12 bg-black relative">
+      <section className="py-4 md:py-6 bg-black relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-darkest/5 to-transparent"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-4 md:mb-6">
+          <div className="text-center mb-2 md:mb-3">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance] opacity-100">
               <span className="text-gradient-red text-glow">Results</span> You Can Expect
             </h2>
@@ -481,7 +484,7 @@ const SocialMediaGrowth = () => {
                 title: "Conversion Rate",
                 description: "Average increase in followers converting to website visitors or customers"
               }
-            ].map((item, index) => (
+            ].map((item) => (
               <div 
                 key={item.title}
                 className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl text-center opacity-100"
@@ -496,7 +499,7 @@ const SocialMediaGrowth = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 md:py-16 bg-black relative overflow-hidden">
+      <section className="py-6 md:py-8 bg-black relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black opacity-95 z-10"></div>
           <div className="absolute inset-0 bg-gradient-red-intense opacity-15 z-0"></div>

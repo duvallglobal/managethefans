@@ -169,10 +169,13 @@ const MasseurConcierge = () => {
                 key={service.title}
                 className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 flex flex-col h-full"
               >
-                <div className="flex justify-center">
-                  <service.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white mb-1 sm:mb-3 md:mb-4" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                <div className="flex justify-center mb-1 sm:mb-3">
+                  <service.icon 
+                    className="h-4 w-4 sm:h-6 sm:w-6 text-primary text-glow transition-transform duration-300 group-hover:scale-110" 
+                    style={{ color: '#800000' }} 
+                  />
                 </div>
-                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-gradient-red text-center">{service.title}</h3>
+                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-white">{service.title}</h3>
                 <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300 flex-grow">{service.description}</p>
               </div>
             ))}

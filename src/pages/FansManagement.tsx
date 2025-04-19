@@ -135,7 +135,11 @@ const FansManagement = () => {
                 className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-xl flex flex-col items-center animate-on-scroll opacity-0"
                 data-delay={`${300 + (serviceIndex * 100)}`}
               >
-                <service.icon className="w-8 h-8 sm:w-10 sm:h-10 text-[#660000] mb-2 sm:mb-3" />
+                {/* Fixed icon color with inline style to ensure consistent deep dark red */}
+                <service.icon 
+                  className="w-8 h-8 sm:w-10 sm:h-10 text-primary text-glow mb-2 sm:mb-3" 
+                  style={{ color: '#800000' }} 
+                />
                 <h3 className="text-sm sm:text-lg font-semibold mb-1 sm:mb-2 text-white">{service.title}</h3>
                 <p className="text-xs sm:text-sm text-gray-300 text-center">{service.description}</p>
               </div>
@@ -194,7 +198,7 @@ const FansManagement = () => {
               {
                 step: "01",
                 title: "Strategy Development",
-                description: "We develop a customized content and engagement strategy based on your goals and audience.",
+                description: "We develop a customized content and engagement strategy based on your goals.",
                 details: [
                   "Identify your ideal subscriber persona",
                   "Analyze successful creators in your niche",
@@ -205,21 +209,21 @@ const FansManagement = () => {
               {
                 step: "02",
                 title: "Implementation & Optimization",
-                description: "Our team implements the strategy, optimizing every aspect from content to audience engagement.",
+                description: "Our team implements the strategy, optimizing every aspectt.",
                 details: [
-                  "Handle subscriber messaging and engagement",
-                  "Set up tiered pricing and promotional campaigns",
-                  "Establish cross-platform promotion strategies"
+                  "Handle messaging and engagement",
+                  "Set up tiered pricing and promo campaigns",
+                  "Establish cross-platform strategies"
                 ],
                 image: "/implementation.jpg"
               },
               {
                 step: "03",
                 title: "Analysis & Scaling",
-                description: "We continuously analyze results and scale successful tactics to maximize growth and revenue.",
+                description: "We continuously analyze results and successful tactics to maximize revenue.",
                 details: [
                   "Track key metrics like subscription and retention rates",
-                  "Monitor PPV conversion and tip frequency",
+                  "Monitor conversion and tip frequency",
                   "Identify new revenue opportunities"
                 ],
                 image: "/analytics.jpg"
@@ -235,8 +239,8 @@ const FansManagement = () => {
                 </div>
                   <div className="absolute -top-1 -right-1 -bottom-1 -left-1 rounded-full border border-primary/30 opacity-50 animate-pulse"></div>
                 </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-3 text-gradient-red">{process.title}</h3>
-                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-3">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-3 text-gradient-red text-center">{process.title}</h3>
+                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-3 text-left">
                   {process.description.split(' ').map((word, i) => {
                     const keywords = ['customized', 'unique', 'optimizing', 'engagement', 'strategy', 'analyze', 'maximize', 'revenue', 'scaling'];
                     return keywords.some(keyword => word.toLowerCase().includes(keyword.toLowerCase())) ? 
@@ -244,11 +248,11 @@ const FansManagement = () => {
                       <span key={i}>{word} </span>;
                   })}
                 </p>
-                <ul className="space-y-2 mt-2 text-xs sm:text-sm text-gray-300">
+                <ul className="space-y-2 mt-2 text-xs sm:text-sm text-gray-300 text-left">
                   {process.details.map((detail, idx) => (
                     <li key={idx} className="flex items-start">
                       <div className="flex-shrink-0 mr-2 mt-0.5">
-                        <div className="flex items-center justify-center w-4 h-4 rounded-full bg-[#800000]" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <div className="flex items-center justify-center w-4 h-4 rounded-full bg-primary/90" style={{ boxShadow: '0 0 8px rgba(153, 0, 0, 0.6)' }}>
                           <CheckCircle className="h-2.5 w-2.5 text-white" />
                         </div>
                       </div>
@@ -363,7 +367,7 @@ const FansManagement = () => {
               <div key={strategy.title} className="glass-card-glow p-4 sm:p-5 md:p-6 rounded-2xl relative group h-full flex flex-col">
                 <div className="flex items-start mb-3">
                   <div className="mr-3 mt-1 flex-shrink-0">
-                    <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-[#800000] rounded-full animate-glow-sm">
+                    <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-primary/90 rounded-full animate-glow-sm">
                       <strategy.icon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                     </div>
                   </div>
@@ -380,12 +384,12 @@ const FansManagement = () => {
                 </p>
                 
                 <div className="mt-auto">
-                  <h4 className="font-semibold text-white text-xs sm:text-sm mb-3">Key Features:</h4>
-                  <ul className="space-y-2.5">
+                  <h4 className="font-semibold text-white text-xs sm:text-sm mb-3 text-left">Key Features:</h4>
+                  <ul className="space-y-2.5 text-left">
                     {strategy.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start">
                         <div className="flex-shrink-0 mr-2 mt-0.5">
-                          <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#800000]" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                          <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-primary/90" style={{ boxShadow: '0 0 8px rgba(153, 0, 0, 0.6)' }}>
                             <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                           </div>
                         </div>
@@ -528,7 +532,7 @@ const FansManagement = () => {
                 className="card-3d glass-card-glow p-6 md:p-8 rounded-2xl group h-full"
               >
                 <div className="flex items-center mb-4">
-                  <tool.icon className="h-10 w-10 text-white mr-3" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
+                  <tool.icon className="h-10 w-10 text-primary text-glow mr-3" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
                   <h3 className="text-xl md:text-2xl font-bold text-gradient-red">{tool.title}</h3>
                 </div>
                 <p className="text-gray-300 mb-4 text-base">{tool.description}</p>
@@ -536,7 +540,7 @@ const FansManagement = () => {
                   {tool.features.map((feature, i) => (
                     <li key={i} className="flex items-start group">
                       <div className="flex-shrink-0 mr-2 mt-0.5">
-                        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-[#800000]" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-primary/90" style={{ boxShadow: '0 0 8px rgba(153, 0, 0, 0.6)' }}>
                           <CheckCircle className="h-3 w-3 text-white" />
                         </div>
                       </div>

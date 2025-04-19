@@ -111,11 +111,6 @@ const Footer = () => {
                     About Us
                   </Link>
                 </li>
-                <li>
-                  <Link to="/blog" className="text-gray-300 text-sm hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                    Blog
-                  </Link>
-                </li>
               </ul>
             )}
           </div>

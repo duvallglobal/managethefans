@@ -15,7 +15,6 @@ const Navbar = () => {
     { name: "Social Media", path: "/social" },
     { name: "Rent.Men Concierge", path: "/masseur" },
     { name: "Pricing", path: "/pricing" },
-    { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
   ];
 
