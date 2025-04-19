@@ -1,0 +1,103 @@
+/* stylelint-disable */
+/* 
+ * This file uses Tailwind CSS directives
+ */
+
+/* Text rendering fixes for the entire site - Performance Optimized */
+
+/* Fix all headings - essential rendering only */
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix specific headings with gradient - optimized version */
+h1.text-gradient-red, 
+h2.text-gradient-red, 
+h3.text-gradient-red,
+h4.text-gradient-red,
+h5.text-gradient-red,
+h6.text-gradient-red,
+.text-gradient-red {
+  background: linear-gradient(90deg, #660000, #990000);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0.05em 0; /* Small padding to prevent clipping */
+  margin: 0.05em 0; /* Small margin to prevent clipping */
+  display: inline-block;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Fix glow effect to avoid blur - simplified version */
+.text-glow {
+  text-shadow: 0 0 8px rgba(102, 0, 0, 0.4);
+}
+
+/* Fix for card headings */
+.card h1, .card h2, .card h3,
+.content-card h1, .content-card h2, .content-card h3,
+.process-card h1, .process-card h2, .process-card h3,
+.service-card h1, .service-card h2, .service-card h3,
+.glass-card h1, .glass-card h2, .glass-card h3,
+.glass-card-glow h1, .glass-card-glow h2, .glass-card-glow h3 {
+  color: white;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+/* Fix Premium Management Services type headers */
+h3.text-gradient-red, 
+h3 > .text-gradient-red,
+h3.text-glow,
+h3 > .text-glow {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  display: inline-block;
+  padding-bottom: 0.1em;
+}
+
+/* For special emphasis sections */
+.premium-title {
+  font-weight: 500;
+  text-shadow: none;
+  color: white;
+}
+
+.premium-title .text-gradient-red {
+  background: linear-gradient(90deg, #660000, #990000);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 500;
+}
+
+/* Standard heading sizes across all sections - moved to a separate file */
+.section-title,
+section h2 {
+  @apply text-3xl md:text-4xl lg:text-5xl font-light mb-4;
+}
+
+section h3 {
+  @apply text-xl md:text-2xl font-medium mb-3;
+}
+
+/* Standard paragraph styling */
+section p {
+  @apply text-base md:text-lg text-gray-300;
+}
+
+/* Standard button styling */
+.standard-button,
+section button {
+  @apply bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-[#660000]/30 text-white font-medium transition-all duration-300 hover:from-[#770000] hover:to-[#aa0000];
+}
+
+/* Standard card styling */
+.standard-card,
+section .card {
+  @apply bg-black/20 backdrop-blur-lg border border-[#660000]/20 rounded-xl p-6 transition-all duration-300 hover:shadow-inner hover:border-[#660000]/30;
+}
+/* stylelint-enable */

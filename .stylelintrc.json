@@ -1,0 +1,24 @@
+{
+  "extends": ["stylelint-config-recommended"],
+  "plugins": ["@stylistic/stylelint-plugin"],
+  "rules": {
+    "at-rule-no-unknown": null,
+    "alpha-value-notation": null,
+    "color-function-notation": null,
+    "color-hex-length": null,
+    "custom-property-empty-line-before": null,
+    "no-descending-specificity": null,
+    "property-no-vendor-prefix": null,
+    "rule-empty-line-before": null,
+    "value-keyword-case": null,
+    "selector-pseudo-element-colon-notation": null,
+    "selector-class-pattern": null,
+    "keyframes-name-pattern": null,
+    "import-notation": null,
+    "media-feature-range-notation": null,
+    "no-invalid-position-at-import-rule": null,
+    "comment-empty-line-before": null,
+    "no-duplicate-selectors": null,
+    "@stylistic/declaration-block-trailing-semicolon": null
+  }
+}

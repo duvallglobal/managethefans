@@ -1,17 +1,38 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, CheckCircle, Film, Hash, Users, MessageSquare, BarChart3, Handshake, FileVideo, DollarSign, Instagram, Tv as TikTokIcon, Twitter, Youtube, Facebook, Linkedin } from "lucide-react";
+import { ArrowRight, CheckCircle, Film, Hash, Users, MessageSquare, BarChart3, Handshake, FileVideo, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useOptimizedAnimations } from "@/hooks/useOptimizedAnimations";
+import { Instagram, Twitter } from 'lucide-react';
+import { Youtube } from 'lucide-react';
+// For TikTok, we need to create a custom icon since it's not in lucide-react
+import React from 'react';
+
+// Add this custom TikTok icon component
+const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4c0 1.1.9 2 2 2h2" />
+  </svg>
+);
 
 const SocialMediaGrowth = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoaded(true);
-    setIsVisible(true);
     
     // Remove all animation logic
     document.querySelectorAll('.animate-on-scroll, .animate-fade-up').forEach((el) => {
@@ -71,6 +92,9 @@ const SocialMediaGrowth = () => {
     }
   ];
 
+  // Use optimized animations
+  useOptimizedAnimations();
+
   return (
     <div className={`overflow-hidden bg-black text-white transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       {/* Hero Section */}
@@ -85,19 +109,20 @@ const SocialMediaGrowth = () => {
 
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 border border-primary/30 animate-pulse-glow">
+            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 border border-primary/30 shadow-glow animate-on-load">
               Premium Growth Services
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 [text-wrap:balance]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-2 sm:mb-3 [text-wrap:balance] animate-on-load opacity-0" style={{ transitionDelay: '100ms' }}>
               Social Media <span className="text-gradient-red text-glow">Growth</span>
             </h1>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance]">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance] animate-on-load opacity-0" style={{ transitionDelay: '200ms' }}>
               Strategic growth, engagement, and monetization services for all major social platforms. We help creators build authentic audiences that convert to paying customers.
             </p>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-[#330000] to-[#800000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#440000] hover:to-[#990000]"
+              className="bg-gradient-to-r from-[#330000] to-[#800000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#440000] hover:to-[#990000] animate-on-load opacity-0"
               onClick={() => navigate('/contact')}
+              style={{ transitionDelay: '300ms' }}
             >
               Grow Your Following
               <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
@@ -120,10 +145,10 @@ const SocialMediaGrowth = () => {
         
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-4 sm:mb-5 md:mb-6">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 [text-wrap:balance] opacity-100">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-2 [text-wrap:balance] animate-on-scroll fade-up opacity-0">
               Platforms We <span className="text-gradient-red text-glow">Specialize In</span>
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] animate-on-scroll fade-up opacity-0" data-delay="100">
               Comprehensive growth strategies for today's top social media platforms
             </p>
           </div>
@@ -196,7 +221,8 @@ const SocialMediaGrowth = () => {
             ].map((platform, index) => (
               <div 
                 key={index}
-                className={`${platform.color} text-white px-2 xs:px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-full text-xs sm:text-sm md:text-base font-semibold flex items-center shadow-lg backdrop-blur-sm border border-white/10 opacity-100`}
+                className={`${platform.color} text-white px-2 xs:px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-full text-xs sm:text-sm md:text-base font-semibold flex items-center shadow-lg backdrop-blur-sm border border-white/10 animate-on-scroll opacity-0`}
+                data-delay={`${200 + (index * 50)}`}
               >
                 {platform.logo}
                 {platform.name}
@@ -208,7 +234,7 @@ const SocialMediaGrowth = () => {
         {/* Services Section */}
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 mt-8 sm:mt-10 md:mt-12">
           <div className="text-center mb-4 sm:mb-5 md:mb-6">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 [text-wrap:balance] opacity-100">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-2 [text-wrap:balance] opacity-100">
               Our <span className="text-gradient-red text-glow">Services</span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
@@ -239,7 +265,7 @@ const SocialMediaGrowth = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance] opacity-100">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light mb-2 text-white [text-wrap:balance] opacity-100">
               Platform-Specific <span className="text-gradient-red text-glow">Strategies</span>
             </h2>
             <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
@@ -479,7 +505,7 @@ const SocialMediaGrowth = () => {
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center opacity-100">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 leading-tight [text-wrap:balance] opacity-100">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-2 sm:mb-3 leading-tight [text-wrap:balance] opacity-100">
               Ready to <span className="text-gradient-red text-glow">Grow</span> Your Social Media?
               </h2>
             

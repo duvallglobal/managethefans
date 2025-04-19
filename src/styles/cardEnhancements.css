@@ -1,0 +1,180 @@
+/* Premium Card Styling with Rich Backgrounds */
+.content-card {
+  background: #600000;
+  border: 1px solid rgba(153, 0, 0, 0.595);
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(124, 0, 0, 0.75);
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.content-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #8a0000, #8b0000, #7d0000);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.content-card:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to top, rgba(153, 0, 0, 0.446), transparent);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.content-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(74, 0, 0, 0.798), 0 0 20px rgba(153, 0, 0, 0.2);
+  border-color: rgba(153, 0, 0, 0.5);
+}
+
+.content-card:hover:before {
+  opacity: 1;
+}
+
+/* Process cards with consistent styling */
+.process-card {
+  background: #400000;
+  border-left: 3px solid #990000;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(76, 0, 0, 0.412);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.process-card:hover {
+  box-shadow: 0 12px 35px rgba(64, 0, 0, 0.4), 0 0 15px rgba(153, 0, 0, 0.1);
+  border-left: 3px solid #830000;
+  background: #5b000051;
+}
+
+/* Alternating card background to provide visual distinction */
+.process-card:nth-child(odd) {
+  background: #461a1a;
+}
+
+.process-card:nth-child(even) {
+  background: #3c0000;
+}
+
+/* Service cards with premium feel */
+.service-card {
+  background: #4b0000;
+  border: 1px solid rgba(153, 0, 0, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(114, 0, 0, 0.3);
+  padding: 1.75rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.service-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #990000);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(80, 0, 0, 0.4), 0 0 15px rgba(153, 0, 0, 0.2);
+  border-color: rgba(153, 0, 0, 0.5);
+  background: #4b0000;
+}
+
+/* Glass card with rich premium aesthetic */
+.glass-card {
+  background: #4d0000;
+  border: 1px solid rgba(153, 0, 0, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(153, 0, 0, 0.05), transparent);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(64, 0, 0, 0.4), 0 0 20px rgba(153, 0, 0, 0.2);
+  border-color: rgba(153, 0, 0, 0.5);
+  background: #1a1a1a;
+}
+
+/* Premium glow card */
+.glass-card-glow {
+  background: #450000;
+  border: 1px solid rgba(119, 0, 0, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(78, 0, 0, 0.3), 0 0 15px rgba(153, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card-glow:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b10000, transparent);
+}
+
+.glass-card-glow:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(153, 0, 0, 0.5));
+}
+
+.glass-card-glow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(97, 0, 0, 0.4), 0 0 20px rgba(153, 0, 0, 0.3);
+  border-color: rgba(153, 0, 0, 0.5);
+  background: #4f0000;
+}
+
+/* Override for card-3d elements */
+.card-3d {
+  background: #430000;
+  border: 1px solid rgba(153, 0, 0, 0.3);
+}
+
+/* Fix for shadcn UI Card components */
+[class*="Card"] {
+  background-color: #410000 !important;
+  border: 1px solid rgba(153, 0, 0, 0.3) !important;
+}

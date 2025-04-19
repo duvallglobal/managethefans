@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowRight } from "lucide-react";
-import { cn } from "../lib/utils";
-import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,16 +64,15 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
-                    isActive(link.path) 
-                      ? "text-gradient-red font-semibold bg-primary/10" 
-                      : "text-white hover:text-[#d00000] hover:bg-white/5"
-                  }`}
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 
+                    ${isActive(link.path)
+                      ? "text-white font-semibold" /* Removed any padding/margin changes here */
+                      : "text-gray-300 hover:text-white"
+                    }`}
                 >
-                  {isActive(link.path) ? (
-                    <span className={`${scrolled ? 'text-glow' : ''}`}>{link.name}</span>
-                  ) : (
-                    link.name
+                  {link.name}
+                  {isActive(link.path) && (
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
                   )}
                 </Link>
               ))}

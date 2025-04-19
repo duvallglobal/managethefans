@@ -1,54 +1,18 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, CheckCircle, Users, BarChart3, Clock, Palette, Handshake, LineChart, FileText, Mail, Shield, Video, ShoppingBag, DollarSign } from "lucide-react";
+import { ArrowRight, CheckCircle, Users, Clock, Palette, Handshake, BarChart3, FileText, Mail, DollarSign, ShoppingBag, LineChart, Shield, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
+import { useOptimizedAnimations } from "@/hooks/useOptimizedAnimations";
 
 const FansManagement = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setIsLoaded(true);
-    setIsVisible(true);
-    
-    // Immediately make all elements visible
-    document.querySelectorAll('.animate-on-scroll, .animate-fade-up').forEach((el) => {
-      el.classList.add('animate-in');
-      el.classList.add('opacity-100');
-      el.classList.remove('opacity-0');
-      el.classList.add('translate-y-0');
-      el.classList.remove('translate-y-10', 'translate-y-20');
-    });
-
-    // Add intersection observer for scroll animations (for future scrolling)
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-          entry.target.classList.add('opacity-100');
-          entry.target.classList.remove('opacity-0');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.animate-on-scroll, .animate-fade-up').forEach((el) => {
-      observer.observe(el);
-    });
-
-    if (sectionRef.current) {
-      sectionRef.current.classList.add('animate-in');
-      sectionRef.current.classList.add('opacity-100');
-      sectionRef.current.classList.remove('opacity-0');
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
   
+  // Use our optimized animations hook
+  useOptimizedAnimations();
+
   const services = [
     {
       icon: Users,
@@ -101,7 +65,7 @@ const FansManagement = () => {
   };
 
   return (
-    <div className="overflow-hidden bg-black text-white opacity-100">
+    <div className="overflow-hidden bg-black text-white">
       {/* Hero Section */}
       <section className="relative min-h-[40vh] md:min-h-[55vh] flex items-center bg-black pt-24 pb-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -113,27 +77,28 @@ const FansManagement = () => {
 
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 border border-primary/30 animate-pulse-glow">
+            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 border border-primary/30 shadow-glow animate-on-load">
               Premium Management Services
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 [text-wrap:balance]">
-              OnlyFans <span className="text-gradient-red text-glow">Management</span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-2 sm:mb-3 [text-wrap:balance] animate-on-load opacity-0" style={{ transitionDelay: '100ms' }}>
+              OnlyFans <span className="text-gradient-red">Management</span>
             </h1>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance]">
-              <span className="font-medium">Expert strategies</span> to grow your subscriber base and improve engagement.
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance] animate-on-load opacity-0" style={{ transitionDelay: '200ms' }}>
+              Expert guidance to grow your subscriber base and improve engagement.
             </p>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance]">
-              <span className="font-medium">Maximize your earnings</span> on OnlyFans while we handle the business side.
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 [text-wrap:balance] animate-on-load opacity-0" style={{ transitionDelay: '300ms' }}>
+              Focus on creating quality content on OnlyFans while we handle the business side.
             </p>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000]"
+              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] animate-on-load opacity-0"
               asChild
+              style={{ transitionDelay: '400ms' }}
             >
               <Link to="/contact">
-              Book Your Free Strategy Call
+                Start Your Journey
                 <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-            </Link>
+              </Link>
             </Button>
           </div>
         </div>
@@ -158,22 +123,17 @@ const FansManagement = () => {
         
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-4 sm:mb-6 md:mb-8">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4 [text-wrap:balance] opacity-100">
-              End-to-End <span className="text-gradient-red text-glow">Creator Solutions</span>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-2 sm:mb-4 [text-wrap:balance] animate-on-scroll fade-up opacity-0">
+              End-to-End <span className="text-gradient-red">OnlyFans Management</span>
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-3 sm:mb-4 [text-wrap:balance] opacity-100">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-3 sm:mb-4 [text-wrap:balance] animate-on-scroll fade-up opacity-0" data-delay="100">
               Our full-service approach covers every aspect of growing and monetizing your OnlyFans presence.
             </p>
-            <div className="flex justify-center items-center mt-4 mb-4">
-              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
-              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
-              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
-            </div>
           </div>
           
           <div className="mb-5 sm:mb-6 text-center">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white opacity-100">
-              Core <span className="text-gradient-red text-glow">Management</span> Services
+            <h3 className="text-lg sm:text-xl md:text-2xl font-light text-white animate-on-scroll opacity-0" data-delay="200">
+              Core <span className="text-gradient-red">Services</span>
             </h3>
           </div>
           
@@ -181,20 +141,12 @@ const FansManagement = () => {
             {services.map((service, index) => (
               <div 
                 key={service.title}
-                className="glass-card-glow p-3 sm:p-5 md:p-6 rounded-2xl transition-all duration-1000 opacity-100"
+                className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-xl flex flex-col items-center animate-on-scroll opacity-0"
+                data-delay={`${300 + (index * 100)}`}
               >
-                <div className="flex justify-center">
-                  <service.icon className="h-5 w-5 sm:h-7 sm:w-7 text-white mb-2 sm:mb-4 transition-transform duration-300 group-hover:scale-110" style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))' }} />
-                </div>
-                <h3 className="text-xs sm:text-base md:text-lg font-bold mb-1 sm:mb-3 text-gradient-red text-center">{service.title}</h3>
-                <p className="text-[10px] xs:text-xs sm:text-sm text-gray-300">
-                  {service.description.split(' ').map((word, i) => {
-                    const keywords = ['increase', 'maximize', 'optimal', 'unique', 'expand', 'best', 'engage', 'targeted', 'streamline'];
-                    return keywords.some(keyword => word.toLowerCase().includes(keyword.toLowerCase())) ? 
-                      <span key={i} className="font-medium">{word} </span> : 
-                      <span key={i}>{word} </span>;
-                  })}
-                </p>
+                <service.icon className="w-8 h-8 sm:w-10 sm:h-10 text-[#660000] mb-2 sm:mb-3" />
+                <h3 className="text-sm sm:text-lg font-semibold mb-1 sm:mb-2 text-white">{service.title}</h3>
+                <p className="text-xs sm:text-sm text-gray-300 text-center">{service.description}</p>
               </div>
             ))}
           </div>
@@ -232,17 +184,12 @@ const FansManagement = () => {
         
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-4 md:mb-5 animate-on-scroll">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 text-white [text-wrap:balance]">
-              Our <span className="text-gradient-red text-glow">Growth Process</span>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-3 text-white [text-wrap:balance]">
+              Our <span className="text-gradient-red">Growth Process</span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
               A proven methodology to help you achieve sustainable success
             </p>
-            <div className="flex justify-center items-center mt-4 mb-2">
-              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
-              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
-              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
-            </div>
           </div>
           
           <div className="mb-5 text-center animate-on-scroll">
@@ -339,17 +286,12 @@ const FansManagement = () => {
         
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-5 md:mb-6 animate-on-scroll">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 [text-wrap:balance] opacity-100">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-3 [text-wrap:balance] opacity-100">
               <span className="text-gradient-red text-glow">Monetization</span> Strategies
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-3 [text-wrap:balance]">
               Our expert team implements diverse revenue streams to maximize your OnlyFans income
             </p>
-            <div className="flex justify-center items-center mt-4">
-              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
-              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
-              <div className="h-1 w-1 rounded-full bg-primary/50 mx-1"></div>
-            </div>
           </div>
           
           <div className="mb-5 text-center">
@@ -627,8 +569,8 @@ const FansManagement = () => {
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 leading-tight [text-wrap:balance] opacity-100">
-              Ready to <span className="text-gradient-red text-glow">Maximize</span> Your OnlyFans Success?
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-2 sm:mb-3 leading-tight [text-wrap:balance] opacity-100">
+              Ready to <span className="text-gradient-red">Maximize</span> Your OnlyFans Success?
             </h2>
             
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-3 sm:mb-5 mx-auto max-w-4xl [text-wrap:balance]">

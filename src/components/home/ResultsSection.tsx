@@ -79,7 +79,7 @@ const CounterAnimation = ({ value, prefix = "", suffix = "", color }: { value: n
         >
           {value}
         </motion.span>
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-300">{suffix}</span>
+        <span className="text-gradient-red">{suffix}</span>
       </motion.span>
     </motion.div>
   );
@@ -101,7 +101,7 @@ export default function ResultsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-32 md:py-40 overflow-hidden"
+      className="relative py-16 md:py-20 overflow-hidden"
     >
       {/* Enhanced background with depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0000] via-black to-[#0a0000]"></div>
@@ -140,7 +140,7 @@ export default function ResultsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20 md:mb-28"
+          className="text-center mb-12 md:mb-16"
         >
           {/* Section badge */}
           <div className="inline-flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-red-900/20 to-black/30 border border-red-800/20 mb-6">
@@ -149,7 +149,7 @@ export default function ResultsSection() {
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight leading-tight mb-6">
-            Proven <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">Results</span>
+            Proven <span className="text-gradient-red">Results</span>
           </h2>
           
           <p className="text-white/70 text-lg md:text-xl max-w-[60ch] mx-auto">
@@ -205,7 +205,7 @@ export default function ResultsSection() {
         >
           <div className="inline-flex items-center px-10 py-6 rounded-2xl border border-red-900/20 bg-gradient-to-r from-black to-red-950/20 shadow-lg shadow-red-900/5">
             <p className="text-white text-lg md:text-xl">
-              We don't just promise results – <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-300">we consistently deliver them</span>.
+              We don't just promise results – <span className="font-bold text-gradient-red">we consistently deliver them</span>.
             </p>
           </div>
         </motion.div>

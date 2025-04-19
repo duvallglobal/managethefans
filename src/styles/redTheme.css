@@ -1,0 +1,94 @@
+/* Standardized Red Theme Elements - Performance Optimized */
+
+/* Standard red gradient for buttons, backgrounds, etc. */
+.red-gradient {
+  background: linear-gradient(135deg, #660000, #990000);
+}
+
+/* Performance-optimized hover effect - disabled by default, enable with JS */
+.red-gradient.animate-hover {
+  background-size: 200% 200%;
+  animation: red-pulse 2s ease infinite;
+}
+
+/* Animation for gradient movement */
+@keyframes red-pulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Enhanced text gradient with hardware acceleration */
+.text-gradient-red {
+  background: linear-gradient(90deg, #660000, #990000);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: 400;
+  transform: translateZ(0); /* Force GPU acceleration */
+  
+  /* Fix for blurry text */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0.05em 0; /* Small padding to prevent clipping */
+}
+
+/* Standardized red colors */
+:root {
+  --red-dark: #440000;
+  --red-medium: #660000;
+  --red-light: #990000;
+  --red-accent: #aa0000;
+}
+
+/* Standardized gradients */
+.standard-gradient {
+  background: linear-gradient(135deg, #660000, #990000);
+}
+
+.standard-gradient-hover:hover {
+  background: linear-gradient(135deg, #770000, #aa0000);
+}
+
+/* Better text shadow (more performant than glow effects) */
+.text-glow {
+  text-shadow: 0 0 10px rgba(102, 0, 0, 0.5);
+  font-weight: 400;
+}
+
+/* Button styles with cohesive red theme - simplified shadows */
+.btn-red {
+  background: linear-gradient(135deg, #660000, #990000);
+  border: 1px solid rgba(102, 0, 0, 0.3);
+  color: white;
+  box-shadow: 0 4px 8px rgba(102, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.btn-red:hover {
+  background: linear-gradient(135deg, #770000, #aa0000);
+  box-shadow: 0 6px 12px rgba(102, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Standard background colors */
+.bg-red-dark { background-color: #440000; }
+.bg-red-medium { background-color: #660000; }
+.bg-red-light { background-color: #990000; }
+
+/* Standardized gradient backgrounds - simplified */
+.bg-gradient-red {
+  background: linear-gradient(135deg, #660000, #990000);
+}
+
+.bg-gradient-red-intense {
+  background: linear-gradient(135deg, #660000, #990000);
+}
+
+/* Standardized border colors */
+.border-red-dark { border-color: #440000; }
+.border-red-medium { border-color: #660000; }
+.border-red-light { border-color: #990000; }

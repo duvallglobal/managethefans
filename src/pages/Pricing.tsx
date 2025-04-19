@@ -315,7 +315,7 @@ const Pricing = () => {
         )}
         
         <div className="flex-grow">
-          <h3 className="text-2xl font-bold mb-3 text-gradient-red">{plan.title}</h3>
+          <h3 className="text-2xl font-light mb-3 text-white">{plan.title}</h3>
           <p className="text-gray-300 mb-5 text-base">{plan.description}</p>
           
           <div className="mb-6 mt-2">
@@ -403,7 +403,7 @@ const Pricing = () => {
             <div className="inline-block px-4 py-1 rounded-full bg-gradient-red text-white text-xs font-medium mb-5 border border-primary/20">
               Clear & Transparent
             </div>
-            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-5 font-sans [text-wrap:balance] transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-light mb-5 font-sans [text-wrap:balance] transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               Premium <span className="text-gradient-red">Service Pricing</span>
             </h1>
             <p className={`text-base md:text-lg text-gray-400 max-w-2xl mx-auto font-sans [text-wrap:balance] transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -418,7 +418,7 @@ const Pricing = () => {
                   onClick={() => setActiveTab("onlyfans")}
                   className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
                     activeTab === "onlyfans" 
-                      ? "bg-gradient-red text-white" 
+                      ? "bg-gradient-red text-white shadow-glow" 
                       : "text-gray-300 hover:text-white hover:bg-gray-800/30"
                   }`}
                 >
@@ -428,7 +428,7 @@ const Pricing = () => {
                   onClick={() => setActiveTab("bundles")}
                   className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
                     activeTab === "bundles" 
-                      ? "bg-gradient-red text-white" 
+                      ? "bg-gradient-red text-white shadow-glow" 
                       : "text-gray-300 hover:text-white hover:bg-gray-800/30"
                   }`}
                 >
@@ -438,7 +438,7 @@ const Pricing = () => {
                   onClick={() => setActiveTab("rentmen")}
                   className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
                     activeTab === "rentmen" 
-                      ? "bg-gradient-red text-white" 
+                      ? "bg-gradient-red text-white shadow-glow" 
                       : "text-gray-300 hover:text-white hover:bg-gray-800/30"
                   }`}
                 >
@@ -448,7 +448,7 @@ const Pricing = () => {
                   onClick={() => setActiveTab("addons")}
                   className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
                     activeTab === "addons" 
-                      ? "bg-gradient-red text-white" 
+                      ? "bg-gradient-red text-white shadow-glow" 
                       : "text-gray-300 hover:text-white hover:bg-gray-800/30"
                   }`}
                 >
@@ -560,7 +560,7 @@ const Pricing = () => {
         
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight [text-wrap:balance]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-6 leading-tight [text-wrap:balance]">
               Ready to <span className="text-gradient-red">Transform</span> Your Business?
             </h2>
             

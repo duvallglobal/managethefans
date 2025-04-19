@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config: Config = {
   darkMode: ["class"],
@@ -18,9 +17,9 @@ const config: Config = {
       },
     },
     fontFamily: {
-      display: ['Mulish', 'sans-serif'],
-      body: ['Inter', 'sans-serif'],
-      sans: ['Inter', 'sans-serif'],
+      display: ['Work Sans', 'sans-serif'],
+      body: ['Work Sans', 'sans-serif'],
+      sans: ['Work Sans', 'sans-serif'],
     },
     extend: {
       fontSize: {
@@ -29,25 +28,25 @@ const config: Config = {
         'heading-lg': ['4rem', '4.5rem'],
       },
       colors: {
-        primary: "#d00000",
-        "primary-darker": "#990000",
-        "primary-darkest": "#660000",
-        accent: "#d00000",
+        primary: "#990000",
+        "primary-darker": "#660000", 
+        "primary-darkest": "#440000",
+        accent: "#990000",
         muted: "#1A1A1A",
         background: "#000000",
         foreground: "#FFFFFF",
         border: "#333333",
         secondary: "#1A1A1A",
-        "gradient-start": "#cc0000",
-        "gradient-middle": "#990000",
-        "gradient-end": "#660000",
+        "gradient-start": "#990000",
+        "gradient-middle": "#660000",
+        "gradient-end": "#440000",
         "text-foreground": "#FFFFFF",
-        "text-primary": "#d00000",
+        "text-primary": "#990000",
         "text-secondary": "#1A1A1A",
         "text-muted": "#777777",
         "muted-foreground": "#999999",
         "primary-foreground": "rgb(255 255 255 / <alpha-value>)",
-        "platform-rentmen": "#d00000",
+        "platform-rentmen": "#990000",
         "platform-onlyfans": "#00AFF0",
         "platform-instagram": "#E1306C",
         "platform-tiktok": "#69C9D0",
@@ -119,8 +118,8 @@ const config: Config = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "glass-gradient": "linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))",
-        "red-gradient": "linear-gradient(to right, #d00000, #990000, #660000)",
+        "glass-gradient": "linear-gradient(to bottom right, rgba(136, 0, 0, 0.05), rgba(50, 0, 0, 0.1))",
+        "red-gradient": "linear-gradient(to right, #990000, #660000, #440000)",
       },
       borderRadius: {
         'glass': '0.75rem',
@@ -129,11 +128,14 @@ const config: Config = {
         'glass': '12px',
       },
       backgroundColor: {
-        'glass': 'rgba(0, 0, 0, 0.1)',
+        'glass': 'rgba(40, 10, 10, 0.2)',
       },
       boxShadow: {
         'glass': '0 4px 30px rgba(0, 0, 0, 0.1)',
-        'glow': '0 0 15px rgba(153, 0, 0, 0.7), 0 0 30px rgba(153, 0, 0, 0.4)',
+        'glow': '0 0 15px rgba(102, 0, 0, 0.7), 0 0 30px rgba(102, 0, 0, 0.4)',
+        'glow-intense': '0 0 20px rgba(102, 0, 0, 0.8), 0 0 40px rgba(102, 0, 0, 0.5), 0 0 60px rgba(102, 0, 0, 0.3)',
+        'glow-soft': '0 0 15px rgba(102, 0, 0, 0.3), 0 0 30px rgba(102, 0, 0, 0.15)',
+        'inner-glow': 'inset 0 0 15px rgba(102, 0, 0, 0.5)',
       },
     },
   },
@@ -169,6 +171,13 @@ const config: Config = {
     "max-w-[50ch]",
     "text-[2.5rem]",
     "md:text-[4rem]",
+    "shadow-glow",
+    "shadow-glow-intense",
+    "shadow-glow-soft",
+    "shadow-inner-glow",
+    "bg-glass",
+    "text-gradient-red",
+    "text-gradient-enhanced",
   ],
   plugins: [],
 };

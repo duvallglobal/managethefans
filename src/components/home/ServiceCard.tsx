@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -24,12 +24,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   
   return (
     <div
-      className="perspective-container h-full"
-      style={{ animationDelay: `${index * 200}ms` }}
+      className="perspective-container hw-accelerated h-full"
+      style={{ animationDelay: `${index * 100}ms` }}
     >
       <div
-        className="card-3d glass-card-glow p-4 sm:p-5 md:p-6 rounded-2xl transition-all duration-500 animate-fade-up group h-full flex flex-col"
-        style={{ animationDelay: `${index * 150}ms` }}
+        className="card-3d glass-optimized p-4 sm:p-5 md:p-6 rounded-2xl transition-all duration-300 animate-fadeIn group h-full flex flex-col border border-[#660000]/20"
+        style={{ animationDelay: `${index * 100}ms` }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -37,15 +37,14 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           <img
             src={image}
             alt={title}
-            className={`w-full h-full object-contain transition-all duration-700 ${isHovered ? 'scale-110 brightness-110' : 'scale-100'}`}
+            className={`w-full h-full object-contain transition-transform duration-500 ${isHovered ? 'scale-105' : 'scale-100'}`}
           />
-          <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-70' : 'opacity-100'}`}></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
           
-          {/* Enhanced glowing overlay effect */}
-          <div className={`absolute inset-0 bg-gradient-red-intense opacity-0 mix-blend-overlay transition-opacity duration-300 ${isHovered ? 'opacity-30' : ''}`}></div>
-          
-          {/* Light beam effect */}
-          <div className={`absolute -inset-full h-[500%] w-[200%] rotate-45 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 transition-all duration-700 ${isHovered ? 'animate-beam' : ''}`}></div>
+          {/* Simplified overlay effect */}
+          {isHovered && (
+            <div className="absolute inset-0 bg-gradient-to-r from-[#660000]/20 to-[#990000]/20 mix-blend-overlay"></div>
+          )}
         </div>
         
         <div className="p-3 sm:p-4 md:p-5">
@@ -57,8 +56,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           {features.map((feature, i) => (
             <li key={i} className="flex items-start mb-1 sm:mb-2">
               <svg
-                className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 mt-0.5 mr-1.5 sm:mr-2 flex-shrink-0"
-                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 sm:h-5 sm:w-5 text-[#660000] mt-0.5 mr-1.5 sm:mr-2 flex-shrink-0"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -76,21 +74,21 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         <div className="px-3 sm:px-4 md:px-5 pb-3 sm:pb-4 md:pb-5 mt-auto">
           <Link to={path} className="block w-full">
             <Button 
-              className={`w-full text-white transition-all duration-300 text-xs sm:text-sm md:text-base py-2 sm:py-3 md:py-4 rounded-xl font-medium backdrop-blur-sm border border-primary/30 ${
+              className={`w-full text-white transition-all duration-300 text-xs sm:text-sm md:text-base py-2 sm:py-3 md:py-4 rounded-xl font-medium backdrop-blur-sm border ${
                 isHovered 
-                  ? 'bg-gradient-to-r from-[#330000] to-[#660000] shadow-lg shadow-primary/20 animate-pulse-glow' 
-                  : 'bg-gradient-to-r from-[#1a0000] to-[#330000]'
+                  ? 'border-[#660000]/40 bg-gradient-to-r from-[#660000] to-[#990000]' 
+                  : 'border-[#660000]/20 bg-gradient-to-r from-[#440000] to-[#660000]'
               }`}
             >
               Learn More
-              <ArrowRight className={`ml-1.5 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 transition-transform duration-300 ${isHovered ? 'translate-x-1 sm:translate-x-2' : ''}`} />
+              <ArrowRight className={`ml-1.5 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
             </Button>
           </Link>
         </div>
         
-        {/* Enhanced corner decorative elements */}
-        <div className={`absolute top-2 right-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-t-2 border-r-2 border-primary/30 rounded-tr-lg transition-all duration-300 ${isHovered ? 'border-primary text-glow animate-pulse-glow' : ''}`}></div>
-        <div className={`absolute bottom-2 left-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-b-2 border-l-2 border-primary/30 rounded-bl-lg transition-all duration-300 ${isHovered ? 'border-primary text-glow animate-pulse-glow' : ''}`}></div>
+        {/* Simplified corner decorative elements */}
+        <div className={`absolute top-2 right-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-t-2 border-r-2 ${isHovered ? 'border-[#990000]/40' : 'border-[#660000]/20'} rounded-tr-lg transition-all duration-300`}></div>
+        <div className={`absolute bottom-2 left-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-b-2 border-l-2 ${isHovered ? 'border-[#990000]/40' : 'border-[#660000]/20'} rounded-bl-lg transition-all duration-300`}></div>
       </div>
     </div>
   );

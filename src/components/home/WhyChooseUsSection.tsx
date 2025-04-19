@@ -71,7 +71,7 @@ export default function WhyChooseUsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-32 lg:py-40 overflow-hidden"
+      className="relative py-16 lg:py-20 overflow-hidden"
     >
       {/* Enhanced background with depth and texture */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0000] via-black to-[#0a0000]"></div>
@@ -110,7 +110,7 @@ export default function WhyChooseUsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20 md:mb-28"
+          className="text-center mb-12 md:mb-16"
         >
           {/* Section badge */}
           <div className="inline-flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-red-900/20 to-black/30 border border-red-800/20 mb-6">
@@ -119,7 +119,7 @@ export default function WhyChooseUsSection() {
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight leading-tight mb-6">
-            Why <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">Choose Us</span>
+            Why <span className="text-gradient-red">Choose Us</span>
           </h2>
           
           <p className="text-white/70 text-lg md:text-xl max-w-[60ch] mx-auto">

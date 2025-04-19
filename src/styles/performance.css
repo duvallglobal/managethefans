@@ -1,0 +1,235 @@
+/* stylelint-disable */
+/**
+ * Performance-optimized animations and effects
+ * Prioritizing hardware acceleration and reducing paint/layout thrashing
+ */
+
+/* Use transform and opacity for animations (GPU accelerated) */
+.hw-accelerated {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force GPU acceleration */
+  backface-visibility: hidden;
+}
+
+/* Optimized glow effects */
+.optimized-glow {
+  box-shadow: 0 0 15px rgba(153, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.optimized-glow:hover {
+  box-shadow: 0 0 25px rgba(153, 0, 0, 0.45);
+}
+
+/* Improved text glow that doesn't cause repaints */
+.text-glow-optimized {
+  text-shadow: 0 0 8px rgba(102, 0, 0, 0.4);
+}
+
+/* Limit animations based on user preference */
+@media (prefers-reduced-motion) {
+  .animate-optimized {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Optimized glass effect (minimal blur) */
+.glass-optimized {
+  background-color: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(5px); /* Reduced blur radius */
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(153, 0, 0, 0.2);
+}
+
+/* Optimized gradient backgrounds (static, not animated by default) */
+.gradient-optimized {
+  background: linear-gradient(135deg, #660000, #990000);
+  background-size: 100% 100%; /* Don't prepare for animation by default */
+}
+
+/* Enhanced animation keyframes with organic motion */
+@keyframes fadeIn-optimized {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp-optimized {
+  0% { 
+    transform: translateY(30px); 
+    opacity: 0; 
+  }
+  70% { 
+    transform: translateY(-5px); /* Slight overshoot */
+    opacity: 0.9;
+  }
+  100% { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+}
+
+@keyframes slideIn-optimized {
+  0% { 
+    transform: translateX(20px); 
+    opacity: 0; 
+  }
+  70% { 
+    transform: translateX(-2px); /* Subtle overshoot */
+    opacity: 0.9;
+  }
+  100% { 
+    transform: translateX(0); 
+    opacity: 1; 
+  }
+}
+
+@keyframes pulse-optimized {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); } /* More subtle scale */
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeScale-optimized {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.94); 
+  }
+  70% {
+    opacity: 0.95;
+    transform: scale(1.02); /* Slight overshoot */
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+}
+
+/* Animation classes */
+.animate-fadeIn {
+  animation: fadeIn-optimized 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp-optimized 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; /* Spring-like easing */
+}
+
+.animate-slideIn {
+  animation: slideIn-optimized 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; /* Spring-like easing */
+}
+
+.animate-fadeScale {
+  animation: fadeScale-optimized 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; /* Spring-like easing */
+}
+
+.animate-pulse {
+  animation: pulse-optimized 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Lazy load animations - only animate when in viewport */
+.animate-when-visible {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-when-visible.is-visible {
+  opacity: 1;
+}
+
+/* Hero-specific optimizations */
+.hero-optimized {
+  /* Avoid repaints/reflows by using containment where possible */
+  contain: layout style paint;
+}
+
+.hero-text-optimized {
+  /* Avoid expensive text rendering operations on animations */
+  text-rendering: optimizeSpeed;
+  /* Ensure text is hardware accelerated */
+  transform: translateZ(0);
+}
+
+.hero-backdrop-optimized {
+  /* Use less expensive backdrop blur */
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* Replace expensive gradient animations with static gradients */
+.static-gradient-red {
+  background: linear-gradient(90deg, #660000, #990000);
+  background-size: 100% 100%;
+}
+
+/* More efficient text gradient that doesn't rely on expensive clip operations */
+.text-shadow-red {
+  color: #990000;
+  text-shadow: 0 0 1px rgba(153, 0, 0, 0.7);
+}
+
+/* Additional animation optimizations for service pages with organic motion */
+.animate-on-load {
+  will-change: transform, opacity;
+  transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(0) scale(1);
+}
+
+.animate-on-load.opacity-0 {
+  transform: translateY(20px) scale(0.97);
+}
+
+.animate-on-scroll {
+  will-change: transform, opacity;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(0) scale(1);
+}
+
+.animate-on-scroll.opacity-0 {
+  transform: translateY(20px) scale(0.97);
+}
+
+.animate-on-scroll.fade-up.opacity-0 {
+  transform: translateY(30px) scale(0.97);
+}
+
+.animate-on-scroll.fade-in.opacity-0 {
+  transform: scale(0.97);
+}
+
+.animate-on-scroll.slide-in.opacity-0 {
+  transform: translateX(20px);
+}
+
+/* Service pages animation staggering with variable timing */
+@media (prefers-reduced-motion: no-preference) {
+  .service-stagger > * {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .service-stagger.is-visible > *:nth-child(1) { transition-delay: 0.05s; }
+  .service-stagger.is-visible > *:nth-child(2) { transition-delay: 0.12s; }
+  .service-stagger.is-visible > *:nth-child(3) { transition-delay: 0.19s; }
+  .service-stagger.is-visible > *:nth-child(4) { transition-delay: 0.26s; }
+  .service-stagger.is-visible > *:nth-child(5) { transition-delay: 0.33s; }
+  .service-stagger.is-visible > *:nth-child(6) { transition-delay: 0.40s; }
+  .service-stagger.is-visible > *:nth-child(7) { transition-delay: 0.47s; }
+  .service-stagger.is-visible > *:nth-child(8) { transition-delay: 0.54s; }
+  
+  .service-stagger.is-visible > * {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Random micro-variations for more organic movement */
+.animate-var-1 { animation-delay: 0.05s !important; }
+.animate-var-2 { animation-delay: 0.12s !important; }
+.animate-var-3 { animation-delay: 0.19s !important; }
+.animate-var-4 { animation-delay: 0.26s !important; }
+.animate-var-5 { animation-delay: 0.33s !important; }
+/* stylelint-enable */

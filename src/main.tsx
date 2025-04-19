@@ -1,9 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
+import App from './App.tsx'
 import './index.css'
 import './App.css'
 import ErrorBoundary from './components/ErrorBoundary'
+import { initializePerformanceOptimizations } from './utils/performance'
+
+// Initialize performance optimizations before rendering
+document.addEventListener('DOMContentLoaded', () => {
+  initializePerformanceOptimizations();
+});
 
 try {
   const root = document.getElementById('root')

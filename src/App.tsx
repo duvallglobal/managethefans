@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useIsLowEndDevice } from "./hooks/useIsLowEndDevice";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Index from "./pages/Index";
@@ -58,10 +59,17 @@ const ScrollToTop = () => {
 
 // Main app wrapper component
 const AppContent = () => {
+  const isLowEndDevice = useIsLowEndDevice();
+  
   // Fix scroll containers on mount
   useEffect(() => {
     // Immediate fix for crucial containers
     fixScrollContainers();
+    
+    // Apply performance mode for low-end devices
+    if (isLowEndDevice) {
+      document.body.classList.add('low-end-device');
+    }
     
     // Secondary fix after DOM has settled
     const timeoutId = setTimeout(() => {
@@ -77,7 +85,7 @@ const AppContent = () => {
     }, 100);
     
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, [isLowEndDevice]);
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">

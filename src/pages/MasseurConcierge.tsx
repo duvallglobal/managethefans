@@ -1,28 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ArrowRight, CheckCircle, FileEdit, Palette, DollarSign, Calendar, PenTool, Users, Bot, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useOptimizedAnimations } from "@/hooks/useOptimizedAnimations";
 
 const MasseurConcierge = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const parallaxRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setIsLoaded(true);
-    setIsVisible(true);
-    
-    // Remove all animation logic
-    document.querySelectorAll('.animate-on-scroll, .animate-fade-up').forEach((el) => {
-      // Remove animation classes and add visible state
-      el.classList.remove('animate-on-scroll', 'animate-fade-up');
-      el.classList.add('opacity-100', 'translate-y-0');
-    });
-
-    return () => {};
-  }, []);
+  
+  // Use optimized animations
+  useOptimizedAnimations();
 
   const services = [
     {
@@ -77,7 +65,7 @@ const MasseurConcierge = () => {
   ];
 
   return (
-    <div className={`overflow-hidden bg-black text-white transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className="overflow-hidden bg-black text-white">
       {/* Hero Section */}
       <section className="relative min-h-[40vh] md:min-h-[55vh] flex items-center bg-black pt-24 pb-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -89,20 +77,20 @@ const MasseurConcierge = () => {
 
         <div ref={parallaxRef} className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 py-2 md:py-4">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 sm:mb-3 border border-primary/30 parallax-element animate-pulse-glow" data-depth="0.2">
+            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-gradient-red text-white text-xs sm:text-sm font-semibold mb-2 sm:mb-3 border border-primary/30 shadow-glow animate-on-load">
               Premium Concierge Services
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 parallax-element [text-wrap:balance]" data-depth="0.3">
-              Rent.Men <span className="text-gradient-red text-glow">Concierge</span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-2 sm:mb-3 parallax-element [text-wrap:balance] animate-on-load opacity-0" style={{ transitionDelay: '100ms' }}>
+              Rent.Men <span className="text-gradient-red">Concierge</span>
             </h1>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 parallax-element [text-wrap:balance]" data-depth="0.4">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-3 sm:mb-4 parallax-element [text-wrap:balance] animate-on-load opacity-0" style={{ transitionDelay: '200ms' }}>
               Premium profile management and client acquisition services for professional masseurs.
             </p>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] parallax-element"
+              className="bg-gradient-to-r from-[#660000] to-[#990000] backdrop-blur-sm border border-primary/20 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-300 text-sm sm:text-base shadow-lg hover:from-[#770000] hover:to-[#aa0000] parallax-element animate-on-load opacity-0"
               onClick={() => navigate('/contact')}
-              data-depth="0.5"
+              style={{ transitionDelay: '300ms' }}
             >
               Elevate Your Practice
               <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
@@ -121,9 +109,9 @@ const MasseurConcierge = () => {
         
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 items-center">
-            <div className="opacity-100">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 md:mb-6 text-white [text-wrap:balance]">
-                How Our <span className="text-gradient-red text-glow">Concierge Service</span> Simplifies Your Professional Life
+            <div className="animate-on-scroll fade-up opacity-0">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-4 sm:mb-5 md:mb-6 text-white [text-wrap:balance]">
+                How Our <span className="text-gradient-red">Concierge Service</span> Simplifies Your Professional Life
               </h2>
               <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-5 sm:mb-6 md:mb-7 [text-wrap:balance]">
                 We handle the time-consuming aspects of managing your online presence, so you can focus on providing exceptional service to your clients.
@@ -133,7 +121,8 @@ const MasseurConcierge = () => {
                 {benefits.map((benefit, index) => (
                   <li 
                     key={index} 
-                    className="flex items-start opacity-100"
+                    className="flex items-start animate-on-scroll opacity-0"
+                    data-delay={`${index * 100}`}
                   >
                     <div className="flex-shrink-0 mr-2 sm:mr-3 mt-0.5">
                       <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
@@ -184,8 +173,8 @@ const MasseurConcierge = () => {
         
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-4 sm:mb-5 md:mb-6">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 [text-wrap:balance] opacity-100">
-              Custom <span className="text-gradient-red text-glow">Rent.Men</span> Solutions
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-2 [text-wrap:balance] opacity-100">
+              Custom <span className="text-gradient-red">Rent.Men</span> Solutions
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance] opacity-100">
               End-to-end management of your online presence and client relationships
@@ -233,8 +222,8 @@ const MasseurConcierge = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance]">
-              Advanced <span className="text-gradient-red text-glow">Technology</span> Solutions
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light mb-2 text-white [text-wrap:balance]">
+              Advanced <span className="text-gradient-red">Technology</span> Solutions
             </h2>
             <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
               Our premium concierge service includes cutting-edge technology to enhance your Rent.Men presence
@@ -360,8 +349,8 @@ const MasseurConcierge = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white [text-wrap:balance]">
-              Our <span className="text-gradient-red text-glow">Service Tiers</span>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light mb-2 text-white [text-wrap:balance]">
+              Our <span className="text-gradient-red">Service Tiers</span>
             </h2>
             <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto [text-wrap:balance]">
               Choose the level of service that best fits your professional needs
@@ -463,8 +452,8 @@ const MasseurConcierge = () => {
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 leading-tight [text-wrap:balance]">
-              Ready to <span className="text-gradient-red text-glow">Elevate</span> Your Professional Presence?
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-2 sm:mb-3 leading-tight [text-wrap:balance]">
+              Ready to <span className="text-gradient-red">Elevate</span> Your Professional Presence?
           </h2>
             
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-3 sm:mb-5 mx-auto max-w-4xl [text-wrap:balance]">
