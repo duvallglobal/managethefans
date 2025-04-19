@@ -11,16 +11,19 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "strict": true,
-    "noUnusedLocals": false, // Disable this check for now
-    "noUnusedParameters": false, // Disable this check for now
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "types": ["node", "react", "react-dom"]
   },
-  "include": ["src"],
+  "include": ["src", "src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

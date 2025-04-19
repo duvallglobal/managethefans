@@ -1,0 +1,45 @@
+/* Page-specific card variations */
+
+/* FansManagement page */
+.fans-management-page .glass-card-glow {
+  background: linear-gradient(145deg, #450000, #2a0000);
+  border-color: rgba(153, 0, 0, 0.4);
+}
+
+/* MasseurConcierge page */
+.masseur-concierge-page .glass-card-glow {
+  background: linear-gradient(145deg, #4a0000, #2d0000);
+  border-color: rgba(153, 0, 0, 0.4);
+}
+
+/* Dashboard cards */
+.dashboard-card {
+  background: linear-gradient(135deg, #3d0000, #250000);
+  border: 1px solid rgba(153, 0, 0, 0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Feature cards */
+.feature-card {
+  background: linear-gradient(to bottom right, #400000, #280000);
+  border: 1px solid rgba(153, 0, 0, 0.3);
+}
+
+/* Pricing cards */
+.pricing-card {
+  background: linear-gradient(135deg, #480000, #250000);
+  border: 1px solid rgba(153, 0, 0, 0.35);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* For mobile devices - slightly lighter backgrounds for readability */
+@media (max-width: 768px) {
+  .glass-card, 
+  .glass-card-glow,
+  .card-3d,
+  .content-card,
+  .service-card {
+    background: linear-gradient(145deg, #4d0000, #300000);
+    border-color: rgba(153, 0, 0, 0.5);
+  }
+}

@@ -1,13 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { ArrowRight, CheckCircle, Users, Clock, Palette, Handshake, BarChart3, FileText, Mail, DollarSign, ShoppingBag, LineChart, Shield, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useOptimizedAnimations } from "@/hooks/useOptimizedAnimations";
 
 const FansManagement = () => {
-  const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
   
   // Use our optimized animations hook
@@ -56,13 +53,7 @@ const FansManagement = () => {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Form submission logic would go here
-    alert(`Thank you, ${name}! We'll contact you at ${email} about our OnlyFans Management services.`);
-    setName("");
-    setEmail("");
-  };
+
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden fans-management-page">
@@ -138,11 +129,11 @@ const FansManagement = () => {
           </div>
           
           <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-5 md:gap-6 lg:gap-7">
-            {services.map((service, index) => (
+            {services.map((service, serviceIndex) => (
               <div 
                 key={service.title}
                 className="glass-card-glow p-3 sm:p-4 md:p-5 rounded-xl flex flex-col items-center animate-on-scroll opacity-0"
-                data-delay={`${300 + (index * 100)}`}
+                data-delay={`${300 + (serviceIndex * 100)}`}
               >
                 <service.icon className="w-8 h-8 sm:w-10 sm:h-10 text-[#660000] mb-2 sm:mb-3" />
                 <h3 className="text-sm sm:text-lg font-semibold mb-1 sm:mb-2 text-white">{service.title}</h3>
@@ -203,11 +194,11 @@ const FansManagement = () => {
               {
                 step: "01",
                 title: "Strategy Development",
-                description: "We develop a customized content and engagement strategy based on your unique goals and audience.",
+                description: "We develop a customized content and engagement strategy based on your goals and audience.",
                 details: [
                   "Identify your ideal subscriber persona",
                   "Analyze successful creators in your niche",
-                  "Create a content calendar that maximizes revenue"
+                  "Create a content calendar to maximize revenue"
                 ],
                 image: "/strategy-development.jpg"
               },
@@ -233,7 +224,7 @@ const FansManagement = () => {
                 ],
                 image: "/analytics.jpg"
               }
-            ].map((process, index) => (
+            ].map((process) => (
               <div 
                 key={process.step}
                 className="card-3d glass-card-glow p-4 sm:p-5 md:p-6 rounded-2xl transition-all duration-1000 opacity-100 group h-full flex flex-col"
@@ -337,7 +328,7 @@ const FansManagement = () => {
               },
               {
                 title: "Exclusive Merchandise Sales",
-                description: "Create and sell branded merchandise to your dedicated fans, creating an additional revenue stream.",
+                description: "Create and sell branded merchandise to your dedicated fans, creating an additional revenue.",
                 features: [
                   "Product selection strategy",
                   "Print-on-demand setup",
@@ -359,7 +350,7 @@ const FansManagement = () => {
               },
               {
                 title: "Cross-Platform Monetization",
-                description: "Leverage your OnlyFans audience to create additional revenue streams across multiple platforms.",
+                description: "Leverage your audience to create additional revenue streams across multiple platforms.",
                 features: [
                   "Platform-specific content strategy",
                   "Cross-promotion system",
@@ -368,7 +359,7 @@ const FansManagement = () => {
                 ],
                 icon: Handshake
               }
-            ].map((strategy, index) => (
+            ].map((strategy) => (
               <div key={strategy.title} className="glass-card-glow p-4 sm:p-5 md:p-6 rounded-2xl relative group h-full flex flex-col">
                 <div className="flex items-start mb-3">
                   <div className="mr-3 mt-1 flex-shrink-0">
@@ -451,7 +442,7 @@ const FansManagement = () => {
                 title: "Engagement",
                 description: "Average increase in subscriber engagement and message response rates"
               }
-            ].map((item, index) => (
+            ].map((item) => (
               <div 
                 key={item.title}
                 className="glass-card-glow p-5 md:p-6 rounded-2xl text-center transition-all duration-1000 opacity-100"
@@ -531,7 +522,7 @@ const FansManagement = () => {
                   "Risk assessment tools"
                 ]
               }
-            ].map((tool, index) => (
+            ].map((tool) => (
               <div 
                 key={tool.title}
                 className="card-3d glass-card-glow p-6 md:p-8 rounded-2xl group h-full"
@@ -595,30 +586,3 @@ const FansManagement = () => {
 };
 
 export default FansManagement;
-
-// Add this CSS to your global styles
-const styles = `
-@keyframes bounce-x {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(5px); }
-}
-
-.animate-bounce-x {
-  animation: bounce-x 1s infinite;
-}
-
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
-}
-
-.animate-on-scroll.animate-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-[text-wrap:balance] {
-  text-wrap: balance;
-}
-`;

@@ -1,7 +1,7 @@
 /* Premium Card Styling with Rich Backgrounds */
 .content-card {
-  background: #600000;
-  border: 1px solid rgba(153, 0, 0, 0.595);
+  background: linear-gradient(120deg, #350000, #1e0000);
+  border: 1px solid rgba(153, 0, 0, 0.3);
   border-radius: 10px;
   box-shadow: 0 8px 30px rgba(124, 0, 0, 0.75);
   padding: 1.75rem;
@@ -73,7 +73,7 @@
 
 /* Service cards with premium feel */
 .service-card {
-  background: #4b0000;
+  background: linear-gradient(135deg, #3a0000, #220000);
   border: 1px solid rgba(153, 0, 0, 0.3);
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(114, 0, 0, 0.3);
@@ -101,8 +101,9 @@
 
 /* Glass card with rich premium aesthetic */
 .glass-card {
-  background: #4d0000;
-  border: 1px solid rgba(153, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(70, 0, 0, 0.5), rgba(40, 0, 0, 0.6));
+  border: 1px solid rgba(153, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
@@ -131,8 +132,9 @@
 
 /* Premium glow card */
 .glass-card-glow {
-  background: #450000;
-  border: 1px solid rgba(119, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(60, 0, 0, 0.5), rgba(35, 0, 0, 0.6));
+  border: 1px solid rgba(153, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(78, 0, 0, 0.3), 0 0 15px rgba(153, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -169,14 +171,16 @@
 
 /* Override for card-3d elements */
 .card-3d {
-  background: #430000;
+  background: linear-gradient(135deg, #430000, #280000);
   border: 1px solid rgba(153, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* Fix for shadcn UI Card components */
 [class*="Card"] {
-  background-color: #410000 !important;
+  background: linear-gradient(145deg, #410000, #300000) !important;
   border: 1px solid rgba(153, 0, 0, 0.3) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 /* Center content cards on specific pages */

@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc'; // Changed to react-swc for better stability
 import { resolve } from 'path';
 import fs from 'fs';
 
@@ -33,5 +33,10 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+  },
+  server: {
+    hmr: {
+      overlay: true,
+    },
   },
 });

@@ -108,45 +108,32 @@ const MasseurConcierge = () => {
         <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 mix-blend-overlay"></div>
         
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 items-center">
-            <div className="animate-on-scroll fade-up opacity-0">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-4 sm:mb-5 md:mb-6 text-white [text-wrap:balance]">
-                How Our <span className="text-gradient-red">Concierge Service</span> Simplifies Your Professional Life
-              </h2>
-              <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-5 sm:mb-6 md:mb-7 [text-wrap:balance]">
-                We handle the time-consuming aspects of managing your online presence, so you can focus on providing exceptional service to your clients.
-              </p>
-              
-              <ul className="space-y-1 sm:space-y-2">
-                {benefits.map((benefit, index) => (
-                  <li 
-                    key={index} 
-                    className="flex items-start animate-on-scroll opacity-0"
-                    data-delay={`${index * 100}`}
-                  >
-                    <div className="flex-shrink-0 mr-2 sm:mr-3 mt-0.5">
-                      <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
-                        <CheckCircle className="h-2 w-2 sm:h-3 sm:w-3 md:h-4 md:w-4 text-white" />
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="relative opacity-100 mt-4 sm:mt-0">
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-primary-darker/20 rounded-2xl blur-3xl"></div>
-              <div className="relative card-3d glass-card-glow rounded-2xl overflow-hidden border border-primary/20 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-primary/30">
-                <div className="w-full h-[250px] sm:h-[300px] md:h-[400px] bg-gray-800">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2 text-gradient-red text-glow">Premium Experience</h3>
-                    <p className="text-xs sm:text-sm md:text-lg text-gray-200 mb-2 sm:mb-3">Our concierge service transforms your online presence into a premium, professional offering that attracts high-quality clients.</p>
+          {/* Heading is now full-width and centered */}
+          <div className="text-center mb-8 sm:mb-10 animate-on-scroll fade-up opacity-0">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-4 sm:mb-5 md:mb-6 text-white [text-wrap:balance]">
+              How Our <span className="text-gradient-red">Concierge Service</span> Simplifies Your Professional Life
+            </h2>
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-5 sm:mb-6 md:mb-7 [text-wrap:balance] max-w-3xl mx-auto">
+              We handle the time-consuming aspects of managing your online presence, so you can focus on providing exceptional service to your clients.
+            </p>
+          </div>
+          
+          {/* Benefits list */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {benefits.map((benefit, benefitIndex) => (
+              <div 
+                key={benefit} 
+                className="flex items-start animate-on-scroll opacity-0"
+                data-delay={`${benefitIndex * 100}`}
+              >
+                <div className="flex-shrink-0 mr-2 sm:mr-3 mt-0.5">
+                  <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full bg-[#800000] text-white" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.6)' }}>
+                    <CheckCircle className="h-2 w-2 sm:h-3 sm:w-3 md:h-4 md:w-4 text-white" />
                   </div>
                 </div>
+                <span className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300">{benefit}</span>
               </div>
-            </div>
+            ))}
           </div>
         </div>
         
@@ -177,7 +164,7 @@ const MasseurConcierge = () => {
           </div>
           
           <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 md:gap-6">
-            {services.map((service, index) => (
+            {services.map((service) => (
               <div 
                 key={service.title}
                 className="glass-card-glow p-2 xs:p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 flex flex-col h-full"
@@ -399,7 +386,7 @@ const MasseurConcierge = () => {
                   "Revenue optimization"
                 ]
               }
-            ].map((tier, index) => (
+            ].map((tier) => (
               <div 
                 key={tier.title}
                 className={`card-3d glass-card-glow p-3 sm:p-4 md:p-5 rounded-2xl opacity-100 relative flex flex-col h-full ${tier.featured ? 'border-primary/30 shadow-xl shadow-primary/10' : 'border-gray-800'}`}

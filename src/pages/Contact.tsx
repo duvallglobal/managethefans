@@ -114,61 +114,40 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="bg-gradient-red p-3 rounded-lg mr-4 shadow-glow">
-                    <Mail className="h-6 w-6 text-white" />
+              <div className="space-y-4 md:space-y-6">
+                {[
+                  {
+                    icon: <Mail className="h-5 w-5 text-primary" />,
+                    label: "Email",
+                    value: "contact@managethefans.com",
+                    href: "mailto:contact@managethefans.com"
+                  },
+                  {
+                    icon: <Phone className="h-5 w-5 text-primary" />,
+                    value: "+1 (800) 123-4567",
+                    href: "tel:+18001234567"
+                  },
+                  {
+                    icon: <MapPin className="h-5 w-5 text-primary" />,
+                    value: "Los Angeles, California, USA"
+                  }
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center"> {/* Added items-center for better vertical alignment */}
+                    <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 mr-4">
+                      {item.icon}
+                    </div>
+                    <div>
+                      {item.label && <p className="text-sm text-muted-foreground">{item.label}</p>}
+                      {item.href ? (
+                        <a href={item.href} className="text-foreground hover:text-primary transition-colors">
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className="text-foreground">{item.value}</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-medium mb-1">Email</h3>
-                    <p className="text-gray-300">info@managethefans.com</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-gradient-red p-3 rounded-lg mr-4 shadow-glow">
-                    <Phone className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-medium mb-1">Phone</h3>
-                    <p className="text-gray-300">(615) 549-5944</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-gradient-red p-3 rounded-lg mr-4 shadow-glow">
-                    <MapPin className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-medium mb-1">Location</h3>
-                    <p className="text-gray-300">Baltimore, MD</p>
-                    <p className="text-gray-300">United States</p>
-                  </div>
-                </div>
-                
-                <div className="pt-8">
-                  <h3 className="text-lg font-medium mb-4">Follow Us</h3>
-                  <div className="flex space-x-4">
-                    <a 
-                      href="#" 
-                      className="glass-card p-3 rounded-full hover:border-primary/50 hover:shadow-glow transition-all duration-300"
-                    >
-                      <Instagram className="h-5 w-5" />
-                    </a>
-                    <a 
-                      href="#" 
-                      className="glass-card p-3 rounded-full hover:border-primary/50 hover:shadow-glow transition-all duration-300"
-                    >
-                      <Mail className="h-5 w-5" />
-                    </a>
-                    <a 
-                      href="#" 
-                      className="glass-card p-3 rounded-full hover:border-primary/50 hover:shadow-glow transition-all duration-300"
-                    >
-                      <Phone className="h-5 w-5" />
-                    </a>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             

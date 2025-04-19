@@ -3,7 +3,7 @@
  * stylelint-disable at-rule-no-unknown
  * VS Code: Add "css.lint.unknownAtRules": "ignore" to your settings.json
  */
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700&display=swap');
+@import 'https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700&display=swap';
 
 /* stylelint-disable */
 @tailwind base;
@@ -87,16 +87,16 @@
     @apply text-xl text-white/80 max-w-2xl mx-auto mb-12;
   }
   .card {
-    @apply bg-black/20 backdrop-blur-lg border border-white/10 rounded-xl p-6 transition-all duration-300 ease-out hover:scale-105 hover:shadow-inner hover:border-white/20 hover:shadow-glow-soft;
+    @apply bg-gradient-to-br from-[#370000] to-[#220000] backdrop-blur-lg border border-white/10 rounded-xl p-6 transition-all duration-300 ease-out hover:scale-105 hover:shadow-inner hover:border-white/20 hover:shadow-glow-soft;
   }
   .glassmorphism {
-    @apply bg-glass backdrop-blur-lg border border-white/10 rounded-xl transition-all duration-300 hover:scale-105 hover:border-primary/20 hover:shadow-glow-soft;
+    @apply bg-gradient-to-br from-[#3a0000] to-[#250000] backdrop-blur-lg border border-white/10 rounded-xl transition-all duration-300 hover:scale-105 hover:border-primary/20 hover:shadow-glow-soft;
   }
   .glassmorphism-static {
-    @apply bg-glass backdrop-blur-lg border border-white/10 rounded-xl transition-all duration-300;
+    @apply bg-gradient-to-br from-[#320000] to-[#1a0000] backdrop-blur-lg border border-white/10 rounded-xl transition-all duration-300;
   }
   .glassmorphism-button {
-    @apply bg-black/20 backdrop-blur-lg border border-white/10 text-white transition-all duration-300 ease-out hover:bg-gradient-to-r hover:from-primary-darkest/30 hover:to-primary-darker/30 hover:border-white/20 hover:scale-105;
+    @apply bg-gradient-to-br from-[#290000] to-[#170000] backdrop-blur-lg border border-white/10 text-white transition-all duration-300 ease-out hover:bg-gradient-to-r hover:from-primary-darkest/30 hover:to-primary-darker/30 hover:border-white/20 hover:scale-105;
   }
   .platform-icon {
     @apply rounded-full p-3 flex items-center justify-center bg-black/20 backdrop-blur-lg border border-white/10 transition-all duration-300 hover:scale-105 hover:shadow-inner hover:shadow-glow-soft;
@@ -275,7 +275,7 @@
   }
   
   .bg-glass {
-    background-color: rgba(40, 10, 10, 0.2);
+    background: linear-gradient(135deg, rgba(60, 15, 15, 0.4), rgba(40, 10, 10, 0.5));
   }
   
   .shadow-glow-soft {
@@ -345,4 +345,18 @@
   .section-title {
     font-size: 2.2rem;
   }
+}
+
+@media (prefers-reduced-motion) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Reduce excessive section padding/margin */
+section {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
