@@ -5,13 +5,18 @@ import './index.css'
 import './App.css'
 import ErrorBoundary from './components/ErrorBoundary'
 import { initializePerformanceOptimizations } from './utils/performance'
-import { checkAndFixStylingIssues } from './utils/styleUtils'
 
-// Initialize performance optimizations before rendering
-document.addEventListener('DOMContentLoaded', () => {
-  initializePerformanceOptimizations();
-  // Add style fixing routine
-  checkAndFixStylingIssues();
+// Add preload class to prevent transition flashing
+document.documentElement.classList.add('preload');
+
+// Initialize performance optimizations early
+initializePerformanceOptimizations();
+
+// Remove preload class after a short delay
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.documentElement.classList.remove('preload');
+  }, 300);
 });
 
 try {

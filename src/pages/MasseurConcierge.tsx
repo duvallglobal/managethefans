@@ -180,18 +180,17 @@ const MasseurConcierge = () => {
         </div>
         
         {/* Floating particles */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {Array.from({ length: 15 }).map((_, i) => (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none particle-effect">
+          {Array.from({ length: 8 }).map((_, i) => (
             <div 
               key={i}
               className="absolute rounded-full bg-primary/5 animate-float"
               style={{
-                width: `${Math.random() * 6 + 2}px`,
-                height: `${Math.random() * 6 + 2}px`,
+                width: `${Math.random() * 4 + 2}px`,
+                height: `${Math.random() * 4 + 2}px`,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${Math.random() * 10 + 5}s`
+                animationDuration: `${Math.random() * 5 + 7}s`
               }}
             />
           ))}

@@ -12,14 +12,23 @@ export function prefersReducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-// Only run heavy animations if the device is powerful enough
+// More sensitive detection for device performance
 export const canRunHeavyAnimations = (): boolean => {
-  // Check for high-end devices (adjust thresholds as needed)
+  // Check for high-end devices (more conservative thresholds)
   const nav = navigator as ExtendedNavigator;
-  const hasEnoughRAM = nav.deviceMemory ? nav.deviceMemory >= 4 : true;
-  const hasEnoughCores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency >= 4 : true;
+  const hasEnoughRAM = nav.deviceMemory ? nav.deviceMemory >= 6 : false;
+  const hasEnoughCores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency >= 6 : false;
+  
+  // If we can't determine specifics, default to reducing animations
+  const hasDeviceInfo = typeof nav.deviceMemory !== 'undefined' && typeof navigator.hardwareConcurrency !== 'undefined';
+  if (!hasDeviceInfo) return false;
   
   return hasEnoughRAM && hasEnoughCores && !prefersReducedMotion();
+};
+
+// Can run minimal animations (very low threshold)
+export const canRunMinimalAnimations = (): boolean => {
+  return !prefersReducedMotion();
 };
 
 // IntersectionObserver factory for lazy animations
@@ -42,45 +51,22 @@ export function createIntersectionObserver(
   return observer;
 }
 
-/**
- * Apply performance optimizations to animations
- */
+// Apply essential performance optimizations to animations
 export function optimizeAnimations(): void {
-  // Reduce repaints by using transform and opacity
-  const animatedElements = document.querySelectorAll('.animate-on-load, .animate-on-scroll');
-  animatedElements.forEach(el => {
-    // Force hardware acceleration
+  // Apply will-change only to elements that are actually animating
+  const currentlyAnimating = document.querySelectorAll('.animate-in-progress');
+  currentlyAnimating.forEach(el => {
     (el as HTMLElement).style.willChange = 'transform, opacity';
-    (el as HTMLElement).style.backfaceVisibility = 'hidden';
+  });
+  
+  // Remove will-change from elements that completed their animations
+  const animationCompleted = document.querySelectorAll('.animation-completed');
+  animationCompleted.forEach(el => {
+    (el as HTMLElement).style.willChange = 'auto';
   });
 }
 
-// Initialize performance optimizations
-export const initializePerformanceOptimizations = (): void => {
-  // Disable animations if user prefers reduced motion
-  if (prefersReducedMotion()) {
-    document.body.classList.add('reduce-motion');
-  }
-  
-  // Limit animations based on device capability
-  if (!canRunHeavyAnimations()) {
-    document.body.classList.add('reduce-animations');
-  }
-  
-  // Set up lazy loading for animations
-  const animatedElements = document.querySelectorAll('.animate-when-visible');
-  
-  if (animatedElements.length > 0) {
-    const observer = createIntersectionObserver((entry) => {
-      entry.target.classList.add('is-visible');
-      observer.unobserve(entry.target); // Stop observing once animation is triggered
-    });
-    
-    animatedElements.forEach(el => observer.observe(el));
-  }
-};
-
-// Throttle function to limit frequency of function calls
+// Simplified version of throttle that's more aggressive
 export const throttle = <T extends (...args: unknown[]) => unknown>(func: T, limit: number): ((...args: Parameters<T>) => void) => {
   let lastCall = 0;
   return function(...args: Parameters<T>): void {
@@ -90,4 +76,64 @@ export const throttle = <T extends (...args: unknown[]) => unknown>(func: T, lim
       func(...args);
     }
   };
+};
+
+// Global animation performance settings
+export const initializePerformanceOptimizations = (): void => {
+  // Disable animations if user prefers reduced motion
+  if (prefersReducedMotion()) {
+    document.body.classList.add('reduce-motion');
+    // Force disable all animations
+    document.documentElement.style.setProperty('--enable-animations', '0');
+  } else if (!canRunHeavyAnimations()) {
+    document.body.classList.add('reduce-animations');
+    // Enable only basic animations
+    document.documentElement.style.setProperty('--enable-animations', '1');
+  } else {
+    // Full animations allowed
+    document.documentElement.style.setProperty('--enable-animations', '2');
+  }
+  
+  // Measure FPS and further reduce animations if needed
+  monitorPerformance();
+};
+
+// Monitor performance and adjust animations dynamically
+const monitorPerformance = () => {
+  let lastTime = performance.now();
+  let frameCount = 0;
+  let lowFpsCount = 0;
+  const startTime = performance.now();
+  
+  const checkFps = () => {
+    const now = performance.now();
+    const elapsed = now - lastTime;
+    frameCount++;
+    
+    // Calculate FPS every second
+    if (elapsed >= 1000) {
+      const fps = (frameCount * 1000) / elapsed;
+      
+      // If FPS is consistently low, reduce animations
+      if (fps < 30) {
+        lowFpsCount++;
+        if (lowFpsCount >= 3) {
+          document.body.classList.add('reduce-animations');
+          document.documentElement.style.setProperty('--enable-animations', '1');
+        }
+      } else {
+        lowFpsCount = Math.max(0, lowFpsCount - 1);
+      }
+      
+      frameCount = 0;
+      lastTime = now;
+    }
+    
+    // Stop monitoring after 30 seconds to save resources
+    if (now - startTime < 30000) {
+      requestAnimationFrame(checkFps);
+    }
+  };
+  
+  requestAnimationFrame(checkFps);
 };

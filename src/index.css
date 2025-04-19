@@ -2,6 +2,10 @@
  * This file uses Tailwind CSS directives
  */
 @import 'https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700&display=swap';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import './styles/optimized-animations.css';
 
 /* stylelint-disable */
 @tailwind base;

@@ -1,0 +1,118 @@
+/**
+ * Optimized animations for better performance
+ * These override the default animations to be more efficient
+ */
+
+/* Only enable animations if explicitly enabled */
+:root {
+  --enable-animations: 0; /* 0: none, 1: minimal, 2: full */
+}
+
+/* Remove expensive backdrop filters on low-end devices */
+.reduce-animations .backdrop-blur-sm,
+.reduce-animations .backdrop-blur-md,
+.reduce-animations .backdrop-blur-lg,
+.reduce-animations .glass-card,
+.reduce-animations .glass-card-glow {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Reduce shadows, glows and complex effects */
+.reduce-animations .text-glow,
+.reduce-animations .box-glow,
+.reduce-animations .shadow-glow-soft,
+.reduce-animations .shadow-glow-intense,
+.reduce-animations .btn-glow,
+.reduce-animations .hover\:text-glow:hover {
+  text-shadow: none !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Completely disable animations for reduced motion */
+.reduce-motion *,
+.reduce-animations .animate-float,
+.reduce-animations .animate-pulse-glow,
+.reduce-animations .animate-ripple,
+.reduce-animations .animate-bounce,
+.reduce-animations .animate-bounce-x {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Simplify gradients */
+.reduce-animations .bg-gradient-red,
+.reduce-animations .bg-gradient-red-intense,
+.reduce-animations .animated-gradient,
+.reduce-animations .animated-gradient-intense {
+  background: #660000 !important;
+  background-image: none !important;
+  animation: none !important;
+}
+
+/* Optimize normal animations by using simpler transforms */
+@media (prefers-reduced-motion: no-preference) {
+  /* More efficient float animation */
+  @keyframes optimized-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+  }
+  
+  /* More efficient pulse animation */
+  @keyframes optimized-pulse {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
+  }
+  
+  /* Replace with optimized versions - fix selector-not-notation */
+  .animate-float:not(.reduce-animations, .reduce-motion) {
+    animation: optimized-float 4s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow:not(.reduce-animations, .reduce-motion) {
+    animation: optimized-pulse 4s ease-in-out infinite;
+  }
+  
+  /* Optimized 3D card interactions - fix selector-not-notation */
+  .card-3d:not(.reduce-animations, .reduce-motion):hover {
+    transform: translateY(-5px) !important;
+  }
+  
+  /* Simplified hover scaling - fix selector-not-notation */
+  .hover\:scale-105:hover:not(.reduce-animations, .reduce-motion) {
+    transform: translateY(-3px) !important;
+  }
+}
+
+/* Limit transform changes on hover for cards */
+.glass-card:hover,
+.glass-card-glow:hover {
+  transform: translateY(-3px) !important;
+}
+
+/* Reduce number of particles */
+.reduce-animations .particle-effect > div:nth-child(n+5) {
+  display: none !important;
+}
+
+/* More efficient CSS animations with minimal properties */
+.card-3d, 
+.hover\:scale-105,
+.hover\:scale-110,
+.hover\:scale-\[1\.02\] {
+  will-change: transform;
+}
+
+.opacity-0,
+.group-hover\:opacity-100,
+.hover\:opacity-100 {
+  will-change: opacity;
+}
+
+/* Ensure no animation when the page first loads */
+.preload * {
+  transition: none !important;
+  animation-play-state: paused !important;
+}
