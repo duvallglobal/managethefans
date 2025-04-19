@@ -4,6 +4,6 @@ export default {
       config: './tailwind.config.ts',
     },
     autoprefixer: {},
-    "postcss-safe-parser": {}, // Add this plugin
+    "postcss-safe-parser": {}, // Add this plugin for CSS parsing
   },
 };

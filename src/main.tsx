@@ -5,10 +5,13 @@ import './index.css'
 import './App.css'
 import ErrorBoundary from './components/ErrorBoundary'
 import { initializePerformanceOptimizations } from './utils/performance'
+import { checkAndFixStylingIssues } from './utils/styleUtils'
 
 // Initialize performance optimizations before rendering
 document.addEventListener('DOMContentLoaded', () => {
   initializePerformanceOptimizations();
+  // Add style fixing routine
+  checkAndFixStylingIssues();
 });
 
 try {

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { ArrowRight, CheckCircle, Users, Clock, Palette, Handshake, BarChart3, FileText, Mail, DollarSign, ShoppingBag, LineChart, Shield, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";

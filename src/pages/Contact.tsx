@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, FormEvent } from "react";
-import { Instagram, Mail, MapPin, Phone, Send, User } from "lucide-react";
+import { Mail, MapPin, Phone, Send, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -119,17 +119,17 @@ const Contact = () => {
                   {
                     icon: <Mail className="h-5 w-5 text-primary" />,
                     label: "Email",
-                    value: "contact@managethefans.com",
-                    href: "mailto:contact@managethefans.com"
+                    value: "info@managethefans.com",
+                    href: "mailto:info@managethefans.com"
                   },
                   {
                     icon: <Phone className="h-5 w-5 text-primary" />,
-                    value: "+1 (800) 123-4567",
-                    href: "tel:+18001234567"
+                    value: "615-549-5944",
+                    href: "tel:+16155495944"
                   },
                   {
                     icon: <MapPin className="h-5 w-5 text-primary" />,
-                    value: "Los Angeles, California, USA"
+                    value: "Baltimore, Maryland, USA"
                   }
                 ].map((item, index) => (
                   <div key={index} className="flex items-center"> {/* Added items-center for better vertical alignment */}

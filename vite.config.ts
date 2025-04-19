@@ -1,7 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc'; // Changed to react-swc for better stability
-import { resolve } from 'path';
+import * as path from 'path';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+// Create __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,14 +25,14 @@ export default defineConfig({
   RewriteRule . /index.html [L]
 </IfModule>
 `;
-        fs.writeFileSync(resolve(__dirname, 'dist', '.htaccess'), htaccessContent);
+        fs.writeFileSync(path.resolve(__dirname, 'dist', '.htaccess'), htaccessContent);
         console.log('Created .htaccess file in dist directory');
       },
     },
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   build: {
