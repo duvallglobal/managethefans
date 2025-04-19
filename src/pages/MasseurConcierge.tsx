@@ -139,11 +139,6 @@ const MasseurConcierge = () => {
               <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-primary-darker/20 rounded-2xl blur-3xl"></div>
               <div className="relative card-3d glass-card-glow rounded-2xl overflow-hidden border border-primary/20 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-primary/30">
                 <div className="w-full h-[250px] sm:h-[300px] md:h-[400px] bg-gray-800">
-                  <img 
-                    src="/lovable-uploads/b7c5b19b-3814-4937-98c4-ac80dc2a8e98.png" 
-                    alt="Why Choose Us" 
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2 text-gradient-red text-glow">Premium Experience</h3>

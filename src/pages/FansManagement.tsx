@@ -65,7 +65,7 @@ const FansManagement = () => {
   };
 
   return (
-    <div className="overflow-hidden bg-black text-white">
+    <div className="min-h-screen bg-black text-white overflow-hidden fans-management-page">
       {/* Hero Section */}
       <section className="relative min-h-[40vh] md:min-h-[55vh] flex items-center bg-black pt-24 pb-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -305,12 +305,12 @@ const FansManagement = () => {
               {
                 icon: DollarSign,
                 title: "Subscription Tier Optimization",
-                description: "We help you develop and price multiple subscription tiers to maximize subscriber count and revenue.",
+                description: "We develop and price multiple subscription tiers to maximize subscriber count and revenue.",
                 features: [
-                  "Strategic tier pricing analysis based on market research",
-                  "Content segmentation across tiers for maximum value",
-                  "Conversion funnels to move subscribers up tiers",
-                  "Regular tier performance analysis and adjustment"
+                  "Strategic pricing based on market research",
+                  "Tierd Content for maximum value",
+                  "Conversion funnels upgrade subscribers",
+                  "Performance analysis and adjustment"
                 ]
               },
               {
@@ -326,7 +326,7 @@ const FansManagement = () => {
               },
               {
                 title: "Tip & Custom Content Maximization",
-                description: "Systems to encourage tipping and custom content requests that create additional revenue streams.",
+                description: "Systems to encourage tipping and custom content requests that create additional revenue.",
                 features: [
                   "Tip menu development",
                   "Custom content workflow system",
@@ -337,7 +337,7 @@ const FansManagement = () => {
               },
               {
                 title: "Exclusive Merchandise Sales",
-                description: "Create and sell branded merchandise to your most dedicated fans, creating an additional revenue stream.",
+                description: "Create and sell branded merchandise to your dedicated fans, creating an additional revenue stream.",
                 features: [
                   "Product selection strategy",
                   "Print-on-demand setup",
@@ -348,7 +348,7 @@ const FansManagement = () => {
               },
               {
                 title: "Promotional Campaigns",
-                description: "Strategic limited-time offers, bundle deals, and special promotions to boost subscriber counts.",
+                description: "Strategic offers, bundle deals, and special promotions to boost subscriber counts.",
                 features: [
                   "New subscriber campaigns",
                   "Renewal incentive strategies",

@@ -178,3 +178,35 @@
   background-color: #410000 !important;
   border: 1px solid rgba(153, 0, 0, 0.3) !important;
 }
+
+/* Center content cards on specific pages */
+.fans-management-page .content-card,
+.fans-management-page .service-card,
+.fans-management-page .glass-card,
+.social-media-page .content-card,
+.social-media-page .service-card,
+.social-media-page .glass-card {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.fans-management-page .content-card p,
+.fans-management-page .service-card p,
+.fans-management-page .glass-card p,
+.social-media-page .content-card p,
+.social-media-page .service-card p,
+.social-media-page .glass-card p {
+  text-align: center;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Add extra responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .content-card, .service-card, .glass-card {
+    padding: 1.5rem;
+    width: 100%;
+  }
+}

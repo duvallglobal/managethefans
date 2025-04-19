@@ -96,7 +96,7 @@ const SocialMediaGrowth = () => {
   useOptimizedAnimations();
 
   return (
-    <div className={`overflow-hidden bg-black text-white transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className="min-h-screen bg-black text-white overflow-hidden social-media-page">
       {/* Hero Section */}
       <section className="relative min-h-[40vh] md:min-h-[55vh] flex items-center bg-black pt-24 pb-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
